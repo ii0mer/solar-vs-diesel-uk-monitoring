@@ -1,4 +1,4 @@
-# Solar PV–Battery vs Diesel for UK Remote Monitoring Stations
+# Techno-Economic Feasibility of Off-Grid Solar PV–Battery Systems for Remote Environmental Monitoring in the UK
 
 Hourly techno-economic simulation comparing off-grid solar photovoltaic–battery systems against diesel generators for low-power remote environmental monitoring stations across **four UK climatic regimes**.
 
@@ -199,9 +199,9 @@ python -m pytest tests/ -v
 ```bibtex
 @mastersthesis{alobaidi2026,
   author  = {Al Obaidi, Omar Farooq Mahmood},
-  title   = {Techno-Economic Comparison of Off-Grid Solar Photovoltaic--Battery
-             and Diesel Generator Systems for Remote Environmental Monitoring
-             Stations Across Four UK Climatic Regimes},
+  title   = {Techno-Economic Feasibility of Off-Grid Solar Photovoltaic--Battery
+             Systems for Remote Environmental Monitoring in the UK:
+             A Comparative Study Across Four Climatic Regimes},
   school  = {Liverpool John Moores University},
   year    = {2026},
   note    = {MSc Renewable Energy, Module 7400MENR}
