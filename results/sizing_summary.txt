@@ -1,0 +1,11 @@
+Sizing for LOLP target <= 1.0% at all sites
+Based on real PVGIS-SARAH2 TMY data (2005-2020 satellite record)
+
+Southampton   400 Wp + 1.0 kWh  LOLP=0.228%, curtailed 378 kWh/yr
+Birmingham    500 Wp + 1.0 kWh  LOLP=0.605%, curtailed 447 kWh/yr
+Liverpool     500 Wp + 1.0 kWh  LOLP=0.890%, curtailed 446 kWh/yr
+Edinburgh     600 Wp + 1.0 kWh  LOLP=0.788%, curtailed 528 kWh/yr
+
+Note: Birmingham, Liverpool, and Edinburgh required +100 Wp vs synthetic TMY estimates,
+due to more severe spring shoulder-season irradiance in real PVGIS data.
+Southampton was unchanged at 400 Wp.

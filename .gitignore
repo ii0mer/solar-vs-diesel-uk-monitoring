@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Synthetic weather files — not committed, only real PVGIS data is
+data/pvgis/*_synthetic.csv
+
+# Real PVGIS TMY files ARE committed (reproducibility record)
+!data/pvgis/*_tmy.csv
+
+# Results CSVs ARE committed
+!results/lcoe_comparison.csv
+!results/sizing_sweep_*.csv
+!results/sizing_summary.txt
+
+# Figures ARE committed — display on GitHub README
+!figures/*.png
+
+# Dissertation report files are managed separately
+*.docx
+*.pdf

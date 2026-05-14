@@ -1,0 +1,89 @@
+# Dissertation Assumptions Log
+
+**Module:** 7400MENR MSc Dissertation | **Student:** 1181101 Omar Al Obaidi
+**Version:** v3.3 | **Updated:** May 2026
+
+## Study Sites (4 UK Sites)
+
+| Site | Lat (°N) | Lon (°E) | Alt (m) | Real PVGIS GHI (kWh/m²/yr) |
+|---|---|---|---|---|
+| Southampton | 50.91 | -1.40 | 9 | 1133 (real PVGIS-SARAH2) |
+| Birmingham | 52.49 | -1.89 | 140 | 1028 (real PVGIS-SARAH2) |
+| Liverpool | 53.41 | -2.99 | 10 | 1018 (real PVGIS-SARAH2) |
+| Edinburgh | 55.95 | -3.19 | 47 | 945 (real PVGIS-SARAH2) |
+
+**Weather data source:** PVGIS-SARAH2 TMY (2005–2020 satellite record), retrieved via pvlib API May 2026.
+Reference year in data: 1990 (standard PVGIS TMY reference year — not real calendar year).
+
+## Load Profile
+
+| Component | Power (W) | Source |
+|---|---|---|
+| Campbell Scientific CR1000X datalogger | 1.2 | Manufacturer datasheet (typical continuous draw) |
+| 4× environmental sensors (temp, humidity, wind, water level) | 2.0 (0.5 W each) | Manufacturer datasheets |
+| Digi IX20 cellular modem | 6.0 | Conservative allowance for transmission peaks and signal-search |
+| Ancillary (LED status, relay, heater standby) | 3.0 | Engineering estimate |
+| Base total | 12.2 | — |
+| Design load (+20% margin for losses, derating, expansion) | 14.6 | Standard 20% engineering margin |
+| Annual energy | 128.2 kWh/yr | 14.64 W × 8760 h / 1000 |
+
+## Solar PV System
+
+| Parameter | Value | Source |
+|---|---|---|
+| Installed cost | £4.50/Wp | DESNZ Solar PV Cost Data 2025; adjusted for small-system fixed-cost dominance |
+| PV degradation | 0.5%/yr central | Dhimish et al. 2023 UK survey; sensitivity 0.3–0.8%/yr |
+| Battery technology | LFP (lithium iron phosphate) | — |
+| Battery cost | £700/kWh installed | BloombergNEF 2025 $70/kWh pack + European premium + integration |
+| Battery DoD | 80% | Manufacturer spec |
+| Battery round-trip efficiency | 92% | IEA-PVPS Task 18 |
+| Battery self-discharge | 2%/month | Manufacturer spec |
+| Battery lifetime | 12 years | Manufacturer spec; replaced once in 25-yr horizon |
+
+## Optimal Real-Data Sizing (LOLP < 1% target)
+
+| Site | PV (Wp) | Battery (kWh) | LOLP | Notes |
+|---|---|---|---|---|
+| Southampton | 400 | 1.0 | 0.228% | Unchanged from synthetic estimate |
+| Birmingham | 500 | 1.0 | 0.605% | Revised +100 Wp after real PVGIS validation |
+| Liverpool | 500 | 1.0 | 0.890% | Revised +100 Wp after real PVGIS validation |
+| Edinburgh | 600 | 1.0 | 0.788% | Revised +100 Wp after real PVGIS validation |
+
+## Diesel System
+
+| Parameter | Value | Source |
+|---|---|---|
+| Genset size | 1 kW | Smallest practical industrial class |
+| Architecture 1 fuel consumption | 0.40 L/hr × 8760 hr = 3504 L/yr | Manufacturer idle-load curve |
+| Architecture 2 fuel consumption | 0.20 L/hr × 4 hr/day × 365 = 292 L/yr | 30% load operation |
+| Red diesel price 2025 mean | 76.02 ppl excl. VAT | AHDB Fuel Prices (14-year series 2012–2025) |
+| Red diesel price range | 44.96–117.56 ppl | AHDB 14-year min/max; upper = recent UK volatility |
+| CO₂ emission factor | 2.75766 kg CO₂e/litre | DESNZ GHG Conversion Factors 2025 (gas oil, Scope 1) |
+| Site visits (diesel) | 12/year | Engineering assumption: fuel delivery + inspection + maintenance |
+| Site visits (solar) | 2/year | Annual clean + check |
+| Visit cost | £200/visit | Engineering estimate |
+
+## Economic Parameters
+
+| Parameter | Value | Justification |
+|---|---|---|
+| Public-sector discount rate | 5% real | HM Treasury Green Book STPR 3.5% + 1.5% technology premium |
+| Commercial WACC | 8% real | Ofgem RIIO-ED2; UK renewable-energy industry surveys |
+| Project lifetime | 25 years | Standard PV warranty horizon; IEA/NEA (2020) |
+| LCOE methodology | IEA/NEA (2020) DCF | International standard for electricity generation comparison |
+
+## Combined Worst-Case Sensitivity (CORRECTED — uses 10% discount rate)
+
+All parameters pushed simultaneously to their most diesel-favourable extremes:
+
+| Parameter | Central | Worst case for solar |
+|---|---|---|
+| PV cost | £4.50/Wp | £5.85/Wp (+30%) |
+| Battery cost | £700/kWh | £910/kWh (+30%) |
+| PV degradation | 0.5%/yr | 0.8%/yr |
+| Diesel fuel price | 76.02 ppl | 44.96 ppl (historical minimum) |
+| Site-visit cost | £200/visit | £100/visit (halved) |
+| Discount rate | 5% | **10%** (penalises capital-heavy solar) |
+
+Results: solar remains cheaper than diesel by 2.23–2.62× depending on site (Edinburgh 2.23×, Southampton 2.62×).
+
