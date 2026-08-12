@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from .monte_carlo import SITE_PV_WP, run_monte_carlo
+from .monte_carlo import SITE_DESIGN, SITE_PV_WP, run_monte_carlo
 from .sweeps_2d import RATES, BATT_MULTS, ratio_matrix
 from .sensitivity import CENTRAL
 
@@ -108,19 +108,20 @@ def make_fig08_monte_carlo(n: int = 5000) -> Path:
 def make_fig09_sweep2d() -> Path:
     fig, axs = plt.subplots(2, 2, figsize=(10.0, 6.8), sharex=True,
                             sharey=True)
-    levels = [3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5]
+    levels = [2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0]
     batt_gbp = BATT_MULTS * CENTRAL['battery_capex_gbp_per_kwh']
     mesh = None
-    for ax, site in zip(axs.flat, SITE_PV_WP):
+    for ax, site in zip(axs.flat, SITE_DESIGN):
         mat = ratio_matrix(site).values
         mesh = ax.pcolormesh(batt_gbp, RATES * 100, mat, cmap='viridis',
-                             vmin=3.0, vmax=4.8, shading='auto')
+                             vmin=2.4, vmax=4.4, shading='auto')
         cs = ax.contour(batt_gbp, RATES * 100, mat, levels=levels,
                         colors='white', linewidths=0.8)
         ax.clabel(cs, fontsize=7, fmt='%.2f×')
         ax.plot(CENTRAL['battery_capex_gbp_per_kwh'], 5.0, 'w*',
                 markersize=11, markeredgecolor='black')
-        ax.set_title(f'{site} ({SITE_PV_WP[site]:.0f} Wp)', fontsize=10)
+        wp, kwh = SITE_DESIGN[site]
+        ax.set_title(f'{site} ({wp:.0f} Wp + {kwh:.1f} kWh)', fontsize=10)
     for ax in axs[1, :]:
         ax.set_xlabel('Battery capex (£/kWh)')
     for ax in axs[:, 0]:
@@ -128,7 +129,8 @@ def make_fig09_sweep2d() -> Path:
     cbar = fig.colorbar(mesh, ax=axs, shrink=0.85, pad=0.02)
     cbar.set_label('Diesel-to-solar LCOE ratio (×)')
     fig.suptitle('Diesel-to-solar LCOE ratio: discount rate × battery cost '
-                 '(★ = central case; parity would require ≈£16,000/kWh)',
+                 '(★ = central case; parity requires £9,600–19,000/kWh '
+                 'battery capex, 14–27× the 2025 market price)',
                  fontsize=10)
     out = FIG_DIR / 'fig09_sweep2d_ratio.png'
     fig.savefig(out, bbox_inches='tight')

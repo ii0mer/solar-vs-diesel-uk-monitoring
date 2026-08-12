@@ -66,7 +66,11 @@ def run_simulation(weather: pd.DataFrame,
                    battery: BatteryDesign,
                    load: LoadProfile,
                    load_multiplier: float = 1.0,
-                   initial_soc_frac: float = 0.5) -> SimulationResult:
+                   initial_soc_frac: float = 0.5,
+                   pv_ageing_factor: float = 1.0,
+                   charge_temp_limit_c: float | None = None,
+                   pv_series_w: Optional[pd.Series] = None
+                   ) -> SimulationResult:
     """Run an 8,760-hour energy balance.
 
     Parameters
@@ -75,10 +79,27 @@ def run_simulation(weather: pd.DataFrame,
         Starting SoC as fraction of nameplate capacity. Default 0.5 (mid-charge).
         For sizing studies we typically run two passes — the second uses the
         first pass's final SoC as initial — to remove start-condition bias.
+    pv_ageing_factor : float
+        Multiplies PV output to represent module degradation at a given
+        service year, e.g. (1 - 0.005)**24 for year-25 output at 0.5%/yr.
+        Sizing is performed at end-of-life so the LOLP criterion holds for
+        the whole project life, not only year 1.
+    charge_temp_limit_c : float | None
+        If set (e.g. 0.0), battery CHARGING is disabled in hours where
+        ambient temperature is at or below this limit — a conservative
+        proxy for the LFP low-temperature charging restriction (ambient
+        used in place of enclosure temperature; discharge unaffected).
+        None (default) disables the constraint; the delta between runs
+        bounds the effect for the Limitations section.
+    pv_series_w : pd.Series, optional
+        Precomputed hourly PV output in W (post-loss-chain). PVWatts DC is
+        linear in nameplate, so sizing sweeps compute the chain once per
+        site at a reference size and scale — this skips the pvlib chain.
     """
     # Hourly PV in W → convert to Wh per hour (1h timestep)
-    pv_w = simulate_pv_dc(weather, site, pv)
-    pv_wh = pv_w.values  # at 1-hour timestep, W·h = W*1h
+    pv_w = pv_series_w if pv_series_w is not None \
+        else simulate_pv_dc(weather, site, pv)
+    pv_wh = pv_w.values * pv_ageing_factor  # 1-hour timestep: W·1h = Wh
 
     # Load in W → Wh
     load_wh = load.hourly_series(weather.index, multiplier=load_multiplier).values
@@ -99,6 +120,11 @@ def run_simulation(weather: pd.DataFrame,
     out_charge = np.empty(n)
     out_discharge = np.empty(n)
 
+    if charge_temp_limit_c is not None:
+        charge_blocked = (weather['temp_air'].values <= charge_temp_limit_c)
+    else:
+        charge_blocked = np.zeros(n, dtype=bool)
+
     for i in range(n):
         # 1. Self-discharge first (always)
         soc_wh *= (1.0 - self_dis_h)
@@ -112,8 +138,8 @@ def run_simulation(weather: pd.DataFrame,
         discharged = 0.0
 
         if net_wh >= 0:
-            # Surplus → charge battery
-            headroom = soc_max_wh - soc_wh
+            # Surplus → charge battery (unless cold-charge-blocked)
+            headroom = 0.0 if charge_blocked[i] else (soc_max_wh - soc_wh)
             energy_to_battery = min(net_wh, headroom / eta_chg)
             soc_wh += energy_to_battery * eta_chg
             charged = energy_to_battery * eta_chg

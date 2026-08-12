@@ -70,13 +70,16 @@ RESULTS_DIR.mkdir(exist_ok=True)
 SEED = 42
 N_DRAWS_DEFAULT = 5000
 
-# Per-site PV sizing from the LOLP <= 1% grid search (results/sizing_summary.txt)
-SITE_PV_WP = {
-    'Southampton': 400.0,
-    'Birmingham': 500.0,
-    'Liverpool': 500.0,
-    'Edinburgh': 600.0,
+# Per-site (PV Wp, battery kWh) from the corrected end-of-life LOLP <= 1%
+# grid search with the explicit loss chain (results/sizing_summary.txt)
+SITE_DESIGN = {
+    'Southampton': (450.0, 1.0),
+    'Birmingham': (550.0, 1.0),
+    'Liverpool': (650.0, 1.0),
+    'Edinburgh': (550.0, 1.5),
 }
+# Back-compat alias (PV only) for modules/tests that iterate site names
+SITE_PV_WP = {k: v[0] for k, v in SITE_DESIGN.items()}
 
 BATTERY_LIFETIME_CHOICES = (8, 10, 12, 15)   # years, Upgrade 4B
 
@@ -119,13 +122,14 @@ def sample_draws(n: int = N_DRAWS_DEFAULT,
     )
 
 
-def _solar_lcoe_one(pv_size_wp: float, d: McDraws, i: int) -> float:
+def _solar_lcoe_one(design: tuple, d: McDraws, i: int) -> float:
+    pv_size_wp, battery_kwh = design
     cf = build_pv_battery_cashflows(
         pv_capex_gbp_per_wp=CENTRAL['pv_capex_gbp_per_wp'] * d.pv_cost_mult[i],
         pv_size_wp=pv_size_wp,
         battery_capex_gbp_per_kwh=(CENTRAL['battery_capex_gbp_per_kwh']
                                    * d.battery_cost_mult[i]),
-        battery_kwh=CENTRAL['battery_kwh'],
+        battery_kwh=battery_kwh,
         annual_energy_delivered_kwh=(CENTRAL['annual_energy_delivered_kwh']
                                      * d.load_mult[i]),
         pv_degradation_pct_per_year=d.pv_degradation[i],
@@ -162,9 +166,9 @@ def run_monte_carlo(n: int = N_DRAWS_DEFAULT,
     d = sample_draws(n=n, discount_rate=discount_rate, seed=seed)
     diesel = np.array([_diesel_lcoe_one(d, i) for i in range(d.n)])
     out: Dict[str, np.ndarray] = {'diesel_lcoe': diesel}
-    for site, wp in SITE_PV_WP.items():
+    for site, design in SITE_DESIGN.items():
         out[f'solar_lcoe_{site}'] = np.array(
-            [_solar_lcoe_one(wp, d, i) for i in range(d.n)])
+            [_solar_lcoe_one(design, d, i) for i in range(d.n)])
     out['_draws'] = d  # type: ignore[assignment]
     return out
 

@@ -1,0 +1,13 @@
+A1 (continuous 24/7):
+  runtime 24.00 h/day (8760 h/yr)
+  fuel 0.0878 L/h (Skarstein-Uhlen) -> 769 L/yr = £584/yr
+  oil £2175/yr; visits £2400/yr
+  genset life 0.6 yr at this duty
+  CO2e 2120 kg/yr
+
+A2 (battery-buffered):
+  runtime 1.46 h/day (534 h/yr)
+  fuel 0.1579 L/h (Skarstein-Uhlen) -> 84 L/yr = £64/yr
+  oil £50/yr; visits £2400/yr
+  genset life 15.0 yr at this duty
+  CO2e 233 kg/yr

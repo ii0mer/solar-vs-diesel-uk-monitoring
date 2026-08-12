@@ -33,9 +33,12 @@ from .diesel import DieselArchitecture1, DieselArchitecture2
 
 
 # Central case parameters (the dissertation baseline)
+# Southampton reference design from the corrected sizing: explicit loss
+# chain, year-25 (end-of-life) LOLP criterion, ranked by discounted
+# 25-year lifetime cost (NOT year-0 capex): 450 Wp + 1.0 kWh.
 CENTRAL = {
     'pv_capex_gbp_per_wp': 4.50,
-    'pv_size_wp': 400.0,                # corrected from 300 — matches sizer output
+    'pv_size_wp': 450.0,
     'battery_capex_gbp_per_kwh': 700.0,
     'battery_kwh': 1.0,
     'annual_energy_delivered_kwh': 128.2,
@@ -129,11 +132,44 @@ def one_at_a_time_sensitivity(
         di = central_diesel_lcoe(p, architecture=architecture)
         rows.append(('Load magnitude', label, f'{mult*100:.0f}%', pv, di, di / pv))
 
-    # PV degradation
-    for label, deg in [('PV degr: 0.3%', 0.3), ('PV degr: 0.8%', 0.8)]:
-        p = dict(CENTRAL); p['pv_degradation_pct_per_year'] = deg
+    # PV degradation — SIZING-COUPLED: for a fixed load served at an
+    # end-of-life LOLP criterion, degradation costs capex (a different
+    # optimal design), not delivered energy. Designs below are EXACT
+    # re-optimisations at Southampton from the sizing grid search
+    # (provenance: python -m src.make_results →
+    # results/degradation_resize_check.txt). Note the optimizer moves
+    # along the PV–battery frontier: slower fade favours more PV and
+    # less storage, not a simple array rescale.
+    # 0.5%/yr central → 450 Wp + 1.0 kWh; 0.3 → 400+1.0; 0.8 →
+    # unchanged 450+1.0 (the central design already tolerates 0.8%/yr
+    # at EoL LOLP 0.833% — itself a reportable robustness result).
+    for label, deg, wp, kwh in [('PV degr: 0.3%', 0.3, 400.0, 1.0),
+                                ('PV degr: 0.8%', 0.8, 450.0, 1.0)]:
+        p = dict(CENTRAL)
+        p['pv_size_wp'] = wp
+        p['battery_kwh'] = kwh
         pv = central_pv_lcoe(p)
-        rows.append(('PV degradation', label, f'{deg}%/yr', pv, base_di, base_di / pv))
+        rows.append(('PV degradation', label,
+                     f'{deg}%/yr (re-sized {wp:.0f} Wp+{kwh:.1f} kWh)',
+                     pv, base_di, base_di / pv))
+
+    # Diesel visit cadence — THE dominant assumption, tested explicitly:
+    # monthly (central) down to quarterly-minus. PV visits stay at 2/yr
+    # (no fuel, no oil; annual inspection + one weather/vegetation visit).
+    for label, visits in [('Diesel visits: 12/yr (central)', 12),
+                          ('Diesel visits: 6/yr', 6),
+                          ('Diesel visits: 4/yr', 4),
+                          ('Diesel visits: 2/yr', 2)]:
+        arch = DieselArchitecture2() if architecture == 2 \
+            else DieselArchitecture1()
+        arch.annual_site_visits = visits
+        cf = build_diesel_cashflows(
+            arch, fuel_price_ppl=CENTRAL['fuel_price_ppl'],
+            annual_energy_delivered_kwh=CENTRAL['annual_energy_delivered_kwh'],
+            project_years=CENTRAL['project_years'])
+        di = cf.lcoe_gbp_per_kwh(CENTRAL['discount_rate'])
+        rows.append(('Diesel visit cadence', label, f'{visits}/yr',
+                     base_pv, di, di / base_pv))
 
     # Solar battery replacement interval (Upgrade 4B)
     for label, yrs in [('Batt life: 8 yr', 8), ('Batt life: 10 yr', 10),
@@ -149,14 +185,13 @@ def one_at_a_time_sensitivity(
         # Same multiplier on PV-side (other costs are mostly fuel/capex)
         p_pv = dict(p); p_pv['visit_cost_gbp'] = CENTRAL['visit_cost_gbp'] * mult
         pv = central_pv_lcoe(p_pv)
-        # On diesel side, visit cost change applied via direct LCOE recalc
-        # For simplicity here we assume diesel visit cost changes proportionally
-        # via the architecture's visit cost
-        from .diesel import DieselArchitecture2 as DA2, DieselArchitecture1 as DA1
-        arch = DA2() if architecture == 2 else DA1()
+        # On diesel side, the same labour-market multiplier applies to
+        # its per-visit costs (module-level imports; a local import here
+        # would shadow the name for the whole function scope).
+        arch = DieselArchitecture2() if architecture == 2 \
+            else DieselArchitecture1()
         arch.fuel_delivery_cost_per_visit_gbp *= mult
         arch.inspection_cost_per_visit_gbp *= mult
-        from .economics import build_diesel_cashflows
         cf = build_diesel_cashflows(
             arch, fuel_price_ppl=p['fuel_price_ppl'],
             annual_energy_delivered_kwh=p['annual_energy_delivered_kwh'],

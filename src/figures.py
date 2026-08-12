@@ -68,7 +68,7 @@ plt.rcParams.update({
     'figure.dpi': 110,
 })
 
-WATERMARK_SYNTHETIC = "(real PVGIS-SARAH2 TMY data, 1983–2016 satellite record, reference year 1990)"
+WATERMARK_SYNTHETIC = "(SYNTHETIC calibrated weather — fallback only; not for dissertation figures)"
 
 
 def fig01_architecture() -> Path:

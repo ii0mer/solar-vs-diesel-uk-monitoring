@@ -26,6 +26,46 @@ from .sites import Site
 
 
 @dataclass
+class LossChain:
+    """Explicit DC-side system losses (fractions, not %).
+
+    Basis: PVWatts v5 loss framework (Dobos, NREL/TP-6A20-62641, 2014),
+    with two deviations justified for this application and stated in the
+    dissertation: shading = 0 (open-site design requirement for a solar
+    monitoring station; horizon effect quantified separately in the
+    validation section) and availability = 1% (no grid-tied inverter
+    trips; battery-coupled DC system).
+
+    The MPPT charge-controller efficiency is applied on top (weighted
+    ~97%, e.g. Victron SmartSolar 75/15 datasheet: 98% peak).
+    """
+    soiling: float = 0.02          # PVWatts default; UK rain-washed
+    shading: float = 0.00          # open-site design requirement
+    snow: float = 0.005            # brief UK lowland events; Edinburgh note
+    mismatch: float = 0.02         # PVWatts default
+    wiring: float = 0.02           # PVWatts default
+    connections: float = 0.005     # PVWatts default
+    lid: float = 0.015             # light-induced degradation, PVWatts default
+    nameplate: float = 0.01        # PVWatts default
+    availability: float = 0.01     # unattended DC system (PVWatts dflt is 3%)
+    controller_efficiency: float = 0.97   # MPPT weighted efficiency
+
+    @property
+    def derate(self) -> float:
+        """Multiplicative DC derate including controller."""
+        keep = 1.0
+        for f in (self.soiling, self.shading, self.snow, self.mismatch,
+                  self.wiring, self.connections, self.lid, self.nameplate,
+                  self.availability):
+            keep *= (1.0 - f)
+        return keep * self.controller_efficiency
+
+    @property
+    def total_loss_pct(self) -> float:
+        return (1.0 - self.derate) * 100.0
+
+
+@dataclass
 class PVDesign:
     """Sizing decisions for a PV array."""
     nameplate_w: float = 400.0          # single-module nominal at STC
@@ -65,14 +105,22 @@ def _generic_inverter_params(ac_w: float) -> dict:
 
 
 def simulate_pv_dc(weather: pd.DataFrame, site: Site,
-                   design: PVDesign) -> pd.Series:
-    """Return hourly DC power output of the PV array, in watts.
+                   design: PVDesign,
+                   losses: LossChain | None = None) -> pd.Series:
+    """Return hourly DC power output of the PV array, in watts, at the
+    battery bus (i.e. after the explicit system-loss chain and MPPT
+    charge-controller efficiency).
 
     We use the simpler PVWatts-style model (pvlib.pvsystem.pvwatts_dc) because
     it's the right level of detail for a system-level techno-economic study
     and avoids over-fitting to a specific module's I-V curve. The dissertation
-    methodology section should justify this choice explicitly.
+    methodology section justifies this choice explicitly.
+
+    Pass losses=LossChain() (the default) for the corrected model;
+    losses may be customised for sensitivity runs.
     """
+    if losses is None:
+        losses = LossChain()
     tilt = design.tilt_deg if design.tilt_deg is not None else site.latitude
     location = Location(latitude=site.latitude, longitude=site.longitude,
                         altitude=site.altitude, tz='UTC')
@@ -112,6 +160,7 @@ def simulate_pv_dc(weather: pd.DataFrame, site: Site,
         gamma_pdc=-0.0035,
     )
     p_dc = p_dc.fillna(0.0).clip(lower=0.0)
+    p_dc = p_dc * losses.derate          # explicit loss chain + controller
     p_dc.name = 'pv_dc_w'
     return p_dc
 

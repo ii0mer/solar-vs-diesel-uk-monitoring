@@ -1,0 +1,2 @@
+deg 0.3%/yr: exact re-size 400 Wp + 1.0 kWh (EoL LOLP 0.833%). NOTE: the optimum moves along the PV-battery frontier, so a linear array rescale is NOT valid; the tornado hard-codes these exact designs (central 450 Wp + 1.5 kWh).
+deg 0.8%/yr: exact re-size 450 Wp + 1.0 kWh (EoL LOLP 0.833%). NOTE: the optimum moves along the PV-battery frontier, so a linear array rescale is NOT valid; the tornado hard-codes these exact designs (central 450 Wp + 1.5 kWh).

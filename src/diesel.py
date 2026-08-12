@@ -47,14 +47,32 @@ class DieselArchitecture1:
     capex_acdc_converter_gbp: float = 80.0    # AC→DC converter for the load
 
     # --- Operating point ---
-    # Load is 14.6 W on a 1 kW genset = 1.5% of rated load.
-    # Specific fuel consumption at this regime is dominated by idle.
-    fuel_litres_per_hour_at_op_point: float = 0.40  # at ~1.5% load, dominated by idle
+    # Load is 14.64 W on a 1 kW genset = 1.5% of rated load.
+    # Fuel at part load from the Skarstein–Uhlen linear model
+    # (Skarstein & Uhlen, Wind Engineering 13(2), 1989), the standard
+    # part-load fuel curve in the hybrid-systems literature:
+    #   F [L/h] = 0.08415 · P_rated [kW] + 0.246 · P_out [kW]
+    # At P_rated = 1 kW, P_out = 0.01464 kW → 0.0878 L/h. The dominant
+    # term is the no-load (rated-capacity) intercept — exactly the
+    # wet-stacking regime. Manufacturer-curve cross-check goes in the
+    # diesel evidence pack; the earlier 0.40 L/h figure was an idle-fuel
+    # estimate without a citable basis and overstated A1 fuel ~4.5×.
+    su_intercept_l_per_h_per_kw: float = 0.08415
+    su_slope_l_per_kwh: float = 0.246
+    electrical_load_kw: float = 0.01464
     annual_runtime_hours: int = 8760
+
+    @property
+    def fuel_litres_per_hour_at_op_point(self) -> float:
+        return (self.su_intercept_l_per_h_per_kw * self.genset_rated_kw
+                + self.su_slope_l_per_kwh * self.electrical_load_kw)
 
     # --- Maintenance ---
     oil_change_interval_hours: int = 100      # frequent due to wet stacking
     cost_per_oil_change_gbp: float = 25.0
+    # Industrial gensets achieve 10,000–30,000 h at proper load (interim
+    # Table 1); 5,000 h is the derated life under sustained <25–30% load
+    # operation (wet stacking, bore glazing — NFPA 110 / Hamilton et al.).
     genset_lifetime_hours: int = 5000         # severe wear at extreme low load
 
     # --- Logistics (per visit) ---
@@ -112,10 +130,35 @@ class DieselArchitecture2:
     capex_charge_controller_gbp: float = 100.0
 
     # --- Operating point ---
-    # Genset runs 4 hr/day at ~30% rated load (300 W avg) charging the battery.
-    # 30% load is a much more efficient regime for the engine.
-    daily_runtime_hours: float = 4.0
-    fuel_litres_per_hour_at_op_point: float = 0.20  # at 30% load
+    # The genset recharges the buffer battery at ~30% rated load (300 W),
+    # a healthy engine regime. Runtime is DERIVED from the daily energy
+    # balance rather than assumed: the load draws 351.4 Wh/day (14.64 W
+    # design load), delivered through the lead-acid buffer at ~80%
+    # round-trip efficiency (flooded PbA, partial-state-of-charge duty),
+    # so the genset must generate 351.4/0.80 ≈ 439 Wh/day →
+    # 439/300 ≈ 1.46 h/day. (The earlier fixed 4 h/day assumption
+    # generated 3.4× the energy the load consumes — internally
+    # inconsistent and diesel-pessimistic.)
+    charge_power_kw: float = 0.30             # ~30% of rated
+    daily_load_wh: float = 351.36             # 14.64 W × 24 h
+    battery_path_efficiency: float = 0.80     # PbA round-trip, PSoC duty
+    # Skarstein–Uhlen fuel at 30% load, 1 kW machine:
+    # 0.08415·1 + 0.246·0.30 = 0.158 L/h. The earlier 0.20 L/h
+    # figure is retained as a conservative manufacturer-style value only
+    # if evidence pack supports it; central uses the S–U model.
+    su_intercept_l_per_h_per_kw: float = 0.08415
+    su_slope_l_per_kwh: float = 0.246
+
+    @property
+    def daily_runtime_hours(self) -> float:
+        gen_wh_needed = self.daily_load_wh / self.battery_path_efficiency
+        return gen_wh_needed / (self.charge_power_kw * 1000.0)
+
+    @property
+    def fuel_litres_per_hour_at_op_point(self) -> float:
+        return (self.su_intercept_l_per_h_per_kw * self.genset_rated_kw
+                + self.su_slope_l_per_kwh * self.charge_power_kw)
+
     @property
     def annual_runtime_hours(self) -> int:
         return int(self.daily_runtime_hours * 365)

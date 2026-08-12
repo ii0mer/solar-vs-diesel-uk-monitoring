@@ -73,6 +73,44 @@ class SystemCashFlows:
         return cost_npv / energy_npv
 
 
+# -- Replacement convention (applies to BOTH systems) --
+#
+# Components with service life >= 2 years are modelled as LUMPY
+# replacements in their actual replacement years, with a straight-line
+# SALVAGE CREDIT at end of project for remaining life (this removes the
+# distortion of a replacement bought in year 24 being costed in full).
+# Components with sub-2-year life (A1 genset at 8,760 h/yr) are
+# annualised — replacement occurs multiple times per year, so lumpy
+# treatment degenerates to the same thing.
+
+def lumpy_replacement_flows(capex_gbp: float, lifetime_years: float,
+                            project_years: int) -> np.ndarray:
+    """Return length-(N+1) array: replacement costs in replacement years
+    and a negative salvage credit in the final year for remaining life."""
+    n = project_years + 1
+    flow = np.zeros(n)
+    if lifetime_years < 2.0:
+        flow[1:] = capex_gbp / lifetime_years   # annualised (documented)
+        return flow
+    year = int(round(lifetime_years))
+    last_install = 0
+    y = year
+    while y <= project_years:
+        flow[y] = capex_gbp
+        last_install = y
+        y += year
+    age_at_end = project_years - last_install
+    remaining_frac = max(0.0, (year - age_at_end) / year)
+    if last_install > 0 or age_at_end < year:
+        flow[project_years] -= capex_gbp * remaining_frac * (
+            1.0 if last_install > 0 else 0.0)
+    # salvage for the ORIGINAL unit if never replaced but outlives project
+    if last_install == 0 and lifetime_years > project_years:
+        flow[project_years] -= capex_gbp * (
+            (lifetime_years - project_years) / lifetime_years)
+    return flow
+
+
 # -- PV-Battery system cash flow builder --
 
 def build_pv_battery_cashflows(
@@ -97,8 +135,19 @@ def build_pv_battery_cashflows(
     Notes
     -----
     - CapEx is in year 0.
-    - Battery and inverter replacements occur at fixed intervals.
-    - PV output degrades linearly at `pv_degradation_pct_per_year`.
+    - Battery and inverter replacements are lumpy with end-of-project
+      salvage credit (see lumpy_replacement_flows).
+    - ENERGY DENOMINATOR: energy SERVED to the fixed load, flat across
+      years. Module degradation does NOT shrink served energy — the
+      array is sized so that even at end-of-life the load is met (LOLP
+      criterion at year 25); degradation is therefore a SIZING cost,
+      already embedded in capex, not a delivered-energy loss. The
+      pv_degradation_pct_per_year argument is retained for API
+      compatibility and for sizing-coupled sensitivity, where it scales
+      the required array (handled by the caller), but it no longer
+      distorts the LCOE denominator. Both systems use the same
+      served-energy convention, making the LCOE ratio equal to the
+      cost ratio of serving the same load.
     - O&M and site visits are flat real annual costs.
     """
     n = project_years + 1   # year 0 through year N
@@ -111,19 +160,13 @@ def build_pv_battery_cashflows(
     capex_flow = np.zeros(n)
     capex_flow[0] = capex_year_0
 
-    # Battery replacements at year 12, 24 (if before end)
-    battery_repl_flow = np.zeros(n)
-    repl_year = battery_lifetime_years
-    while repl_year < n:
-        battery_repl_flow[repl_year] = capex_battery
-        repl_year += battery_lifetime_years
+    # Battery replacements — lumpy + salvage
+    battery_repl_flow = lumpy_replacement_flows(
+        capex_battery, float(battery_lifetime_years), project_years)
 
-    # Inverter replacements at year 15
-    inverter_repl_flow = np.zeros(n)
-    repl_year = inverter_lifetime_years
-    while repl_year < n:
-        inverter_repl_flow[repl_year] = inverter_capex_gbp
-        repl_year += inverter_lifetime_years
+    # Inverter replacements — lumpy + salvage
+    inverter_repl_flow = lumpy_replacement_flows(
+        inverter_capex_gbp, float(inverter_lifetime_years), project_years)
 
     # Annual O&M and site visits
     om_flow = np.zeros(n)
@@ -131,13 +174,9 @@ def build_pv_battery_cashflows(
     visits_flow = np.zeros(n)
     visits_flow[1:] = annual_site_visits * visit_cost_gbp
 
-    # Energy delivered each year — accounting for degradation
+    # Energy served each year — flat (see docstring)
     energy_flow = np.zeros(n)
-    energy_flow[0] = 0  # year 0 = CapEx, no energy yet
-    for year in range(1, n):
-        years_operated = year
-        derate = (1.0 - pv_degradation_pct_per_year / 100.0) ** (years_operated - 1)
-        energy_flow[year] = annual_energy_delivered_kwh * derate
+    energy_flow[1:] = annual_energy_delivered_kwh
 
     flows = [
         CashFlow("CapEx (PV + battery + inverter + install)", capex_flow),
@@ -170,10 +209,11 @@ def build_diesel_cashflows(
       - Year 0: CapEx
       - Years 1..N: fuel + oil + visits + (annualised replacements)
 
-    Note on replacements: rather than spike costs in specific years, we
-    spread genset/battery replacements as their annualised cost. This is
-    standard practice for sub-5-year-life equipment in DCF analysis where
-    the replacement frequency is 4-44 times in 25 years.
+    Replacements use the SAME convention as the solar system (see
+    lumpy_replacement_flows): lumpy years + end-of-project salvage for
+    lives >= 2 years (A2 genset ~15 yr at derived runtime, A2 lead-acid
+    4 yr), annualised only where life is sub-2-years (A1 genset, whose
+    5,000 h life at 8,760 h/yr means replacement every ~7 months).
     """
     n = project_years + 1
 
@@ -191,22 +231,26 @@ def build_diesel_cashflows(
     visits_flow = np.zeros(n)
     visits_flow[1:] = diesel_arch.annual_visit_cost_gbp
 
-    genset_repl_flow = np.zeros(n)
-    genset_repl_flow[1:] = diesel_arch.annualised_genset_replacement_gbp
+    genset_life_years = (diesel_arch.genset_lifetime_hours
+                         / max(diesel_arch.annual_runtime_hours, 1))
+    genset_repl_flow = lumpy_replacement_flows(
+        diesel_arch.capex_genset_gbp, genset_life_years, project_years)
 
     flows = [
         CashFlow("CapEx (genset + tank + enclosure + install)", capex_flow),
         CashFlow("Fuel", fuel_flow),
         CashFlow("Oil & maintenance", oil_flow),
         CashFlow("Site visits", visits_flow),
-        CashFlow("Genset replacement (annualised)", genset_repl_flow),
+        CashFlow("Genset replacement (lumpy + salvage)", genset_repl_flow),
     ]
 
-    # Battery replacement for Architecture 2
-    if hasattr(diesel_arch, 'annualised_battery_replacement_gbp'):
-        battery_repl_flow = np.zeros(n)
-        battery_repl_flow[1:] = diesel_arch.annualised_battery_replacement_gbp
-        flows.append(CashFlow("Battery replacement (annualised)", battery_repl_flow))
+    # Battery replacement for Architecture 2 — same lumpy convention
+    if hasattr(diesel_arch, 'battery_lifetime_years'):
+        battery_repl_flow = lumpy_replacement_flows(
+            diesel_arch.capex_battery_gbp,
+            float(diesel_arch.battery_lifetime_years), project_years)
+        flows.append(CashFlow("Battery replacement (lumpy + salvage)",
+                              battery_repl_flow))
 
     # Energy delivered = annual load (assume 100% reliability if PV-battery
     # is the comparator's reliability target; diesel is by definition reliable)

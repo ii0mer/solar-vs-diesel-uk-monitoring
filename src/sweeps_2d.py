@@ -35,7 +35,7 @@ import pandas as pd
 from .economics import build_pv_battery_cashflows, build_diesel_cashflows
 from .diesel import DieselArchitecture2
 from .sensitivity import CENTRAL
-from .monte_carlo import SITE_PV_WP
+from .monte_carlo import SITE_DESIGN, SITE_PV_WP
 
 RESULTS_DIR = Path(__file__).resolve().parents[1] / 'results'
 RESULTS_DIR.mkdir(exist_ok=True)
@@ -44,13 +44,14 @@ RATES = np.linspace(0.03, 0.10, 15)
 BATT_MULTS = np.linspace(0.5, 2.0, 25)
 
 
-def solar_lcoe(pv_size_wp: float, rate: float, batt_mult: float) -> float:
+def solar_lcoe(design: tuple, rate: float, batt_mult: float) -> float:
+    pv_size_wp, battery_kwh = design
     cf = build_pv_battery_cashflows(
         pv_capex_gbp_per_wp=CENTRAL['pv_capex_gbp_per_wp'],
         pv_size_wp=pv_size_wp,
         battery_capex_gbp_per_kwh=(CENTRAL['battery_capex_gbp_per_kwh']
                                    * batt_mult),
-        battery_kwh=CENTRAL['battery_kwh'],
+        battery_kwh=battery_kwh,
         annual_energy_delivered_kwh=CENTRAL['annual_energy_delivered_kwh'],
         pv_degradation_pct_per_year=CENTRAL['pv_degradation_pct_per_year'],
         battery_lifetime_years=CENTRAL['battery_lifetime_years'],
@@ -73,12 +74,12 @@ def diesel_lcoe(rate: float) -> float:
 
 def ratio_matrix(site: str) -> pd.DataFrame:
     """Diesel/solar LCOE ratio over the (rate, battery-mult) grid."""
-    wp = SITE_PV_WP[site]
+    design = SITE_DESIGN[site]
     di = {r: diesel_lcoe(r) for r in RATES}
     mat = np.empty((len(RATES), len(BATT_MULTS)))
     for i, r in enumerate(RATES):
         for j, m in enumerate(BATT_MULTS):
-            mat[i, j] = di[r] / solar_lcoe(wp, r, m)
+            mat[i, j] = di[r] / solar_lcoe(design, r, m)
     return pd.DataFrame(
         mat,
         index=pd.Index([f'{r:.4f}' for r in RATES], name='discount_rate'),
@@ -95,10 +96,10 @@ def breakeven_battery_cost() -> pd.DataFrame:
     so   m* = (LCOE_diesel - a) / b.
     """
     rows = []
-    for site, wp in SITE_PV_WP.items():
+    for site, design in SITE_DESIGN.items():
         for r in (0.05, 0.08, 0.10):
-            a = solar_lcoe(wp, r, 0.0)
-            b = solar_lcoe(wp, r, 1.0) - a
+            a = solar_lcoe(design, r, 0.0)
+            b = solar_lcoe(design, r, 1.0) - a
             m_star = (diesel_lcoe(r) - a) / b
             rows.append({
                 'site': site,
