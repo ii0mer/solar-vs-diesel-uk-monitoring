@@ -13,6 +13,8 @@ Parameters varied:
   6. PV degradation rate (0.3, 0.5, 0.8 %/yr)
   7. PV system lifetime (20, 25, 30 yr)
   8. Site visit cost (50%, 100%, 200% of central case)
+  9. Solar LFP battery replacement interval (8, 10, 12, 15 yr) — Upgrade 4B;
+     stationary LFP calendar-life range at ultra-low C-rate (~0.015C)
 
 Output: ranked impact on PV-battery LCOE and on PV/Diesel LCOE ratio.
 """
@@ -132,6 +134,14 @@ def one_at_a_time_sensitivity(
         p = dict(CENTRAL); p['pv_degradation_pct_per_year'] = deg
         pv = central_pv_lcoe(p)
         rows.append(('PV degradation', label, f'{deg}%/yr', pv, base_di, base_di / pv))
+
+    # Solar battery replacement interval (Upgrade 4B)
+    for label, yrs in [('Batt life: 8 yr', 8), ('Batt life: 10 yr', 10),
+                       ('Batt life: 15 yr', 15)]:
+        p = dict(CENTRAL); p['battery_lifetime_years'] = yrs
+        pv = central_pv_lcoe(p)
+        rows.append(('Solar battery life', label, f'{yrs} yr',
+                     pv, base_di, base_di / pv))
 
     # Site visit cost
     for label, mult in [('Visits: -50%', 0.5), ('Visits: +100%', 2.0)]:

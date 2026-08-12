@@ -43,3 +43,6 @@ data/pvgis/*_synthetic.csv
 # Dissertation report files are managed separately
 *.docx
 *.pdf
+
+# Monte Carlo raw draws are seed-reproducible (seed=42); not tracked
+results/*.npz
