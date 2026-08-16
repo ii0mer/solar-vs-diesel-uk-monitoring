@@ -125,12 +125,29 @@ def one_at_a_time_sensitivity(
         di = central_diesel_lcoe(p, architecture=architecture)
         rows.append(('Discount rate', label, f"{r*100:.1f}%", pv, di, di / pv))
 
-    # Load magnitude (changes annual energy denominator)
-    for label, mult in [('Load: -20%', 0.8), ('Load: +20%', 1.2)]:
-        p = dict(CENTRAL); p['annual_energy_delivered_kwh'] = CENTRAL['annual_energy_delivered_kwh'] * mult
+    # Load magnitude — SIZING-COUPLED and DIESEL-RUNTIME-COUPLED. A ±20%
+    # load changes the optimal solar design AND the A2 genset runtime
+    # (energy balance). Designs are exact re-optimisations at Southampton
+    # (grid search, EoL criterion): ×0.8 → 300 Wp + 1.0 kWh; ×1.2 →
+    # 550 Wp + 1.0 kWh. Provenance: results/load_resize_check.txt.
+    for label, mult, wp, kwh in [('Load: -20%', 0.8, 300.0, 1.0),
+                                 ('Load: +20%', 1.2, 550.0, 1.0)]:
+        p = dict(CENTRAL)
+        p['annual_energy_delivered_kwh'] = CENTRAL['annual_energy_delivered_kwh'] * mult
+        p['pv_size_wp'] = wp; p['battery_kwh'] = kwh
         pv = central_pv_lcoe(p)
-        di = central_diesel_lcoe(p, architecture=architecture)
-        rows.append(('Load magnitude', label, f'{mult*100:.0f}%', pv, di, di / pv))
+        arch = DieselArchitecture2() if architecture == 2 else DieselArchitecture1()
+        if hasattr(arch, 'daily_load_wh'):
+            arch.daily_load_wh *= mult
+        else:
+            arch.electrical_load_kw *= mult
+        di = build_diesel_cashflows(
+            arch, fuel_price_ppl=p['fuel_price_ppl'],
+            annual_energy_delivered_kwh=p['annual_energy_delivered_kwh'],
+            project_years=p['project_years']).lcoe_gbp_per_kwh(p['discount_rate'])
+        rows.append(('Load magnitude', label,
+                     f'{mult*100:.0f}% (re-sized {wp:.0f} Wp+{kwh:.1f} kWh)',
+                     pv, di, di / pv))
 
     # PV degradation — SIZING-COUPLED: for a fixed load served at an
     # end-of-life LOLP criterion, degradation costs capex (a different
@@ -205,6 +222,41 @@ def one_at_a_time_sensitivity(
         'pv_lcoe_gbp_per_kwh', 'diesel_lcoe_gbp_per_kwh', 'diesel_pv_ratio'
     ])
     return df
+
+
+def combined_worst_case(designs: dict, architecture: int = 2) -> pd.DataFrame:
+    """Stack every parameter at its diesel-favourable extreme simultaneously.
+
+    PV capex +30%, battery capex +30%, degradation 0.8%/yr (design already
+    tolerant: EoL LOLP 0.833% at central sizing), cheapest 14-yr fuel
+    (44.96 ppl), visit costs halved for BOTH systems, 10% discount rate,
+    solar battery life 8 yr. Returns per-site LCOEs and ratio: the FLOOR
+    of the solar advantage under joint pessimism.
+    """
+    rows = []
+    arch = DieselArchitecture2() if architecture == 2 else DieselArchitecture1()
+    arch.fuel_delivery_cost_per_visit_gbp *= 0.5
+    arch.inspection_cost_per_visit_gbp *= 0.5
+    di = build_diesel_cashflows(
+        arch, fuel_price_ppl=44.96,
+        annual_energy_delivered_kwh=CENTRAL['annual_energy_delivered_kwh'],
+        project_years=CENTRAL['project_years']).lcoe_gbp_per_kwh(0.10)
+    for site, (wp, kwh) in designs.items():
+        cf = build_pv_battery_cashflows(
+            pv_capex_gbp_per_wp=CENTRAL['pv_capex_gbp_per_wp'] * 1.3,
+            pv_size_wp=wp,
+            battery_capex_gbp_per_kwh=CENTRAL['battery_capex_gbp_per_kwh'] * 1.3,
+            battery_kwh=kwh,
+            annual_energy_delivered_kwh=CENTRAL['annual_energy_delivered_kwh'],
+            pv_degradation_pct_per_year=0.8,
+            battery_lifetime_years=8,
+            visit_cost_gbp=CENTRAL['visit_cost_gbp'] * 0.5,
+            annual_site_visits=CENTRAL['site_visits_per_year_pv'],
+            project_years=CENTRAL['project_years'])
+        pv = cf.lcoe_gbp_per_kwh(0.10)
+        rows.append({'site': site, 'solar_lcoe_worst': pv,
+                     'diesel_lcoe_worst': di, 'ratio_worst': di / pv})
+    return pd.DataFrame(rows)
 
 
 def tornado_data(architecture: int = 2) -> pd.DataFrame:

@@ -24,7 +24,6 @@ def test_draws_respect_distribution_bounds():
     assert d.battery_cost_mult.min() >= 0.70 and d.battery_cost_mult.max() <= 1.30
     assert d.pv_cost_mult.min() >= 0.70 and d.pv_cost_mult.max() <= 1.30
     assert d.load_mult.min() >= 0.80 and d.load_mult.max() <= 1.20
-    assert d.pv_degradation.min() >= 0.3 and d.pv_degradation.max() <= 0.8
     assert d.visit_cost_mult.min() >= 0.5 and d.visit_cost_mult.max() <= 2.0
     assert set(np.unique(d.battery_life_years)) <= set(BATTERY_LIFETIME_CHOICES)
 
@@ -40,7 +39,6 @@ def test_degenerate_draws_reproduce_deterministic_exactly():
         battery_cost_mult=one.copy(),
         pv_cost_mult=one.copy(),
         load_mult=one.copy(),
-        pv_degradation=np.array([0.5]),
         visit_cost_mult=one.copy(),
         battery_life_years=np.array([12]),
         discount_rate=np.array([0.05]),

@@ -9,11 +9,16 @@ reports both.
 
 Method
 ------
-Latin-square-free plain Monte Carlo: N independent joint draws of the
+Plain Monte Carlo: N independent joint draws of the
 uncertain parameters, each draw evaluated through the SAME cash-flow
 builders used for the deterministic results (economics.py). Both systems
 are evaluated on the same draw, so parameters that affect both (load,
 site-visit cost) are properly correlated across the comparison.
+
+PV degradation is NOT a Monte-Carlo variable: with end-of-life sizing it
+acts through the array size, and exact re-sizing (sensitivity.py) bounds
+its effect on the LCOE ratio at +0.08 / -0.00 across 0.3-0.8 %/yr, so it
+is reported one-at-a-time rather than sampled.
 
 Distributions (triangular unless stated; min, mode, max)
 --------------------------------------------------------
@@ -27,14 +32,11 @@ Distributions (triangular unless stated; min, mode, max)
   4. Load magnitude        tri(0.80, 1.00, 1.20) x 128.2 kWh/yr
                            Mandelli et al. (2016) +/-20% load uncertainty;
                            applied to BOTH systems (same station).
-  5. PV degradation        tri(0.3, 0.5, 0.8) %/yr
-                           UK empirical range (Dhimish & Badran 2023;
-                           Rajput et al. 2024).
-  6. Site-visit cost       tri(0.5, 1.0, 2.0) x central visit costs
+  5. Site-visit cost       tri(0.5, 1.0, 2.0) x central visit costs
                            Same multiplier applied to solar visits AND
                            diesel delivery+inspection visits: one labour
                            market serves both (correlated logistics).
-  7. Solar battery life    discrete uniform {8, 10, 12, 15} years
+  6. Solar battery life    discrete uniform {8, 10, 12, 15} years
                            (Upgrade 4B) stationary LFP calendar-life range
                            at low C-rate; replacement year re-enters the
                            cash flow as year-(L, 2L, ...) spikes.
@@ -91,7 +93,6 @@ class McDraws:
     battery_cost_mult: np.ndarray
     pv_cost_mult: np.ndarray
     load_mult: np.ndarray
-    pv_degradation: np.ndarray
     visit_cost_mult: np.ndarray
     battery_life_years: np.ndarray
     discount_rate: np.ndarray      # constant array for fixed-rate runs
@@ -115,7 +116,6 @@ def sample_draws(n: int = N_DRAWS_DEFAULT,
         battery_cost_mult=rng.triangular(0.70, 1.00, 1.30, n),
         pv_cost_mult=rng.triangular(0.70, 1.00, 1.30, n),
         load_mult=rng.triangular(0.80, 1.00, 1.20, n),
-        pv_degradation=rng.triangular(0.3, 0.5, 0.8, n),
         visit_cost_mult=rng.triangular(0.5, 1.0, 2.0, n),
         battery_life_years=rng.choice(BATTERY_LIFETIME_CHOICES, n),
         discount_rate=r,
@@ -132,7 +132,6 @@ def _solar_lcoe_one(design: tuple, d: McDraws, i: int) -> float:
         battery_kwh=battery_kwh,
         annual_energy_delivered_kwh=(CENTRAL['annual_energy_delivered_kwh']
                                      * d.load_mult[i]),
-        pv_degradation_pct_per_year=d.pv_degradation[i],
         battery_lifetime_years=int(d.battery_life_years[i]),
         visit_cost_gbp=CENTRAL['visit_cost_gbp'] * d.visit_cost_mult[i],
         annual_site_visits=CENTRAL['site_visits_per_year_pv'],
