@@ -1,4 +1,6 @@
 {
+ "governing_year": 24,
+ "battery_eol_soh": 0.8,
  "load": {
   "base_w": 12.2,
   "design_w": 14.639999999999999,
@@ -19,7 +21,7 @@
   "derate": 0.8725749529796399,
   "total_loss_pct": 12.742504702036006
  },
- "eol_factor": 0.8866535105013078,
+ "eol_factor": 0.8911090557802088,
  "sites": {
   "Southampton": {
    "lat": 50.9097,
@@ -29,20 +31,26 @@
    "ghi_jun": 154.141,
    "ghi_min_month": 19.341,
    "ghi_max_month": 166.268,
-   "specific_yield_kwh_per_kwp": 1117.2698335273767,
-   "pv_wp": 450.0,
+   "specific_yield_kwh_per_kwp": 1079.591687519452,
+   "pv_wp": 500.0,
    "battery_kwh": 1.0,
-   "pv_annual_kwh_y1": 502.7714250873196,
-   "lolp_y1_pct": 0.2625570776255708,
-   "eens_y1_kwh": 0.3215606642194782,
-   "lolp_eol_pct": 0.6164383561643836,
-   "eens_eol_kwh": 0.6671423285497898,
-   "curtailed_eol_kwh": 311.93158323993197,
-   "unmet_hours_eol": 54,
-   "lolp_eol_cold_pct": 0.6164383561643836,
-   "eens_eol_cold_kwh": 0.6671423285497898,
+   "pv_annual_kwh_y1": 539.795843759726,
+   "lolp_y1_pct": 0.14840182648401826,
+   "eens_y1_kwh": 0.16865449782166406,
+   "lolp_eol_pct": 0.7534246575342466,
+   "eens_eol_kwh": 0.8484689321458903,
+   "curtailed_eol_kwh": 347.2894699358786,
+   "unmet_hours_eol": 66,
+   "lolp_eol_cold_pct": 0.7534246575342466,
+   "eens_eol_cold_kwh": 0.8484689321458903,
+   "lolp_eol_coldcap15_pct": 1.3242009132420092,
+   "longest_unmet_run_h": 18,
+   "days_with_unmet": 10,
+   "gov_window_start": "1990-12-09",
+   "gov_window_end": "1990-12-19",
+   "gov_window_unmet_h": 43,
    "subzero_hours": 31,
-   "pv_capex_gbp": 2025.0,
+   "pv_capex_gbp": 2250.0,
    "batt_capex_gbp": 700.0
   },
   "Birmingham": {
@@ -53,21 +61,27 @@
    "ghi_jun": 169.707,
    "ghi_min_month": 22.601,
    "ghi_max_month": 169.707,
-   "specific_yield_kwh_per_kwp": 1013.0654009903164,
+   "specific_yield_kwh_per_kwp": 978.4769536593669,
    "pv_wp": 550.0,
-   "battery_kwh": 1.0,
-   "pv_annual_kwh_y1": 557.185970544674,
-   "lolp_y1_pct": 0.6735159817351598,
-   "eens_y1_kwh": 0.7914390491571215,
-   "lolp_eol_pct": 0.9246575342465754,
-   "eens_eol_kwh": 1.0770273496343101,
-   "curtailed_eol_kwh": 360.64436528858346,
-   "unmet_hours_eol": 81,
-   "lolp_eol_cold_pct": 0.9474885844748858,
-   "eens_eol_cold_kwh": 1.114333067382964,
+   "battery_kwh": 1.25,
+   "pv_annual_kwh_y1": 538.1623245126518,
+   "lolp_y1_pct": 0.5707762557077625,
+   "eens_y1_kwh": 0.6913658541046561,
+   "lolp_eol_pct": 0.9931506849315069,
+   "eens_eol_kwh": 1.1624594824087762,
+   "curtailed_eol_kwh": 346.0692824829955,
+   "unmet_hours_eol": 87,
+   "lolp_eol_cold_pct": 1.0273972602739725,
+   "eens_eol_cold_kwh": 1.1955490367674537,
+   "lolp_eol_coldcap15_pct": 1.3812785388127853,
+   "longest_unmet_run_h": 17,
+   "days_with_unmet": 9,
+   "gov_window_start": "1990-01-29",
+   "gov_window_end": "1990-02-08",
+   "gov_window_unmet_h": 82,
    "subzero_hours": 330,
    "pv_capex_gbp": 2475.0,
-   "batt_capex_gbp": 700.0
+   "batt_capex_gbp": 875.0
   },
   "Liverpool": {
    "lat": 53.4084,
@@ -77,21 +91,27 @@
    "ghi_jun": 168.576,
    "ghi_min_month": 13.693,
    "ghi_max_month": 168.576,
-   "specific_yield_kwh_per_kwp": 1011.0938498631662,
+   "specific_yield_kwh_per_kwp": 976.739258969834,
    "pv_wp": 650.0,
-   "battery_kwh": 1.0,
-   "pv_annual_kwh_y1": 657.211002411058,
-   "lolp_y1_pct": 0.5251141552511416,
-   "eens_y1_kwh": 0.6124523366930346,
-   "lolp_eol_pct": 0.8789954337899543,
-   "eens_eol_kwh": 1.0311786172794732,
-   "curtailed_eol_kwh": 449.3005839342573,
-   "unmet_hours_eol": 77,
-   "lolp_eol_cold_pct": 0.9018264840182649,
-   "eens_eol_cold_kwh": 1.052280181025349,
+   "battery_kwh": 1.25,
+   "pv_annual_kwh_y1": 634.8805183303922,
+   "lolp_y1_pct": 0.3538812785388128,
+   "eens_y1_kwh": 0.41589019779056235,
+   "lolp_eol_pct": 0.9817351598173516,
+   "eens_eol_kwh": 1.1745566264465366,
+   "curtailed_eol_kwh": 432.2911540773938,
+   "unmet_hours_eol": 86,
+   "lolp_eol_cold_pct": 0.9931506849315069,
+   "eens_eol_cold_kwh": 1.1927028826047972,
+   "lolp_eol_coldcap15_pct": 1.4155251141552512,
+   "longest_unmet_run_h": 11,
+   "days_with_unmet": 11,
+   "gov_window_start": "1990-01-29",
+   "gov_window_end": "1990-02-08",
+   "gov_window_unmet_h": 64,
    "subzero_hours": 52,
    "pv_capex_gbp": 2925.0,
-   "batt_capex_gbp": 700.0
+   "batt_capex_gbp": 875.0
   },
   "Edinburgh": {
    "lat": 55.9533,
@@ -101,20 +121,26 @@
    "ghi_jun": 154.421,
    "ghi_min_month": 12.506,
    "ghi_max_month": 156.346,
-   "specific_yield_kwh_per_kwp": 961.5492684141852,
-   "pv_wp": 550.0,
+   "specific_yield_kwh_per_kwp": 928.4995113291282,
+   "pv_wp": 650.0,
    "battery_kwh": 1.5,
-   "pv_annual_kwh_y1": 528.852097627802,
-   "lolp_y1_pct": 0.3995433789954338,
-   "eens_y1_kwh": 0.4781833900496679,
-   "lolp_eol_pct": 0.6735159817351598,
-   "eens_eol_kwh": 0.8099330854918215,
-   "curtailed_eol_kwh": 334.9881986788847,
-   "unmet_hours_eol": 59,
-   "lolp_eol_cold_pct": 0.684931506849315,
-   "eens_eol_cold_kwh": 0.8144543254769451,
+   "pv_annual_kwh_y1": 603.5246823639333,
+   "lolp_y1_pct": 0.31963470319634707,
+   "eens_y1_kwh": 0.3555283889678236,
+   "lolp_eol_pct": 0.8675799086757991,
+   "eens_eol_kwh": 1.0441081551858515,
+   "curtailed_eol_kwh": 404.0785511178529,
+   "unmet_hours_eol": 76,
+   "lolp_eol_cold_pct": 0.8789954337899543,
+   "eens_eol_cold_kwh": 1.052966212376673,
+   "lolp_eol_coldcap15_pct": 1.36986301369863,
+   "longest_unmet_run_h": 14,
+   "days_with_unmet": 9,
+   "gov_window_start": "1990-12-20",
+   "gov_window_end": "1990-12-30",
+   "gov_window_unmet_h": 50,
    "subzero_hours": 481,
-   "pv_capex_gbp": 2475.0,
+   "pv_capex_gbp": 2925.0,
    "batt_capex_gbp": 1050.0
   }
  },
@@ -171,64 +197,64 @@
    },
    "sites": {
     "Southampton": {
-     "solar_lcoe": 5.774129632551463,
-     "solar_npv": 10432.94971125876,
-     "solar_capex_y0": 3475.0,
+     "solar_lcoe": 5.898656176173356,
+     "solar_npv": 10657.94971125876,
+     "solar_capex_y0": 3700.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 3475.0,
+      "CapEx (PV + battery + inverter + install)": 3700.0,
       "Battery replacement": 417.347784749416,
       "Inverter replacement": 57.38742612875741,
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.799400239580848,
-     "ratio_a1": 10.090813692775777,
-     "avoided_npv_vs_a2": 29206.001921232706
+     "ratio_a2": 3.719191092693747,
+     "ratio_a1": 9.877786502520213,
+     "avoided_npv_vs_a2": 28981.001921232706
     },
     "Birmingham": {
-     "solar_lcoe": 6.023182719795249,
-     "solar_npv": 10882.94971125876,
-     "solar_capex_y0": 3925.0,
+     "solar_lcoe": 6.177782117193496,
+     "solar_npv": 11162.286657446111,
+     "solar_capex_y0": 4100.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 3925.0,
-      "Battery replacement": 417.347784749416,
+      "CapEx (PV + battery + inverter + install)": 4100.0,
+      "Battery replacement": 521.6847309367699,
       "Inverter replacement": 57.38742612875741,
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.6422985205457397,
-     "ratio_a1": 9.673567791413994,
-     "avoided_npv_vs_a2": 28756.001921232706
+     "ratio_a2": 3.5511497642868015,
+     "ratio_a1": 9.431486131220531,
+     "avoided_npv_vs_a2": 28476.664975045354
     },
     "Liverpool": {
-     "solar_lcoe": 6.272235807039035,
-     "solar_npv": 11332.94971125876,
-     "solar_capex_y0": 4375.0,
+     "solar_lcoe": 6.426835204437282,
+     "solar_npv": 11612.286657446111,
+     "solar_capex_y0": 4550.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 4375.0,
-      "Battery replacement": 417.347784749416,
+      "CapEx (PV + battery + inverter + install)": 4550.0,
+      "Battery replacement": 521.6847309367699,
       "Inverter replacement": 57.38742612875741,
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.4976729485627214,
-     "ratio_a1": 9.289457244994496,
-     "avoided_npv_vs_a2": 28306.001921232706
+     "ratio_a2": 3.4135354045082846,
+     "ratio_a1": 9.06599663856081,
+     "avoided_npv_vs_a2": 28026.664975045354
     },
     "Edinburgh": {
-     "solar_lcoe": 6.332381514591746,
-     "solar_npv": 11441.623603633467,
-     "solar_capex_y0": 4275.0,
+     "solar_lcoe": 6.581434601835531,
+     "solar_npv": 11891.623603633467,
+     "solar_capex_y0": 4725.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 4275.0,
+      "CapEx (PV + battery + inverter + install)": 4725.0,
       "Battery replacement": 626.0216771241239,
       "Inverter replacement": 57.38742612875741,
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.4644516377818526,
-     "ratio_a1": 9.201224882889752,
-     "avoided_npv_vs_a2": 28197.328028858
+     "ratio_a2": 3.3333506805899784,
+     "ratio_a1": 8.853034313181908,
+     "avoided_npv_vs_a2": 27747.328028858
     }
    }
   },
@@ -247,64 +273,64 @@
    },
    "sites": {
     "Southampton": {
-     "solar_lcoe": 6.3719521825299426,
-     "solar_npv": 8720.056752097218,
-     "solar_capex_y0": 3475.0,
+     "solar_lcoe": 6.536365016279497,
+     "solar_npv": 8945.056752097218,
+     "solar_capex_y0": 3700.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 3475.0,
+      "CapEx (PV + battery + inverter + install)": 3700.0,
       "Battery replacement": 294.67434484723697,
       "Inverter replacement": 39.985360499237814,
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.5266916238854678,
-     "ratio_a1": 9.225598813319227,
-     "avoided_npv_vs_a2": 22032.89435532996
+     "ratio_a2": 3.437982783084856,
+     "ratio_a1": 8.993542182430868,
+     "avoided_npv_vs_a2": 21807.89435532996
     },
     "Birmingham": {
-     "solar_lcoe": 6.700777850029051,
-     "solar_npv": 9170.056752097218,
-     "solar_capex_y0": 3925.0,
+     "solar_lcoe": 6.882485880800512,
+     "solar_npv": 9418.725338309026,
+     "solar_capex_y0": 4100.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 3925.0,
-      "Battery replacement": 294.67434484723697,
+      "CapEx (PV + battery + inverter + install)": 4100.0,
+      "Battery replacement": 368.3429310590462,
       "Inverter replacement": 39.985360499237814,
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.353627129995012,
-     "ratio_a1": 8.772873211043734,
-     "avoided_npv_vs_a2": 21582.89435532996
+     "ratio_a2": 3.265086304443437,
+     "ratio_a1": 8.541256097257364,
+     "avoided_npv_vs_a2": 21334.22576911815
     },
     "Liverpool": {
-     "solar_lcoe": 7.029603517528159,
-     "solar_npv": 9620.056752097218,
-     "solar_capex_y0": 4375.0,
+     "solar_lcoe": 7.21131154829962,
+     "solar_npv": 9868.725338309026,
+     "solar_capex_y0": 4550.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 4375.0,
-      "Battery replacement": 294.67434484723697,
+      "CapEx (PV + battery + inverter + install)": 4550.0,
+      "Battery replacement": 368.3429310590462,
       "Inverter replacement": 39.985360499237814,
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.1967536055047585,
-     "ratio_a1": 8.362502144978137,
-     "avoided_npv_vs_a2": 21132.89435532996
+     "ratio_a2": 3.1162029596718512,
+     "ratio_a1": 8.151786828227692,
+     "avoided_npv_vs_a2": 20884.22576911815
     },
     "Edinburgh": {
-     "solar_lcoe": 7.064193911571974,
-     "solar_npv": 9667.393924520837,
-     "solar_capex_y0": 4275.0,
+     "solar_lcoe": 7.393019579071082,
+     "solar_npv": 10117.393924520837,
+     "solar_capex_y0": 4725.0,
      "solar_flows_npv": {
-      "CapEx (PV + battery + inverter + install)": 4275.0,
+      "CapEx (PV + battery + inverter + install)": 4725.0,
       "Battery replacement": 442.0115172708554,
       "Inverter replacement": 39.985360499237814,
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.181100444187335,
-     "ratio_a1": 8.321554480176186,
-     "avoided_npv_vs_a2": 21085.55718290634
+     "ratio_a2": 3.03961191358709,
+     "ratio_a1": 7.951429570143423,
+     "avoided_npv_vs_a2": 20635.55718290634
     }
    }
   }
@@ -314,494 +340,706 @@
    "parameter": "CENTRAL",
    "label": "baseline",
    "value": "",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.799400239580848
+   "diesel_pv_ratio": 3.719191092693747
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2016 minimum",
    "value": "44.96 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.73387966388908,
-   "diesel_pv_ratio": 3.7640096511455265
+   "diesel_pv_ratio": 3.684547635049401
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2020 COVID low",
    "value": "52.47 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.783289430113733,
-   "diesel_pv_ratio": 3.7725667444858124
+   "diesel_pv_ratio": 3.6929240795731952
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2025 mean (CENTRAL)",
    "value": "76.02 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.799400239580848
+   "diesel_pv_ratio": 3.719191092693747
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2024 mean",
    "value": "80.84 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.969941236744,
-   "diesel_pv_ratio": 3.8048922755196193
+   "diesel_pv_ratio": 3.7245671862496303
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2022 spike",
    "value": "104.27 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 22.12409181232902,
-   "diesel_pv_ratio": 3.8315890394294563
+   "diesel_pv_ratio": 3.7507003547173374
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2026 Iran spike",
    "value": "117.56 ppl",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 22.211529334715916,
-   "diesel_pv_ratio": 3.846732018190094
+   "diesel_pv_ratio": 3.7655236500197633
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: -30%",
    "value": "70%",
-   "pv_lcoe_gbp_per_kwh": 5.5886103556735645,
+   "pv_lcoe_gbp_per_kwh": 5.713136899295458,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.9255249718769862
+   "diesel_pv_ratio": 3.8399621601912455
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: -15%",
    "value": "85%",
-   "pv_lcoe_gbp_per_kwh": 5.681369994112514,
+   "pv_lcoe_gbp_per_kwh": 5.805896537734408,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.8614329874697537
+   "diesel_pv_ratio": 3.778611858944303
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: +15%",
    "value": "115%",
-   "pv_lcoe_gbp_per_kwh": 5.866889270990412,
+   "pv_lcoe_gbp_per_kwh": 5.991415814612305,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.7393290542849167
+   "diesel_pv_ratio": 3.6616102417365757
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: +30%",
    "value": "130%",
-   "pv_lcoe_gbp_per_kwh": 5.959648909429361,
+   "pv_lcoe_gbp_per_kwh": 6.0841754530512535,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.681127838684628
+   "diesel_pv_ratio": 3.6057851517554016
   },
   {
    "parameter": "PV cost",
    "label": "PV: -30%",
    "value": "70%",
-   "pv_lcoe_gbp_per_kwh": 5.437907964772353,
+   "pv_lcoe_gbp_per_kwh": 5.5250765453076776,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 4.03431423470318
+   "diesel_pv_ratio": 3.970665262170629
   },
   {
    "parameter": "PV cost",
    "label": "PV: -15%",
    "value": "85%",
-   "pv_lcoe_gbp_per_kwh": 5.606018798661908,
+   "pv_lcoe_gbp_per_kwh": 5.711866360740517,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.913334988195777
+   "diesel_pv_ratio": 3.840816315324771
   },
   {
    "parameter": "PV cost",
    "label": "PV: +15%",
    "value": "115%",
-   "pv_lcoe_gbp_per_kwh": 5.942240466441019,
+   "pv_lcoe_gbp_per_kwh": 6.085445991606195,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.6919121050694113
+   "diesel_pv_ratio": 3.6050323245899873
   },
   {
    "parameter": "PV cost",
    "label": "PV: +30%",
    "value": "130%",
-   "pv_lcoe_gbp_per_kwh": 6.110351300330574,
+   "pv_lcoe_gbp_per_kwh": 6.272235807039035,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.590338497902736
+   "diesel_pv_ratio": 3.4976729485627214
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 3%",
    "value": "3.0%",
-   "pv_lcoe_gbp_per_kwh": 5.414123594634942,
+   "pv_lcoe_gbp_per_kwh": 5.514913539906423,
    "diesel_lcoe_gbp_per_kwh": 21.612003809471855,
-   "diesel_pv_ratio": 3.9917824984431456
+   "diesel_pv_ratio": 3.9188291263472044
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 5% (CENTRAL)",
    "value": "5.0%",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.799400239580848
+   "diesel_pv_ratio": 3.719191092693747
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 7%",
    "value": "7.0%",
-   "pv_lcoe_gbp_per_kwh": 6.165631015363,
+   "pv_lcoe_gbp_per_kwh": 6.316234497224543,
    "diesel_lcoe_gbp_per_kwh": 22.28847181790838,
-   "diesel_pv_ratio": 3.6149538891269755
+   "diesel_pv_ratio": 3.5287593941773854
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 10%",
    "value": "10.0%",
-   "pv_lcoe_gbp_per_kwh": 6.803109313449843,
+   "pv_lcoe_gbp_per_kwh": 6.996462014251362,
    "diesel_lcoe_gbp_per_kwh": 22.85382444344643,
-   "diesel_pv_ratio": 3.359320479867066
+   "diesel_pv_ratio": 3.2664830305509556
   },
   {
    "parameter": "Load magnitude",
    "label": "Load: -20%",
-   "value": "80% (re-sized 300 Wp+1.0 kWh)",
-   "pv_lcoe_gbp_per_kwh": 6.750687502107231,
+   "value": "80% (re-sized 400 Wp+0.8 kWh)",
+   "pv_lcoe_gbp_per_kwh": 6.868754614414151,
    "diesel_lcoe_gbp_per_kwh": 26.896936462228847,
-   "diesel_pv_ratio": 3.9843255155616304
+   "diesel_pv_ratio": 3.915838892509765
   },
   {
    "parameter": "Load magnitude",
    "label": "Load: +20%",
-   "value": "120% (re-sized 550 Wp+1.0 kWh)",
-   "pv_lcoe_gbp_per_kwh": 5.019318933162708,
+   "value": "120% (re-sized 500 Wp+1.5 kWh)",
+   "pv_lcoe_gbp_per_kwh": 5.173212475808211,
    "diesel_lcoe_gbp_per_kwh": 18.48360529729705,
-   "diesel_pv_ratio": 3.6824926934161564
+   "diesel_pv_ratio": 3.572945318548772
   },
   {
    "parameter": "PV degradation",
    "label": "PV degr: 0.3%",
-   "value": "0.3%/yr (re-sized 400 Wp+1.0 kWh)",
-   "pv_lcoe_gbp_per_kwh": 5.64960308892957,
+   "value": "0.3%/yr (re-sized 400 Wp+1.2 kWh)",
+   "pv_lcoe_gbp_per_kwh": 5.804202486327818,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.883145269492469
+   "diesel_pv_ratio": 3.7797147086036107
   },
   {
    "parameter": "PV degradation",
    "label": "PV degr: 0.8%",
-   "value": "0.8%/yr (re-sized 450 Wp+1.0 kWh)",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "value": "0.8%/yr (re-sized 450 Wp+1.2 kWh)",
+   "pv_lcoe_gbp_per_kwh": 5.928729029949711,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.799400239580848
+   "diesel_pv_ratio": 3.700325887464786
+  },
+  {
+   "parameter": "PV degradation",
+   "label": "PV degr: 1.0%",
+   "value": "1.0%/yr (re-sized 550 Wp+1.0 kWh)",
+   "pv_lcoe_gbp_per_kwh": 6.023182719795249,
+   "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
+   "diesel_pv_ratio": 3.6422985205457397
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 12/yr (central)",
    "value": "12/yr",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.799400239580848
+   "diesel_pv_ratio": 3.719191092693747
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 6/yr",
    "value": "6/yr",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 12.577855094310301,
-   "diesel_pv_ratio": 2.178311865982894
+   "diesel_pv_ratio": 2.1323255193473494
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 4/yr",
    "value": "4/yr",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 9.457730289318102,
-   "diesel_pv_ratio": 1.6379490747835765
+   "diesel_pv_ratio": 1.6033703282318836
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 2/yr",
    "value": "2/yr",
-   "pv_lcoe_gbp_per_kwh": 5.774129632551463,
+   "pv_lcoe_gbp_per_kwh": 5.898656176173356,
    "diesel_lcoe_gbp_per_kwh": 6.337605484325901,
-   "diesel_pv_ratio": 1.0975862835842587
+   "diesel_pv_ratio": 1.074415137116418
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 8 yr",
    "value": "8 yr",
-   "pv_lcoe_gbp_per_kwh": 6.002866863732472,
+   "pv_lcoe_gbp_per_kwh": 6.127393407354365,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.654625366061528
+   "diesel_pv_ratio": 3.5803526966223
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 10 yr",
    "value": "10 yr",
-   "pv_lcoe_gbp_per_kwh": 5.869798207138504,
+   "pv_lcoe_gbp_per_kwh": 5.994324750760397,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.73747592934403
+   "diesel_pv_ratio": 3.6598333292676504
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 15 yr",
    "value": "15 yr",
-   "pv_lcoe_gbp_per_kwh": 5.69136663722568,
+   "pv_lcoe_gbp_per_kwh": 5.815893180847573,
    "diesel_lcoe_gbp_per_kwh": 21.938229509286902,
-   "diesel_pv_ratio": 3.8546505448787847
+   "diesel_pv_ratio": 3.7721169951215914
   },
   {
    "parameter": "Site visit cost",
    "label": "Visits: -50%",
    "value": "50%",
-   "pv_lcoe_gbp_per_kwh": 4.214067230055362,
+   "pv_lcoe_gbp_per_kwh": 4.338593773677256,
    "diesel_lcoe_gbp_per_kwh": 12.577855094310301,
-   "diesel_pv_ratio": 2.9847305246112694
+   "diesel_pv_ratio": 2.8990626342160875
   },
   {
    "parameter": "Site visit cost",
    "label": "Visits: +100%",
    "value": "200%",
-   "pv_lcoe_gbp_per_kwh": 8.894254437543662,
+   "pv_lcoe_gbp_per_kwh": 9.018780981165555,
    "diesel_lcoe_gbp_per_kwh": 40.65897833924011,
-   "diesel_pv_ratio": 4.571375670074596
+   "diesel_pv_ratio": 4.508256539786321
   }
  ],
  "tornado": [
   {
    "parameter": "Diesel visit cadence",
-   "low_ratio": 1.0975862835842587,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.799400239580848,
-   "delta_low": -2.701813955996589,
+   "low_ratio": 1.074415137116418,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.719191092693747,
+   "delta_low": -2.644775955577329,
    "delta_high": 0.0,
-   "range": 2.701813955996589
+   "range": 2.644775955577329
   },
   {
    "parameter": "Site visit cost",
-   "low_ratio": 2.9847305246112694,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 4.571375670074596,
-   "delta_low": -0.8146697149695785,
-   "delta_high": 0.7719754304937485,
-   "range": 1.586645145463327
+   "low_ratio": 2.8990626342160875,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 4.508256539786321,
+   "delta_low": -0.8201284584776594,
+   "delta_high": 0.789065447092574,
+   "range": 1.6091939055702333
   },
   {
    "parameter": "Discount rate",
-   "low_ratio": 3.359320479867066,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.9917824984431456,
-   "delta_low": -0.440079759713782,
-   "delta_high": 0.19238225886229765,
-   "range": 0.6324620185760796
+   "low_ratio": 3.2664830305509556,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.9188291263472044,
+   "delta_low": -0.45270806214279125,
+   "delta_high": 0.19963803365345756,
+   "range": 0.6523460957962488
   },
   {
    "parameter": "PV cost",
-   "low_ratio": 3.590338497902736,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 4.03431423470318,
-   "delta_low": -0.20906174167811198,
-   "delta_high": 0.2349139951223318,
-   "range": 0.4439757368004438
+   "low_ratio": 3.4976729485627214,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.970665262170629,
+   "delta_low": -0.22151814413102544,
+   "delta_high": 0.2514741694768823,
+   "range": 0.4729923136079077
   },
   {
    "parameter": "Load magnitude",
-   "low_ratio": 3.6824926934161564,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.9843255155616304,
-   "delta_low": -0.11690754616469157,
-   "delta_high": 0.18492527598078246,
-   "range": 0.301832822145474
+   "low_ratio": 3.572945318548772,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.915838892509765,
+   "delta_low": -0.14624577414497475,
+   "delta_high": 0.19664779981601832,
+   "range": 0.34289357396099307
   },
   {
    "parameter": "Battery cost",
-   "low_ratio": 3.681127838684628,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.9255249718769862,
-   "delta_low": -0.11827240089621993,
-   "delta_high": 0.1261247322961383,
-   "range": 0.24439713319235823
+   "low_ratio": 3.6057851517554016,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.8399621601912455,
+   "delta_low": -0.11340594093834522,
+   "delta_high": 0.12077106749749866,
+   "range": 0.23417700843584388
   },
   {
    "parameter": "Solar battery life",
-   "low_ratio": 3.654625366061528,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.8546505448787847,
-   "delta_low": -0.14477487351931995,
-   "delta_high": 0.05525030529793673,
-   "range": 0.20002517881725668
+   "low_ratio": 3.5803526966223,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.7721169951215914,
+   "delta_low": -0.138838396071447,
+   "delta_high": 0.05292590242784456,
+   "range": 0.19176429849929155
   },
   {
    "parameter": "PV degradation",
-   "low_ratio": 3.799400239580848,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.883145269492469,
-   "delta_low": 0.0,
-   "delta_high": 0.08374502991162114,
-   "range": 0.08374502991162114
+   "low_ratio": 3.6422985205457397,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.7797147086036107,
+   "delta_low": -0.07689257214800715,
+   "delta_high": 0.06052361590986388,
+   "range": 0.13741618805787104
   },
   {
    "parameter": "Fuel price",
-   "low_ratio": 3.7640096511455265,
-   "central_ratio": 3.799400239580848,
-   "high_ratio": 3.846732018190094,
-   "delta_low": -0.03539058843532139,
-   "delta_high": 0.0473317786092462,
-   "range": 0.08272236704456759
+   "low_ratio": 3.684547635049401,
+   "central_ratio": 3.719191092693747,
+   "high_ratio": 3.7655236500197633,
+   "delta_low": -0.034643457644345954,
+   "delta_high": 0.04633255732601649,
+   "range": 0.08097601497036244
   }
  ],
- "central_ratio": 3.799400239580848,
+ "central_ratio": 3.719191092693747,
  "visit_cadence": {
-  "12": 3.799400239580848,
-  "6": 2.178311865982894,
-  "4": 1.6379490747835765,
-  "2": 1.0975862835842587
+  "12": 3.719191092693747,
+  "6": 2.1323255193473494,
+  "4": 1.6033703282318836,
+  "2": 1.074415137116418
  },
  "worst_case": [
   {
    "site": "Southampton",
-   "solar_lcoe_worst": 6.294950578148536,
+   "solar_lcoe_worst": 6.628260951508335,
    "diesel_lcoe_worst": 13.289100183072012,
-   "ratio_worst": 2.1110729970147895
+   "ratio_worst": 2.0049150569498817
   },
   {
    "site": "Birmingham",
-   "solar_lcoe_worst": 6.797667600232486,
+   "solar_lcoe_worst": 7.3823364846342585,
    "diesel_lcoe_worst": 13.289100183072012,
-   "ratio_worst": 1.9549499864655804
+   "ratio_worst": 1.800121169054297
   },
   {
    "site": "Liverpool",
-   "solar_lcoe_worst": 7.300384622316434,
+   "solar_lcoe_worst": 7.885053506718207,
    "diesel_lcoe_worst": 13.289100183072012,
-   "ratio_worst": 1.8203287731510427
+   "ratio_worst": 1.6853532029617124
   },
   {
    "site": "Edinburgh",
-   "solar_lcoe_worst": 7.464288346952082,
+   "solar_lcoe_worst": 8.048957231353855,
    "diesel_lcoe_worst": 13.289100183072012,
-   "ratio_worst": 1.7803572913281673
+   "ratio_worst": 1.6510337676172187
   }
  ],
+ "worst_case_cadence": {
+  "6": [
+   {
+    "site": "Southampton",
+    "solar_lcoe_worst": 6.628260951508335,
+    "diesel_lcoe_worst": 8.608912975583712,
+    "ratio_worst": 1.2988192587113905
+   },
+   {
+    "site": "Birmingham",
+    "solar_lcoe_worst": 7.3823364846342585,
+    "diesel_lcoe_worst": 8.608912975583712,
+    "ratio_worst": 1.1661501739323958
+   },
+   {
+    "site": "Liverpool",
+    "solar_lcoe_worst": 7.885053506718207,
+    "diesel_lcoe_worst": 8.608912975583712,
+    "ratio_worst": 1.0918014656779138
+   },
+   {
+    "site": "Edinburgh",
+    "solar_lcoe_worst": 8.048957231353855,
+    "diesel_lcoe_worst": 8.608912975583712,
+    "ratio_worst": 1.0695687314685447
+   }
+  ],
+  "4": [
+   {
+    "site": "Southampton",
+    "solar_lcoe_worst": 6.628260951508335,
+    "diesel_lcoe_worst": 7.048850573087612,
+    "ratio_worst": 1.0634539926318933
+   },
+   {
+    "site": "Birmingham",
+    "solar_lcoe_worst": 7.3823364846342585,
+    "diesel_lcoe_worst": 7.048850573087612,
+    "ratio_worst": 0.954826508891762
+   },
+   {
+    "site": "Liverpool",
+    "solar_lcoe_worst": 7.885053506718207,
+    "diesel_lcoe_worst": 7.048850573087612,
+    "ratio_worst": 0.8939508865833142
+   },
+   {
+    "site": "Edinburgh",
+    "solar_lcoe_worst": 8.048957231353855,
+    "diesel_lcoe_worst": 7.048850573087612,
+    "ratio_worst": 0.87574705275232
+   }
+  ],
+  "2": [
+   {
+    "site": "Southampton",
+    "solar_lcoe_worst": 6.628260951508335,
+    "diesel_lcoe_worst": 5.488788170591512,
+    "ratio_worst": 0.8280887265523963
+   },
+   {
+    "site": "Birmingham",
+    "solar_lcoe_worst": 7.3823364846342585,
+    "diesel_lcoe_worst": 5.488788170591512,
+    "ratio_worst": 0.7435028438511282
+   },
+   {
+    "site": "Liverpool",
+    "solar_lcoe_worst": 7.885053506718207,
+    "diesel_lcoe_worst": 5.488788170591512,
+    "ratio_worst": 0.6961003074887147
+   },
+   {
+    "site": "Edinburgh",
+    "solar_lcoe_worst": 8.048957231353855,
+    "diesel_lcoe_worst": 5.488788170591512,
+    "ratio_worst": 0.6819253740360953
+   }
+  ]
+ },
+ "cadence": {
+  "0.05": {
+   "Southampton": {
+    "12": 3.719191092693746,
+    "6": 2.132325519347349,
+    "4": 1.6033703282318832,
+    "2": 1.0744151371164177,
+    "breakeven_visits": 1.7186334934742193
+   },
+   "Birmingham": {
+    "12": 3.5511497642868,
+    "6": 2.035982308166007,
+    "4": 1.5309264894590762,
+    "2": 1.0258706707521452,
+    "breakeven_visits": 1.8975532216681295
+   },
+   "Liverpool": {
+    "12": 3.4135354045082837,
+    "6": 1.957083804735831,
+    "4": 1.4715999381450133,
+    "2": 0.986116071554196,
+    "breakeven_visits": 2.057196250591396
+   },
+   "Edinburgh": {
+    "12": 3.3333506805899775,
+    "6": 1.911111460532084,
+    "4": 1.4370317205127863,
+    "2": 0.9629519804934887,
+    "breakeven_visits": 2.156294464323674
+   }
+  },
+  "0.08": {
+   "Southampton": {
+    "12": 3.4379827830848555,
+    "6": 2.005936930127805,
+    "4": 1.5285883124754551,
+    "2": 1.0512396948231049,
+    "breakeven_visits": 1.7853154154919022
+   },
+   "Birmingham": {
+    "12": 3.2650863044434364,
+    "6": 1.9050581725894444,
+    "4": 1.451715461971447,
+    "2": 0.9983727513534496,
+    "breakeven_visits": 2.0071788896498726
+   },
+   "Liverpool": {
+    "12": 3.1162029596718503,
+    "6": 1.818190198430976,
+    "4": 1.385519278017351,
+    "2": 0.9528483576037261,
+    "breakeven_visits": 2.2179561425168015
+   },
+   "Edinburgh": {
+    "12": 3.0396119135870894,
+    "6": 1.7735021305865273,
+    "4": 1.3514655362530064,
+    "2": 0.9294289419194856,
+    "breakeven_visits": 2.3344309902413087
+   }
+  }
+ },
+ "price_of_reliability": {
+  "Southampton": {
+   "pv_wp": 650.0,
+   "battery_kwh": 1.0,
+   "lolp_pct": 0.0684931506849315,
+   "npv5": 11332.94971125876,
+   "npv5_central": 10657.94971125876
+  },
+  "Birmingham": {
+   "pv_wp": 950.0,
+   "battery_kwh": 1.0,
+   "lolp_pct": 0.045662100456621,
+   "npv5": 12682.94971125876,
+   "npv5_central": 11162.286657446111
+  },
+  "Liverpool": {
+   "pv_wp": 750.0,
+   "battery_kwh": 2.0,
+   "lolp_pct": 0.07990867579908677,
+   "npv5": 12900.297496008174,
+   "npv5_central": 11612.286657446111
+  },
+  "Edinburgh": {
+   "pv_wp": 650.0,
+   "battery_kwh": 2.5,
+   "lolp_pct": 0.0684931506849315,
+   "npv5": 13008.971388382883,
+   "npv5_central": 11891.623603633467
+  }
+ },
+ "year1_sized": {
+  "Southampton": {
+   "pv_wp": 450.0,
+   "battery_kwh": 0.75,
+   "lolp_gov_pct": 2.4657534246575343
+  },
+  "Birmingham": {
+   "pv_wp": 500.0,
+   "battery_kwh": 1.0,
+   "lolp_gov_pct": 1.7465753424657535
+  },
+  "Liverpool": {
+   "pv_wp": 600.0,
+   "battery_kwh": 1.0,
+   "lolp_gov_pct": 1.9178082191780823
+  },
+  "Edinburgh": {
+   "pv_wp": 550.0,
+   "battery_kwh": 1.25,
+   "lolp_gov_pct": 1.7922374429223744
+  }
+ },
+ "tilt_plus15": {
+  "Southampton": {
+   "annual_delta_pct": -6.386323135852356,
+   "december_delta_pct": 3.9260277023269063
+  },
+  "Edinburgh": {
+   "annual_delta_pct": -6.859778184007426,
+   "december_delta_pct": 5.792643141196585
+  }
+ },
  "mc": {
   "5%": [
    {
     "site": "Southampton",
     "rate": "5%",
-    "solar_p10": 4.97574845118159,
-    "solar_p50": 6.31842614420804,
-    "solar_p90": 7.92759409079633,
-    "diesel_p10": 17.41426907538908,
-    "diesel_p50": 24.66165290809134,
-    "diesel_p90": 33.846480545193984,
-    "ratio_p10": 3.4228591831124358,
-    "ratio_p50": 3.9193208843466754,
-    "ratio_p90": 4.339522548352818,
+    "solar_p10": 5.091813338805604,
+    "solar_p50": 6.442387271581724,
+    "solar_p90": 8.068167639753382,
+    "diesel_p10": 17.420387412704205,
+    "diesel_p50": 24.623976414122623,
+    "diesel_p90": 33.70751670944124,
+    "ratio_p10": 3.3329278271340916,
+    "ratio_p50": 3.8371386631792563,
+    "ratio_p90": 4.265554632437165,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Birmingham",
     "rate": "5%",
-    "solar_p10": 5.2018246877418575,
-    "solar_p50": 6.570520822180934,
-    "solar_p90": 8.19716515304937,
-    "diesel_p10": 17.41426907538908,
-    "diesel_p50": 24.66165290809134,
-    "diesel_p90": 33.846480545193984,
-    "ratio_p10": 3.265234141873923,
-    "ratio_p50": 3.7706307703603614,
-    "ratio_p90": 4.207305087233726,
+    "solar_p10": 5.357951717231691,
+    "solar_p50": 6.740254235390249,
+    "solar_p90": 8.384140400564428,
+    "diesel_p10": 17.420387412704205,
+    "diesel_p50": 24.623976414122623,
+    "diesel_p90": 33.70751670944124,
+    "ratio_p10": 3.1549204572372576,
+    "ratio_p50": 3.6685157645146944,
+    "ratio_p90": 4.1158899276195235,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Liverpool",
     "rate": "5%",
-    "solar_p10": 5.435982738596306,
-    "solar_p50": 6.82172175246674,
-    "solar_p90": 8.47076899564059,
-    "diesel_p10": 17.41426907538908,
-    "diesel_p50": 24.66165290809134,
-    "diesel_p90": 33.846480545193984,
-    "ratio_p10": 3.1203654631998528,
-    "ratio_p50": 3.6307738413129895,
-    "ratio_p90": 4.083071343480286,
+    "solar_p10": 5.590916658174862,
+    "solar_p50": 6.990790195224331,
+    "solar_p90": 8.656135454671873,
+    "diesel_p10": 17.420387412704205,
+    "diesel_p50": 24.623976414122623,
+    "diesel_p90": 33.70751670944124,
+    "ratio_p10": 3.016025296845353,
+    "ratio_p50": 3.5366196344078515,
+    "ratio_p90": 3.9960214426999388,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Edinburgh",
     "rate": "5%",
-    "solar_p10": 5.516728422922113,
-    "solar_p50": 6.909593090118891,
-    "solar_p90": 8.563776085799631,
-    "diesel_p10": 17.41426907538908,
-    "diesel_p50": 24.66165290809134,
-    "diesel_p90": 33.846480545193984,
-    "ratio_p10": 3.066734648269654,
-    "ratio_p50": 3.5862372877992374,
-    "ratio_p90": 4.045731131844931,
+    "solar_p10": 5.747055605865272,
+    "solar_p50": 7.159523720532744,
+    "solar_p90": 8.840891197634102,
+    "diesel_p10": 17.420387412704205,
+    "diesel_p50": 24.623976414122623,
+    "diesel_p90": 33.70751670944124,
+    "ratio_p10": 2.9309306131210713,
+    "ratio_p50": 3.4523890775704253,
+    "ratio_p90": 3.92073756578357,
     "p_solar_beats_diesel": 1.0
    }
   ],
-  "5%_min_ratio": 2.377951385675938,
+  "5%_min_ratio": 2.2607743736435872,
   "8%": [
    {
     "site": "Southampton",
     "rate": "8%",
-    "solar_p10": 5.534203424746285,
-    "solar_p50": 6.920998398050079,
-    "solar_p90": 8.573652193316642,
-    "diesel_p10": 17.916518629315277,
-    "diesel_p50": 25.205298910688477,
-    "diesel_p90": 34.385211989837885,
-    "ratio_p10": 3.1589615318087465,
-    "ratio_p50": 3.655854859801522,
-    "ratio_p90": 4.0943699328567025,
+    "solar_p10": 5.681885877652218,
+    "solar_p50": 7.083776980627151,
+    "solar_p90": 8.754501442448456,
+    "diesel_p10": 17.938475427427985,
+    "diesel_p50": 25.168067466014413,
+    "diesel_p90": 34.25865741044389,
+    "ratio_p10": 3.063219304042437,
+    "ratio_p50": 3.5648543640068713,
+    "ratio_p90": 4.010499589081311,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Birmingham",
     "rate": "8%",
-    "solar_p10": 5.835333769248835,
-    "solar_p50": 7.249563283457588,
-    "solar_p90": 8.93656258453859,
-    "diesel_p10": 17.916518629315277,
-    "diesel_p50": 25.205298910688477,
-    "diesel_p90": 34.385211989837885,
-    "ratio_p10": 2.985994338644019,
-    "ratio_p50": 3.488303123069584,
-    "ratio_p90": 3.945290035448469,
+    "solar_p10": 6.022326114114859,
+    "solar_p50": 7.451107982332576,
+    "solar_p90": 9.156152619583132,
+    "diesel_p10": 17.938475427427985,
+    "diesel_p50": 25.168067466014413,
+    "diesel_p90": 34.25865741044389,
+    "ratio_p10": 2.8828044804114854,
+    "ratio_p50": 3.3903729243136516,
+    "ratio_p90": 3.85216542736271,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Liverpool",
     "rate": "8%",
-    "solar_p10": 6.136314740275981,
-    "solar_p50": 7.580432806451526,
-    "solar_p90": 9.29053511636458,
-    "diesel_p10": 17.916518629315277,
-    "diesel_p50": 25.205298910688477,
-    "diesel_p90": 34.385211989837885,
-    "ratio_p10": 2.8272565113314694,
-    "ratio_p50": 3.335326817974593,
-    "ratio_p90": 3.8032359154847497,
+    "solar_p10": 6.317824880992487,
+    "solar_p50": 7.782239170589428,
+    "solar_p90": 9.505688022288146,
+    "diesel_p10": 17.938475427427985,
+    "diesel_p50": 25.168067466014413,
+    "diesel_p90": 34.25865741044389,
+    "ratio_p10": 2.7352228429436827,
+    "ratio_p50": 3.2467417058937196,
+    "ratio_p90": 3.717019014277473,
     "p_solar_beats_diesel": 1.0
    },
    {
     "site": "Edinburgh",
     "rate": "8%",
-    "solar_p10": 6.198481273455972,
-    "solar_p50": 7.6494552989531055,
-    "solar_p90": 9.365864265981546,
-    "diesel_p10": 17.916518629315277,
-    "diesel_p50": 25.205298910688477,
-    "diesel_p90": 34.385211989837885,
-    "ratio_p10": 2.800093896010389,
-    "ratio_p50": 3.31176515419981,
-    "ratio_p90": 3.7759821382499275,
+    "solar_p10": 6.493842267081522,
+    "solar_p50": 7.980563924250378,
+    "solar_p90": 9.714774022837336,
+    "diesel_p10": 17.938475427427985,
+    "diesel_p50": 25.168067466014413,
+    "diesel_p90": 34.25865741044389,
+    "ratio_p10": 2.6552268166509463,
+    "ratio_p50": 3.1654942654685847,
+    "ratio_p90": 3.6393900235812766,
     "p_solar_beats_diesel": 1.0
    }
   ],
-  "8%_min_ratio": 2.1449562362742642,
+  "8%_min_ratio": 2.0325095951993153,
   "n_draws": 5000,
   "rule_of_three_pct": 0.06
  },
@@ -809,94 +1047,94 @@
   {
    "site": "Southampton",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 27.138685125493527,
-   "breakeven_batt_gbp_per_kwh": 18997.07958784547
+   "breakeven_batt_mult": 26.93731541494238,
+   "breakeven_batt_gbp_per_kwh": 18856.120790459667
   },
   {
    "site": "Southampton",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 23.150862208790354,
-   "breakeven_batt_gbp_per_kwh": 16205.603546153248
+   "breakeven_batt_mult": 22.924657520627257,
+   "breakeven_batt_gbp_per_kwh": 16047.260264439079
   },
   {
    "site": "Southampton",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 20.97873108246925,
-   "breakeven_batt_gbp_per_kwh": 14685.111757728475
+   "breakeven_batt_mult": 20.73806008543913,
+   "breakeven_batt_gbp_per_kwh": 14516.642059807391
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 26.735945704391117,
-   "breakeven_batt_gbp_per_kwh": 18715.161993073783
+   "breakeven_batt_mult": 21.388756563512946,
+   "breakeven_batt_gbp_per_kwh": 14972.129594459062
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 22.698452832464138,
-   "breakeven_batt_gbp_per_kwh": 15888.916982724897
+   "breakeven_batt_mult": 18.158762265971337,
+   "breakeven_batt_gbp_per_kwh": 12711.133586179936
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 20.49738908840897,
-   "breakeven_batt_gbp_per_kwh": 14348.172361886278
+   "breakeven_batt_mult": 16.3979112707272,
+   "breakeven_batt_gbp_per_kwh": 11478.53788950904
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 26.333206283288742,
-   "breakeven_batt_gbp_per_kwh": 18433.24439830212
+   "breakeven_batt_mult": 21.066565026631043,
+   "breakeven_batt_gbp_per_kwh": 14746.59551864173
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 22.246043456137972,
-   "breakeven_batt_gbp_per_kwh": 15572.23041929658
+   "breakeven_batt_mult": 17.796834764910383,
+   "breakeven_batt_gbp_per_kwh": 12457.784335437267
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 20.016047094348753,
-   "breakeven_batt_gbp_per_kwh": 14011.232966044126
+   "breakeven_batt_mult": 16.01283767547901,
+   "breakeven_batt_gbp_per_kwh": 11208.986372835307
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 17.82396380292743,
-   "breakeven_batt_gbp_per_kwh": 12476.774662049202
+   "breakeven_batt_mult": 17.555470855525844,
+   "breakeven_batt_gbp_per_kwh": 12288.829598868091
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 15.132301888309438,
-   "breakeven_batt_gbp_per_kwh": 10592.611321816607
+   "breakeven_batt_mult": 14.83069563742531,
+   "breakeven_batt_gbp_per_kwh": 10381.486946197716
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 13.664926058939336,
-   "breakeven_batt_gbp_per_kwh": 9565.448241257536
+   "breakeven_batt_mult": 13.344031396232513,
+   "breakeven_batt_gbp_per_kwh": 9340.821977362759
   }
  ],
  "grid_min": {
   "Southampton": {
-   "ratio": 3.004512739161937,
+   "ratio": 2.930033038415171,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Birmingham": {
-   "ratio": 2.8591566110973536,
+   "ratio": 2.7223462740053774,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Liverpool": {
-   "ratio": 2.7272159011701804,
+   "ratio": 2.602465457922826,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Edinburgh": {
-   "ratio": 2.5980307799199522,
+   "ratio": 2.4886286589552324,
    "rate": 0.1,
    "batt_mult": 2.0
   }
@@ -904,15 +1142,33 @@
  "degradation_designs": {
   "0.3": [
    400,
-   1.0
+   1.25
   ],
   "0.5": [
-   450,
+   500,
    1.0
   ],
   "0.8": [
    450,
+   1.25
+  ],
+  "1.0": [
+   550,
    1.0
+  ]
+ },
+ "load_designs": {
+  "0.8": [
+   400,
+   0.75
+  ],
+  "1.0": [
+   500,
+   1.0
+  ],
+  "1.2": [
+   500,
+   1.5
   ]
  },
  "carbon": {

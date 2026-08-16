@@ -144,7 +144,18 @@ def simulate_pv_dc(weather: pd.DataFrame, site: Site,
         model='haydavies',
     )
 
-    # Cell temperature (SAPM open-rack glass-glass)
+    # Angle-of-incidence (reflection) losses, as in PVWatts v5: physical
+    # IAM on the beam component (De Soto / Fresnel, n=1.526, K=4, L=2 mm),
+    # Marion integrated IAM for sky-diffuse and ground-reflected components.
+    aoi = pvlib.irradiance.aoi(tilt, design.azimuth_deg,
+                               sp['apparent_zenith'], sp['azimuth'])
+    iam_beam = pvlib.iam.physical(aoi)
+    iam_diff = pvlib.iam.marion_diffuse('physical', surface_tilt=tilt)
+    poa_eff = (poa['poa_direct'].fillna(0.0) * iam_beam.fillna(0.0)
+               + poa['poa_sky_diffuse'].fillna(0.0) * iam_diff['sky']
+               + poa['poa_ground_diffuse'].fillna(0.0) * iam_diff['ground'])
+
+    # Cell temperature (SAPM open-rack glass-glass coefficients)
     cell_temp = pvlib.temperature.sapm_cell(
         poa_global=poa['poa_global'],
         temp_air=weather['temp_air'],
@@ -152,9 +163,9 @@ def simulate_pv_dc(weather: pd.DataFrame, site: Site,
         a=-3.47, b=-0.0594, deltaT=3,   # open-rack glass-glass
     )
 
-    # PVWatts DC
+    # PVWatts DC on AOI-corrected effective irradiance
     p_dc = pvlib.pvsystem.pvwatts_dc(
-        effective_irradiance=poa['poa_global'],
+        effective_irradiance=poa_eff,
         temp_cell=cell_temp,
         pdc0=design.total_nameplate_w,
         gamma_pdc=-0.0035,

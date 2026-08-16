@@ -26,11 +26,34 @@ DEFAULT_DEGRADATION_PCT_YR = 0.5
 DEFAULT_PROJECT_YEARS = 25
 
 
+DEFAULT_BATTERY_LIFE_YEARS = 12
+DEFAULT_BATTERY_EOL_SOH = 0.80
+
+
 def eol_ageing_factor(degradation_pct_yr: float = DEFAULT_DEGRADATION_PCT_YR,
-                      project_years: int = DEFAULT_PROJECT_YEARS) -> float:
-    """PV output multiplier in the final service year (year N output at
-    0.5%/yr linear-compound fade: (1-0.005)**(N-1))."""
-    return (1.0 - degradation_pct_yr / 100.0) ** (project_years - 1)
+                      project_years: int = DEFAULT_PROJECT_YEARS,
+                      battery_life_years: int = DEFAULT_BATTERY_LIFE_YEARS) -> float:
+    """PV output multiplier in the DESIGN-GOVERNING year.
+
+    With PV fading every year and the battery replaced every L years, the
+    hardest year for reliability is the last year of a battery's life that
+    falls latest in the project: year k*L where k = floor((N-1)/L)  (year 24
+    for N=25, L=12). PV output then is (1-d)**(k*L-1). The battery is at its
+    end-of-life state of health in that same year (see worst_life_state)."""
+    k = (project_years - 1) // battery_life_years
+    worst_year = max(k * battery_life_years, 1)
+    return (1.0 - degradation_pct_yr / 100.0) ** (worst_year - 1)
+
+
+def worst_life_state(degradation_pct_yr: float = DEFAULT_DEGRADATION_PCT_YR,
+                     project_years: int = DEFAULT_PROJECT_YEARS,
+                     battery_life_years: int = DEFAULT_BATTERY_LIFE_YEARS,
+                     battery_eol_soh: float = DEFAULT_BATTERY_EOL_SOH):
+    """(pv_factor, battery_soh, year) for the design-governing year."""
+    k = (project_years - 1) // battery_life_years
+    worst_year = max(k * battery_life_years, 1)
+    return ((1.0 - degradation_pct_yr / 100.0) ** (worst_year - 1),
+            battery_eol_soh, worst_year)
 
 
 @dataclass
@@ -70,18 +93,19 @@ def size_system(weather: pd.DataFrame,
                 battery_grid: Optional[np.ndarray] = None,
                 degradation_pct_yr: float = DEFAULT_DEGRADATION_PCT_YR,
                 verbose: bool = False) -> Optional[SizingResult]:
-    """Grid-search PV × battery space for the cheapest config whose
-    END-OF-LIFE (year-25) LOLP meets the target.
+    """Grid-search PV × battery space for the cheapest config whose LOLP
+    in the DESIGN-GOVERNING YEAR meets the target.
 
-    Sizing at end-of-life makes the reliability criterion hold across the
-    entire project, not only in year 1 — module degradation means a
-    year-1-sized system silently breaches its LOLP target in later life.
+    The governing year combines the most-aged PV output with a battery at
+    its end-of-life state of health (year 24 for a 25-year project with a
+    12-year battery: PV at (1-d)^23, battery at 80% SoH). Sizing on year-1
+    conditions silently breaches the criterion in later life.
     """
     if pv_grid is None:
-        pv_grid = np.arange(100, 1250, 50)
+        pv_grid = np.arange(100, 1300, 50)
     if battery_grid is None:
-        battery_grid = np.array([1, 1.5, 2, 2.5, 3, 4, 5, 7, 10])
-    eol = eol_ageing_factor(degradation_pct_yr)
+        battery_grid = np.array([0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 7, 10])
+    eol, soh, _ = worst_life_state(degradation_pct_yr)
 
     # PVWatts DC is linear in nameplate: compute the chain once per site
     # at 1 kWp and scale, instead of re-running pvlib per grid cell.
@@ -96,10 +120,12 @@ def size_system(weather: pd.DataFrame,
             pv = PVDesign(nameplate_w=float(pv_w), n_modules=1)
             bat = BatteryDesign(capacity_kwh=float(bat_k))
             r1 = run_simulation(weather, site, pv, bat, load,
-                                pv_ageing_factor=eol, pv_series_w=pv_series)
+                                pv_ageing_factor=eol, pv_series_w=pv_series,
+                                battery_soh=soh)
             r2 = run_simulation(weather, site, pv, bat, load,
                                 initial_soc_frac=r1.final_soc_kwh / bat.capacity_kwh,
-                                pv_ageing_factor=eol, pv_series_w=pv_series)
+                                pv_ageing_factor=eol, pv_series_w=pv_series,
+                                battery_soh=soh)
             ci = _cost_index(pv_w, bat_k)
             rows.append((pv_w, bat_k, r2.lolp, r2.annual_curtailed_kwh, ci))
             if r2.lolp <= target_lolp:

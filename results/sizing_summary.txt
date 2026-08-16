@@ -1,10 +1,10 @@
 CORRECTED sizing for LOLP <= 1.0% at END OF LIFE (year 25),
 explicit loss chain (total 12.7% incl. MPPT controller), real PVGIS-SARAH2 TMY (2005-2020).
 
-Southampton  450 Wp + 1.0 kWh  EoL LOLP=0.616%  year-1 LOLP=0.263%  curtailed 312 kWh/yr
-Birmingham   550 Wp + 1.0 kWh  EoL LOLP=0.925%  year-1 LOLP=0.674%  curtailed 361 kWh/yr
-Liverpool    650 Wp + 1.0 kWh  EoL LOLP=0.879%  year-1 LOLP=0.525%  curtailed 449 kWh/yr
-Edinburgh    550 Wp + 1.5 kWh  EoL LOLP=0.674%  year-1 LOLP=0.400%  curtailed 335 kWh/yr
+Southampton  500 Wp + 1.0 kWh  EoL LOLP=0.753%  year-1 LOLP=0.148%  curtailed 347 kWh/yr
+Birmingham   550 Wp + 1.2 kWh  EoL LOLP=0.993%  year-1 LOLP=0.571%  curtailed 346 kWh/yr
+Liverpool    650 Wp + 1.2 kWh  EoL LOLP=0.982%  year-1 LOLP=0.354%  curtailed 432 kWh/yr
+Edinburgh    650 Wp + 1.5 kWh  EoL LOLP=0.868%  year-1 LOLP=0.320%  curtailed 404 kWh/yr
 
 Design criterion: the system must meet its reliability target in
-its WORST year (year 25 output = (1-0.005)^24 = 0.8867 of year-1), not merely on day one.
+its WORST year (year 25 output = (1-0.005)^24 = 0.8911 of year-1), not merely on day one.

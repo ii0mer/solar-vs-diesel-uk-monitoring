@@ -1,2 +1,2 @@
-Edinburgh year-1: LOLP 0.400% -> 0.411% with charging blocked at <=0 degC (ambient proxy; 481 sub-zero h/yr in TMY); EENS 0.48 -> 0.49 kWh/yr
-Edinburgh end-of-life: LOLP 0.662% -> 0.674% with charging blocked at <=0 degC (ambient proxy; 481 sub-zero h/yr in TMY); EENS 0.80 -> 0.80 kWh/yr
+Edinburgh year-1: LOLP 0.320% -> 0.331% with charging blocked at <=0 degC (ambient proxy; 481 sub-zero h/yr in TMY); EENS 0.36 -> 0.37 kWh/yr
+Edinburgh end-of-life: LOLP 0.388% -> 0.400% with charging blocked at <=0 degC (ambient proxy; 481 sub-zero h/yr in TMY); EENS 0.45 -> 0.46 kWh/yr

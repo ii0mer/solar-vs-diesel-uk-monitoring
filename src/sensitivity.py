@@ -38,7 +38,7 @@ from .diesel import DieselArchitecture1, DieselArchitecture2
 # 25-year lifetime cost (NOT year-0 capex): 450 Wp + 1.0 kWh.
 CENTRAL = {
     'pv_capex_gbp_per_wp': 4.50,
-    'pv_size_wp': 450.0,
+    'pv_size_wp': 500.0,
     'battery_capex_gbp_per_kwh': 700.0,
     'battery_kwh': 1.0,
     'annual_energy_delivered_kwh': 128.2,
@@ -130,8 +130,8 @@ def one_at_a_time_sensitivity(
     # (energy balance). Designs are exact re-optimisations at Southampton
     # (grid search, EoL criterion): ×0.8 → 300 Wp + 1.0 kWh; ×1.2 →
     # 550 Wp + 1.0 kWh. Provenance: results/load_resize_check.txt.
-    for label, mult, wp, kwh in [('Load: -20%', 0.8, 300.0, 1.0),
-                                 ('Load: +20%', 1.2, 550.0, 1.0)]:
+    for label, mult, wp, kwh in [('Load: -20%', 0.8, 400.0, 0.75),
+                                 ('Load: +20%', 1.2, 500.0, 1.5)]:
         p = dict(CENTRAL)
         p['annual_energy_delivered_kwh'] = CENTRAL['annual_energy_delivered_kwh'] * mult
         p['pv_size_wp'] = wp; p['battery_kwh'] = kwh
@@ -157,11 +157,13 @@ def one_at_a_time_sensitivity(
     # results/degradation_resize_check.txt). Note the optimizer moves
     # along the PV–battery frontier: slower fade favours more PV and
     # less storage, not a simple array rescale.
-    # 0.5%/yr central → 450 Wp + 1.0 kWh; 0.3 → 400+1.0; 0.8 →
-    # unchanged 450+1.0 (the central design already tolerates 0.8%/yr
-    # at EoL LOLP 0.833% — itself a reportable robustness result).
-    for label, deg, wp, kwh in [('PV degr: 0.3%', 0.3, 400.0, 1.0),
-                                ('PV degr: 0.8%', 0.8, 450.0, 1.0)]:
+    # Southampton exact re-optimisations (governing-year criterion):
+    # 0.3 → 400 Wp + 1.25 kWh; 0.5 (central) → 500 + 1.0;
+    # 0.8 → 450 + 1.25; 1.0 → 550 + 1.0 (range extended to 1.0 %/yr for
+    # UK field evidence, Dhimish 2020).
+    for label, deg, wp, kwh in [('PV degr: 0.3%', 0.3, 400.0, 1.25),
+                                ('PV degr: 0.8%', 0.8, 450.0, 1.25),
+                                ('PV degr: 1.0%', 1.0, 550.0, 1.0)]:
         p = dict(CENTRAL)
         p['pv_size_wp'] = wp
         p['battery_kwh'] = kwh
@@ -224,19 +226,23 @@ def one_at_a_time_sensitivity(
     return df
 
 
-def combined_worst_case(designs: dict, architecture: int = 2) -> pd.DataFrame:
+def combined_worst_case(designs: dict, architecture: int = 2,
+                        diesel_visits: int | None = None) -> pd.DataFrame:
     """Stack every parameter at its diesel-favourable extreme simultaneously.
 
-    PV capex +30%, battery capex +30%, degradation 0.8%/yr (design already
-    tolerant: EoL LOLP 0.833% at central sizing), cheapest 14-yr fuel
+    PV capex +30%, battery capex +30%, degradation 0.8%/yr (pass the
+    exactly RE-SIZED 0.8 %/yr designs via `designs`), cheapest 14-yr fuel
     (44.96 ppl), visit costs halved for BOTH systems, 10% discount rate,
-    solar battery life 8 yr. Returns per-site LCOEs and ratio: the FLOOR
-    of the solar advantage under joint pessimism.
+    solar battery life 8 yr. `diesel_visits` optionally stacks a reduced
+    diesel cadence too. Returns per-site LCOEs and ratio: the FLOOR of the
+    solar advantage under joint pessimism.
     """
     rows = []
     arch = DieselArchitecture2() if architecture == 2 else DieselArchitecture1()
     arch.fuel_delivery_cost_per_visit_gbp *= 0.5
     arch.inspection_cost_per_visit_gbp *= 0.5
+    if diesel_visits is not None:
+        arch.annual_site_visits = diesel_visits
     di = build_diesel_cashflows(
         arch, fuel_price_ppl=44.96,
         annual_energy_delivered_kwh=CENTRAL['annual_energy_delivered_kwh'],

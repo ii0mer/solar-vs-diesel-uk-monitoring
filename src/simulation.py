@@ -69,7 +69,8 @@ def run_simulation(weather: pd.DataFrame,
                    initial_soc_frac: float = 0.5,
                    pv_ageing_factor: float = 1.0,
                    charge_temp_limit_c: float | None = None,
-                   pv_series_w: Optional[pd.Series] = None
+                   pv_series_w: Optional[pd.Series] = None,
+                   battery_soh: float = 1.0
                    ) -> SimulationResult:
     """Run an 8,760-hour energy balance.
 
@@ -95,6 +96,10 @@ def run_simulation(weather: pd.DataFrame,
         Precomputed hourly PV output in W (post-loss-chain). PVWatts DC is
         linear in nameplate, so sizing sweeps compute the chain once per
         site at a reference size and scale — this skips the pvlib chain.
+    battery_soh : float
+        Battery state of health as a fraction of nameplate capacity
+        (1.0 = new; 0.8 = end of warranty life). The usable window scales
+        with SoH; the DoD floor fraction is unchanged.
     """
     # Hourly PV in W → convert to Wh per hour (1h timestep)
     pv_w = pv_series_w if pv_series_w is not None \
@@ -105,7 +110,7 @@ def run_simulation(weather: pd.DataFrame,
     load_wh = load.hourly_series(weather.index, multiplier=load_multiplier).values
 
     # Battery state in Wh
-    cap_wh = battery.capacity_kwh * 1000.0
+    cap_wh = battery.capacity_kwh * 1000.0 * battery_soh
     soc_min_wh = cap_wh * (1.0 - battery.max_dod)   # floor
     soc_max_wh = cap_wh                              # ceiling
     soc_wh = cap_wh * initial_soc_frac

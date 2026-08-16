@@ -72,13 +72,22 @@ RESULTS_DIR.mkdir(exist_ok=True)
 SEED = 42
 N_DRAWS_DEFAULT = 5000
 
-# Per-site (PV Wp, battery kWh) from the corrected end-of-life LOLP <= 1%
-# grid search with the explicit loss chain (results/sizing_summary.txt)
+# Per-site (PV Wp, battery kWh) from the governing-year LOLP <= 1% grid
+# search (PV at year-24 output, battery at 80 % SoH; explicit loss chain
+# incl. AOI; lifetime-NPV ranking). Provenance: results/sizing_summary.txt
 SITE_DESIGN = {
-    'Southampton': (450.0, 1.0),
-    'Birmingham': (550.0, 1.0),
-    'Liverpool': (650.0, 1.0),
-    'Edinburgh': (550.0, 1.5),
+    'Southampton': (500.0, 1.0),
+    'Birmingham': (550.0, 1.25),
+    'Liverpool': (650.0, 1.25),
+    'Edinburgh': (650.0, 1.5),
+}
+# Exact re-optimised designs at 0.8 %/yr module degradation (used by the
+# combined worst case). Provenance: results/degradation_resize_check.txt
+SITE_DESIGN_DEG08 = {
+    'Southampton': (450.0, 1.25),
+    'Birmingham': (600.0, 1.25),
+    'Liverpool': (700.0, 1.25),
+    'Edinburgh': (600.0, 1.75),
 }
 # Back-compat alias (PV only) for modules/tests that iterate site names
 SITE_PV_WP = {k: v[0] for k, v in SITE_DESIGN.items()}
@@ -144,6 +153,7 @@ def _diesel_lcoe_one(d: McDraws, i: int) -> float:
     arch = DieselArchitecture2()
     arch.fuel_delivery_cost_per_visit_gbp *= d.visit_cost_mult[i]
     arch.inspection_cost_per_visit_gbp *= d.visit_cost_mult[i]
+    arch.daily_load_wh *= d.load_mult[i]      # runtime/fuel follow the load
     cf = build_diesel_cashflows(
         arch,
         fuel_price_ppl=d.fuel_price_ppl[i],
