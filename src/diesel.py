@@ -39,24 +39,30 @@ class DieselArchitecture1:
     """Continuous 24/7 diesel — worst-case scenario."""
 
     # --- Hardware ---
-    genset_rated_kw: float = 1.0              # smallest practical industrial diesel
-    capex_genset_gbp: float = 1200.0          # purchase price, 1 kW class
+    # No ~1 kW diesel genset is sold; the smallest common air-cooled diesel
+    # sets are 2 kVA class (e.g. Yanmar YDG2700N, 2.0 kVA continuous;
+    # Hatz 1B-engined sets), i.e. about 1.6 kW at 0.8 pf.
+    genset_rated_kw: float = 1.6              # 2 kVA-class air-cooled diesel
+    capex_genset_gbp: float = 2200.0          # 2 kVA-class set, ex VAT (assumption;
+                                              # a 4.8 kVA Pramac P6000 lists at
+                                              # GBP 3,453 ex VAT, 2026)
     capex_fuel_tank_gbp: float = 350.0        # 200 L weatherproof bunded tank
     capex_enclosure_gbp: float = 800.0        # housing, anti-theft, ventilation
     capex_install_gbp: float = 500.0          # site levelling, electrical, commissioning
     capex_acdc_converter_gbp: float = 80.0    # AC→DC converter for the load
 
     # --- Operating point ---
-    # Load is 14.64 W on a 1 kW genset = 1.5% of rated load.
+    # Load is 14.64 W on a 1.6 kW genset = 0.9% of rated load.
     # Fuel at part load from the Skarstein–Uhlen linear model
     # (Skarstein & Uhlen, Wind Engineering 13(2), 1989), the standard
     # part-load fuel curve in the hybrid-systems literature:
     #   F [L/h] = 0.08415 · P_rated [kW] + 0.246 · P_out [kW]
-    # At P_rated = 1 kW, P_out = 0.01464 kW → 0.0878 L/h. The dominant
+    # At P_rated = 1.6 kW, P_out = 0.01464 kW → 0.138 L/h. The dominant
     # term is the no-load (rated-capacity) intercept — exactly the
-    # wet-stacking regime. Manufacturer-curve cross-check goes in the
-    # diesel evidence pack; the earlier 0.40 L/h figure was an idle-fuel
-    # estimate without a citable basis and overstated A1 fuel ~4.5×.
+    # wet-stacking regime. Cross-check: an Onan QD3200 (3.2 kW) datasheet
+    # gives 0.7 L/h at NO load vs 0.27 L/h from S–U, so S–U UNDERSTATES
+    # small-set consumption by roughly 25–50%: conservative for the
+    # solar-vs-diesel finding.
     su_intercept_l_per_h_per_kw: float = 0.08415
     su_slope_l_per_kwh: float = 0.246
     electrical_load_kw: float = 0.01464
@@ -121,31 +127,30 @@ class DieselArchitecture2:
     """Diesel + small battery, intermittent operation — realistic case."""
 
     # --- Hardware ---
-    genset_rated_kw: float = 1.0
-    capex_genset_gbp: float = 1200.0
-    capex_fuel_tank_gbp: float = 350.0
+    genset_rated_kw: float = 1.6              # 2 kVA-class air-cooled diesel
+    capex_genset_gbp: float = 2200.0
+    capex_fuel_tank_gbp: float = 350.0        # 200 L bunded tank (at the OSR 2001 threshold)
     capex_enclosure_gbp: float = 800.0
     capex_install_gbp: float = 500.0
-    capex_battery_gbp: float = 200.0          # 100 Ah lead-acid (~1.2 kWh nominal)
+    capex_battery_gbp: float = 400.0          # 200 Ah / 12 V lead-acid (~2.4 kWh nominal),
+                                              # sized so the 480 W bulk charge is C/5 (40 A)
     capex_charge_controller_gbp: float = 100.0
 
     # --- Operating point ---
-    # The genset recharges the buffer battery at ~30% rated load (300 W),
-    # a healthy engine regime. Runtime is DERIVED from the daily energy
-    # balance rather than assumed: the load draws 351.4 Wh/day (14.64 W
-    # design load), delivered through the lead-acid buffer at ~80%
-    # round-trip efficiency (flooded PbA, partial-state-of-charge duty),
-    # so the genset must generate 351.4/0.80 ≈ 439 Wh/day →
-    # 439/300 ≈ 1.46 h/day. (The earlier fixed 4 h/day assumption
-    # generated 3.4× the energy the load consumes — internally
-    # inconsistent and diesel-pessimistic.)
-    charge_power_kw: float = 0.30             # ~30% of rated
+    # The genset recharges the buffer battery at 30% of rated load
+    # (480 W on a 1.6 kW set), the manufacturer minimum-load regime
+    # (Kubota/Caterpillar/Cummins 30%; Hatz 25%; Hatz-E/Onan 15%).
+    # Runtime is DERIVED from the daily energy balance: the load draws
+    # 351.4 Wh/day, delivered through the lead-acid buffer at ~80%
+    # round-trip efficiency, so the genset must generate ≈439 Wh/day →
+    # 439/480 ≈ 0.91 h/day. Note that at a fixed load fraction the
+    # Skarstein–Uhlen annual fuel is independent of the rating (the
+    # per-hour rate scales with P_rated, the hours inversely).
+    charge_power_kw: float = 0.48             # 30% of 1.6 kW
     daily_load_wh: float = 351.36             # 14.64 W × 24 h
     battery_path_efficiency: float = 0.80     # PbA round-trip, PSoC duty
-    # Skarstein–Uhlen fuel at 30% load, 1 kW machine:
-    # 0.08415·1 + 0.246·0.30 = 0.158 L/h. The earlier 0.20 L/h
-    # figure is retained as a conservative manufacturer-style value only
-    # if evidence pack supports it; central uses the S–U model.
+    # Skarstein–Uhlen fuel at 30% load, 1.6 kW machine:
+    # 0.08415·1.6 + 0.246·0.48 = 0.253 L/h.
     su_intercept_l_per_h_per_kw: float = 0.08415
     su_slope_l_per_kwh: float = 0.246
 
@@ -164,9 +169,9 @@ class DieselArchitecture2:
         return int(self.daily_runtime_hours * 365)
 
     # --- Maintenance ---
-    oil_change_interval_hours: int = 250      # standard interval at proper load
+    oil_change_interval_hours: int = 250      # Hatz 1B / Onan QD: 250 h or 12 months
     cost_per_oil_change_gbp: float = 25.0
-    genset_lifetime_hours: int = 8000
+    genset_lifetime_hours: int = 8000         # assumption (no manufacturer hours-life found)
 
     # --- Battery replacement ---
     battery_lifetime_years: float = 4.0       # lead-acid daily cycling
@@ -191,7 +196,8 @@ class DieselArchitecture2:
 
     @property
     def annual_oil_changes(self) -> int:
-        return self.annual_runtime_hours // self.oil_change_interval_hours
+        # manufacturer interval in hours, with the manuals' 12-month floor
+        return max(1, self.annual_runtime_hours // self.oil_change_interval_hours)
 
     @property
     def annual_oil_cost_gbp(self) -> float:

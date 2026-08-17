@@ -97,27 +97,27 @@ def test_battery_usable_capacity():
 # =========================================================================
 
 def test_diesel_arch1_fuel_skarstein_uhlen():
-    """A1 fuel: 0.08415·1 kW + 0.246·0.01464 kW = 0.0878 L/h → 769 L/yr."""
+    """A1 fuel: 0.08415·1.6 kW + 0.246·0.01464 kW = 0.138 L/h → 1,211 L/yr."""
     arch1 = DieselArchitecture1()
-    assert abs(arch1.fuel_litres_per_hour_at_op_point - 0.0878) < 0.0005
-    assert abs(arch1.annual_fuel_litres - 769) < 2
+    assert abs(arch1.fuel_litres_per_hour_at_op_point - 0.1382) < 0.0005
+    assert abs(arch1.annual_fuel_litres - 1211) < 2
 
 
 def test_diesel_arch2_runtime_satisfies_energy_balance():
     """A2 runtime must be DERIVED: gen energy = daily load / battery-path
-    efficiency. 351.36/0.80 = 439.2 Wh → /300 W = 1.464 h/day."""
+    efficiency. 351.36/0.80 = 439.2 Wh → /480 W = 0.915 h/day."""
     arch2 = DieselArchitecture2()
-    assert abs(arch2.daily_runtime_hours - 1.464) < 0.001
+    assert abs(arch2.daily_runtime_hours - 0.915) < 0.001
     gen_wh = arch2.daily_runtime_hours * arch2.charge_power_kw * 1000
     served_wh = gen_wh * arch2.battery_path_efficiency
     assert abs(served_wh - arch2.daily_load_wh) < 0.01
 
 
 def test_diesel_arch2_annual_fuel():
-    """A2: 0.1579 L/h × 534 h/yr ≈ 84 L/yr (was 292 under the
-    internally-inconsistent fixed 4 h/day assumption)."""
+    """A2: 0.2527 L/h × 333 h/yr ≈ 84 L/yr. At a fixed 30% load fraction the
+    Skarstein–Uhlen annual fuel is independent of the genset rating."""
     arch2 = DieselArchitecture2()
-    assert abs(arch2.annual_fuel_litres - 84.3) < 1.0
+    assert abs(arch2.annual_fuel_litres - 84.2) < 1.0
 
 
 def test_diesel_visit_cost():
@@ -175,13 +175,13 @@ def test_edinburgh_solar_lcoe_at_5pct():
 def test_diesel_a1_lcoe_at_5pct():
     lcoe = build_diesel_cashflows(
         DieselArchitecture1(), fuel_price_ppl=76.02).lcoe_gbp_per_kwh(0.05)
-    assert 57.5 < lcoe < 59.0, f"expected ~£58.3, got £{lcoe:.3f}"
+    assert 74.0 < lcoe < 76.5, f"expected ~£75.1, got £{lcoe:.3f}"
 
 
 def test_diesel_a2_lcoe_at_5pct():
     lcoe = build_diesel_cashflows(
         DieselArchitecture2(), fuel_price_ppl=76.02).lcoe_gbp_per_kwh(0.05)
-    assert 21.4 < lcoe < 22.4, f"expected ~£21.9, got £{lcoe:.3f}"
+    assert 21.9 < lcoe < 22.9, f"expected ~£22.4, got £{lcoe:.3f}"
 
 
 def test_solar_beats_diesel_a2_all_sites_5pct():
