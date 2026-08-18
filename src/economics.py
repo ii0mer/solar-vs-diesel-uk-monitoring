@@ -211,7 +211,7 @@ def build_diesel_cashflows(
 
     Replacements use the SAME convention as the solar system (see
     lumpy_replacement_flows): lumpy years + end-of-project salvage for
-    lives >= 2 years (A2 genset ~15 yr at derived runtime, A2 lead-acid
+    lives >= 2 years (A2 genset ~24 yr at 333 h/yr at derived runtime, A2 lead-acid
     4 yr), annualised only where life is sub-2-years (A1 genset, whose
     5,000 h life at 8,760 h/yr means replacement every ~7 months).
     """

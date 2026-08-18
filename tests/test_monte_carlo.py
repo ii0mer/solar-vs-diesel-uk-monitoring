@@ -43,7 +43,7 @@ def test_degenerate_draws_reproduce_deterministic_exactly():
         battery_life_years=np.array([12]),
         discount_rate=np.array([0.05]),
     )
-    assert _solar_lcoe_one((500.0, 1.0), d, 0) == pytest.approx(
+    assert _solar_lcoe_one((500.0, 2.0), d, 0) == pytest.approx(
         central_pv_lcoe(CENTRAL), rel=1e-9)
     assert _diesel_lcoe_one(d, 0) == pytest.approx(
         central_diesel_lcoe(CENTRAL, architecture=2), rel=1e-9)
@@ -56,7 +56,7 @@ def test_median_within_expected_band_of_deterministic():
     is below the deterministic 12 yr. Assert the median lands in the
     band that asymmetry predicts, not outside it."""
     mc = run_monte_carlo(n=1500, discount_rate=0.05)
-    det_solar = central_pv_lcoe(CENTRAL)          # Southampton 400 Wp central
+    det_solar = central_pv_lcoe(CENTRAL)          # Southampton final design (500 Wp + 2.0 kWh) central
     p50 = np.percentile(mc['solar_lcoe_Southampton'], 50)
     assert 0.98 < p50 / det_solar < 1.20
     det_diesel = central_diesel_lcoe(CENTRAL, architecture=2)

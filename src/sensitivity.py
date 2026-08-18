@@ -6,12 +6,12 @@ distinguishes a Distinction-grade dissertation from a 2:1.
 
 Parameters varied:
   1. Diesel fuel price (44.96 → 117.56 ppl, 14-year UK historical range)
-  2. Battery cost (-30% to +30% from $70/kWh BNEF 2025 baseline)
+  2. Battery cost (-30% to +30% from the GBP 700/kWh installed baseline)
   3. PV cost (-30% to +30% from £4.50/Wp baseline)
   4. Discount rate (3%, 5%, 7%, 10%)
   5. Load magnitude (-20% to +20%)
-  6. PV degradation rate (0.3, 0.5, 0.8 %/yr)
-  7. PV system lifetime (20, 25, 30 yr)
+  6. PV degradation rate (0.3, 0.5, 0.8, 1.0 %/yr; system re-sized)
+  7. Diesel visit cadence (12, 6, 4, 2 visits/yr)
   8. Site visit cost (50%, 100%, 200% of central case)
   9. Solar LFP battery replacement interval (8, 10, 12, 15 yr) — Upgrade 4B;
      stationary LFP calendar-life range at ultra-low C-rate (~0.015C)
@@ -33,14 +33,20 @@ from .diesel import DieselArchitecture1, DieselArchitecture2
 
 
 # Central case parameters (the dissertation baseline)
-# Southampton reference design from the corrected sizing: explicit loss
-# chain, year-25 (end-of-life) LOLP criterion, ranked by discounted
-# 25-year lifetime cost (NOT year-0 capex): 450 Wp + 1.0 kWh.
+# Southampton FINAL design: cheapest lifetime-cost design holding annual
+# LOLP <= 1% in at least 15 of the 16 real years 2005-2020 under both PV
+# conversion models (src/multiyear.py): 500 Wp + 2.0 kWh.
+# Exact re-optimised Southampton designs (final multi-year criterion) used
+# by the sizing-coupled OAT rows. Provenance: results/resize_checks.txt
+LOAD_DESIGNS = {0.8: (500.0, 1.25), 1.0: (500.0, 2.0), 1.2: (600.0, 2.5)}
+DEGRADATION_DESIGNS = {0.3: (600.0, 1.5), 0.5: (500.0, 2.0),
+                       0.8: (550.0, 2.0), 1.0: (550.0, 2.0)}
+
 CENTRAL = {
     'pv_capex_gbp_per_wp': 4.50,
     'pv_size_wp': 500.0,
     'battery_capex_gbp_per_kwh': 700.0,
-    'battery_kwh': 1.0,
+    'battery_kwh': 2.0,
     'annual_energy_delivered_kwh': 128.2,
     'pv_degradation_pct_per_year': 0.5,
     'battery_lifetime_years': 12,
@@ -128,10 +134,11 @@ def one_at_a_time_sensitivity(
     # Load magnitude — SIZING-COUPLED and DIESEL-RUNTIME-COUPLED. A ±20%
     # load changes the optimal solar design AND the A2 genset runtime
     # (energy balance). Designs are exact re-optimisations at Southampton
-    # (grid search, EoL criterion): ×0.8 → 300 Wp + 1.0 kWh; ×1.2 →
-    # 550 Wp + 1.0 kWh. Provenance: results/load_resize_check.txt.
-    for label, mult, wp, kwh in [('Load: -20%', 0.8, 400.0, 0.75),
-                                 ('Load: +20%', 1.2, 500.0, 1.5)]:
+    # under the FINAL multi-year criterion (src.multiyear.robust_design):
+    # ×0.8 → 500 Wp + 1.25 kWh; ×1.2 → 600 Wp + 2.5 kWh.
+    # Provenance: results/resize_checks.txt.
+    for label, mult in [('Load: -20%', 0.8), ('Load: +20%', 1.2)]:
+        wp, kwh = LOAD_DESIGNS[mult]
         p = dict(CENTRAL)
         p['annual_energy_delivered_kwh'] = CENTRAL['annual_energy_delivered_kwh'] * mult
         p['pv_size_wp'] = wp; p['battery_kwh'] = kwh
@@ -149,21 +156,19 @@ def one_at_a_time_sensitivity(
                      f'{mult*100:.0f}% (re-sized {wp:.0f} Wp+{kwh:.1f} kWh)',
                      pv, di, di / pv))
 
-    # PV degradation — SIZING-COUPLED: for a fixed load served at an
-    # end-of-life LOLP criterion, degradation costs capex (a different
+    # PV degradation — SIZING-COUPLED: for a fixed load served at a
+    # governing-year LOLP criterion, degradation costs capex (a different
     # optimal design), not delivered energy. Designs below are EXACT
-    # re-optimisations at Southampton from the sizing grid search
-    # (provenance: python -m src.make_results →
-    # results/degradation_resize_check.txt). Note the optimizer moves
-    # along the PV–battery frontier: slower fade favours more PV and
-    # less storage, not a simple array rescale.
-    # Southampton exact re-optimisations (governing-year criterion):
-    # 0.3 → 400 Wp + 1.25 kWh; 0.5 (central) → 500 + 1.0;
-    # 0.8 → 450 + 1.25; 1.0 → 550 + 1.0 (range extended to 1.0 %/yr for
+    # re-optimisations at Southampton under the FINAL multi-year criterion
+    # (provenance: results/resize_checks.txt). The optimiser moves along
+    # the PV–battery frontier: slower fade favours more PV and less
+    # storage, not a simple array rescale.
+    # 0.3 → 600 Wp + 1.5 kWh; 0.5 (central) → 500 + 2.0;
+    # 0.8 → 550 + 2.0; 1.0 → 550 + 2.0 (range extended to 1.0 %/yr for
     # UK field evidence, Dhimish 2020).
-    for label, deg, wp, kwh in [('PV degr: 0.3%', 0.3, 400.0, 1.25),
-                                ('PV degr: 0.8%', 0.8, 450.0, 1.25),
-                                ('PV degr: 1.0%', 1.0, 550.0, 1.0)]:
+    for label, deg in [('PV degr: 0.3%', 0.3), ('PV degr: 0.8%', 0.8),
+                       ('PV degr: 1.0%', 1.0)]:
+        wp, kwh = DEGRADATION_DESIGNS[deg]
         p = dict(CENTRAL)
         p['pv_size_wp'] = wp
         p['battery_kwh'] = kwh

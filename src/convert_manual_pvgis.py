@@ -59,7 +59,7 @@ def main():
         sys.exit(1)
     print("All sites converted. You can now run:")
     print("  python -m src.simulation")
-    print("  python -m src.figures")
+    print("  python -m src.figures_paper")
 
 
 if __name__ == '__main__':

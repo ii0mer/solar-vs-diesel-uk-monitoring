@@ -1,10 +1,13 @@
-CORRECTED sizing for LOLP <= 1.0% at END OF LIFE (year 25),
-explicit loss chain (total 12.7% incl. MPPT controller), real PVGIS-SARAH2 TMY (2005-2020).
+STEP 1 — sizing for LOLP <= 1.0% in the design-governing year
+(year 24: PV at (1-d)^23, battery at 80% SoH) on the PVGIS-SARAH2
+typical meteorological year; explicit loss chain (total 12.7% incl. MPPT controller); ranked by
+25-year lifetime NPV at 5%. These are SITE_DESIGN_TMY in
+src/monte_carlo.py. The FINAL designs (SITE_DESIGN) come from the
+sixteen-year check in src/multiyear.py (results/multiyear_summary.txt).
 
-Southampton  500 Wp + 1.0 kWh  EoL LOLP=0.753%  year-1 LOLP=0.148%  curtailed 347 kWh/yr
-Birmingham   550 Wp + 1.2 kWh  EoL LOLP=0.993%  year-1 LOLP=0.571%  curtailed 346 kWh/yr
-Liverpool    650 Wp + 1.2 kWh  EoL LOLP=0.982%  year-1 LOLP=0.354%  curtailed 432 kWh/yr
-Edinburgh    650 Wp + 1.5 kWh  EoL LOLP=0.868%  year-1 LOLP=0.320%  curtailed 404 kWh/yr
+Southampton  500 Wp + 1.00 kWh  governing-year LOLP=0.753%  year-1 LOLP=0.148%  curtailed 347 kWh/yr
+Birmingham   550 Wp + 1.25 kWh  governing-year LOLP=0.993%  year-1 LOLP=0.571%  curtailed 346 kWh/yr
+Liverpool    650 Wp + 1.25 kWh  governing-year LOLP=0.982%  year-1 LOLP=0.354%  curtailed 432 kWh/yr
+Edinburgh    550 Wp + 1.75 kWh  governing-year LOLP=0.936%  year-1 LOLP=0.263%  curtailed 321 kWh/yr
 
-Design criterion: the system must meet its reliability target in
-its WORST year (year 25 output = (1-0.005)^24 = 0.8911 of year-1), not merely on day one.
+Governing-year PV factor (1-0.005)^23 = 0.8911; battery SoH 0.80.

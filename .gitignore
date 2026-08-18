@@ -31,6 +31,8 @@ data/pvgis/*_synthetic.csv
 
 # Real PVGIS TMY files ARE committed (reproducibility record)
 !data/pvgis/*_tmy.csv
+# PVGIS 2005-2020 hourly series ARE committed (validation + multi-year check)
+!data/pvgis_series/*.csv
 
 # Results CSVs ARE committed
 !results/lcoe_comparison.csv

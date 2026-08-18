@@ -50,7 +50,7 @@ Outputs
 -------
   results/monte_carlo_lcoe.csv          summary percentiles per site x rate
   results/monte_carlo_draws_<rate>.npz  raw draws (reproducible, seed=42)
-  figures/fig08_monte_carlo_lcoe.png    distributions + P10/P50/P90
+  figures/paper/fig09_monte_carlo.png   distributions + P10/P50/P90 (src/figures_paper.py)
 
 Run:  python -m src.monte_carlo
 """
@@ -72,22 +72,33 @@ RESULTS_DIR.mkdir(exist_ok=True)
 SEED = 42
 N_DRAWS_DEFAULT = 5000
 
-# Per-site (PV Wp, battery kWh) from the governing-year LOLP <= 1% grid
-# search (PV at year-24 output, battery at 80 % SoH; explicit loss chain
-# incl. AOI; lifetime-NPV ranking). Provenance: results/sizing_summary.txt
-SITE_DESIGN = {
+# Step-1 designs: cheapest (lifetime NPV at 5%) design holding LOLP <= 1%
+# in the design-governing year (year 24: PV at (1-d)^23, battery at 80% SoH)
+# on the PVGIS-SARAH2 typical meteorological year. Provenance:
+# results/sizing_summary.txt
+SITE_DESIGN_TMY = {
     'Southampton': (500.0, 1.0),
     'Birmingham': (550.0, 1.25),
     'Liverpool': (650.0, 1.25),
-    'Edinburgh': (650.0, 1.5),
+    'Edinburgh': (550.0, 1.75),
 }
-# Exact re-optimised designs at 0.8 %/yr module degradation (used by the
-# combined worst case). Provenance: results/degradation_resize_check.txt
+# FINAL designs used for all economics: cheapest design with annual
+# LOLP <= 1% in at least 15 of the 16 real years 2005-2020 (governing-year
+# conditions) under BOTH PV conversion models (this study's chain and
+# PVGIS's). Provenance: python -m src.multiyear → results/multiyear_summary.txt
+SITE_DESIGN = {
+    'Southampton': (500.0, 2.0),
+    'Birmingham': (800.0, 1.5),
+    'Liverpool': (550.0, 2.0),
+    'Edinburgh': (850.0, 1.75),
+}
+# Final-criterion designs re-optimised at 0.8 %/yr module degradation
+# (used by the combined worst case). Provenance: results/resize_checks.txt
 SITE_DESIGN_DEG08 = {
-    'Southampton': (450.0, 1.25),
-    'Birmingham': (600.0, 1.25),
-    'Liverpool': (700.0, 1.25),
-    'Edinburgh': (600.0, 1.75),
+    'Southampton': (550.0, 2.0),
+    'Birmingham': (850.0, 1.5),
+    'Liverpool': (600.0, 2.0),
+    'Edinburgh': (850.0, 2.0),
 }
 # Back-compat alias (PV only) for modules/tests that iterate site names
 SITE_PV_WP = {k: v[0] for k, v in SITE_DESIGN.items()}

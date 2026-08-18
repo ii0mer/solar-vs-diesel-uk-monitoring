@@ -1,17 +1,15 @@
 """PV system model — thin wrapper around pvlib.ModelChain.
 
-For an off-grid monitoring station the array is small (50–500 W) and DC-coupled
-through a charge controller to the battery. We don't need a full inverter
-model for the AC side here because the load is mostly DC-native (router,
-logger, sensors). For methodological cleanliness we still simulate the AC
-side and use a 92% DC-DC converter efficiency on the load.
+For an off-grid monitoring station the array is small (a few hundred Wp)
+and DC-coupled through an MPPT charge controller to the battery; the load
+is DC-native (logger, sensors, router), so no AC side is modelled.
 
-Key choices and why:
-- Tilt = latitude (rule of thumb for year-round off-grid; we may revisit).
-- Azimuth = 180° (true south).
-- Module: representative 400 W mono-Si from CEC database. Final dissertation
-  will fix specific commercial module + cite datasheet.
-- Temperature model: SAPM open-rack glass/glass.
+Chain: solar position -> Hay-Davies transposition -> incidence-angle
+modifiers (physical, beam; Marion, diffuse) -> SAPM open-rack cell
+temperature -> PVWatts DC (gamma -0.35 %/K) -> explicit loss chain
+(LossChain, PVWatts v5 categories) and MPPT controller efficiency.
+Tilt = site latitude, azimuth 180 deg (south). Validated against PVGIS in
+validation.py.
 """
 from __future__ import annotations
 from dataclasses import dataclass

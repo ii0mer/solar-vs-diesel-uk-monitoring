@@ -1,33 +1,23 @@
-"""Diesel generator model — small standby gensets at very low load.
+"""Diesel generator comparator: a 2 kVA-class (1.6 kW) air-cooled set at
+very light load.
 
-Two architectures modelled:
+Two architectures are modelled:
 
   ARCHITECTURE 1: Continuous 24/7 operation
-    Smallest practical genset (1 kW class) runs continuously, powering the
-    14.6 W load directly through a small AC-DC converter. Genset operates
-    at <2% of rated capacity — extreme low-load regime causing wet stacking,
-    oil contamination, and accelerated wear.
+    The set runs continuously, powering the 14.64 W load through a small
+    AC-DC converter, at 0.9% of rated output: the wet-stacking regime that
+    manufacturers warn against (oil contamination, carbon build-up).
 
-  ARCHITECTURE 2: Diesel + small battery (intermittent)
-    Genset runs ~4 hours/day at ~30% of rated capacity to recharge a small
-    lead-acid battery (~1 kWh). Battery powers the load between starts.
-    More realistic engineering deployment; better fuel efficiency per kWh
-    delivered; less mechanical stress on the engine.
+  ARCHITECTURE 2: Diesel + lead-acid buffer (intermittent, central case)
+    The set runs 0.915 h/day at 30% of rated output (480 W) to recharge a
+    200 Ah / 12 V lead-acid bank (about 2.4 kWh nominal); the runtime is
+    DERIVED from the daily energy balance (351.4 Wh/day divided by an 80%
+    battery-path efficiency). The bank powers the load between starts.
 
-The dissertation reports BOTH and uses Architecture 2 as central case for
-the headline LCOE figure, with Architecture 1 as a worst-case sensitivity
-bound. This frames the comparison honestly: even on the realistic case,
-diesel is uneconomic vs. solar-battery for this load class.
-
-Sources:
-- Solent Power (2026) "How much fuel does a generator use?" — industry rule of
-  thumb: kVA × 0.25 = L/hr at full load. Available at:
-  https://www.solentpower.co.uk/how-much-fuel-does-a-generator-use/
-- AHDB (2026) Fuel prices, updated 6 May 2026. UK red diesel 2025 mean: 76.02 ppl
-  excl. VAT.
-- DESNZ (2025) GHG conversion factors 2025: gas oil = 2.75766 kgCO2e/litre Scope 1.
-- Honda EU2200i specifications, manufacturer datasheet (gasoline reference).
-- Generic 1 kW diesel manufacturer specs (Hyundai DHY1500SE class).
+Both are reported; A2 is the central comparator and A1 the upper bound.
+Fuel follows the Skarstein-Uhlen linear part-load curve; oil changes,
+scheduled replacements and monthly site visits are costed explicitly.
+Sources are cited next to each parameter below and in the paper.
 """
 from __future__ import annotations
 from dataclasses import dataclass, field

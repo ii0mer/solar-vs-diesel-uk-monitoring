@@ -77,7 +77,8 @@ def run_simulation(weather: pd.DataFrame,
     Parameters
     ----------
     initial_soc_frac : float
-        Starting SoC as fraction of nameplate capacity. Default 0.5 (mid-charge).
+        Starting SoC as a fraction of NAMEPLATE capacity (capped at the
+        SoH-reduced ceiling). Default 0.5 (mid-charge).
         For sizing studies we typically run two passes — the second uses the
         first pass's final SoC as initial — to remove start-condition bias.
     pv_ageing_factor : float
@@ -113,7 +114,11 @@ def run_simulation(weather: pd.DataFrame,
     cap_wh = battery.capacity_kwh * 1000.0 * battery_soh
     soc_min_wh = cap_wh * (1.0 - battery.max_dod)   # floor
     soc_max_wh = cap_wh                              # ceiling
-    soc_wh = cap_wh * initial_soc_frac
+    # initial_soc_frac is a fraction of NAMEPLATE capacity (callers pass
+    # final_soc_kwh / capacity_kwh from a settling pass), capped at the
+    # SoH-reduced ceiling so a second pass starts exactly where the first
+    # pass ended.
+    soc_wh = min(cap_wh, battery.capacity_kwh * 1000.0 * initial_soc_frac)
     eta_chg = np.sqrt(battery.round_trip_eff)        # split RT eff
     eta_dis = np.sqrt(battery.round_trip_eff)
     self_dis_h = battery.hourly_self_discharge_frac

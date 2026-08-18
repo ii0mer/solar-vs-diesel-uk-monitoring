@@ -5,11 +5,15 @@ in the dissertation:
     python -m src.make_results
 
 Writes:
-    results/sizing_summary.txt      corrected designs, EoL + year-1 LOLP
+    results/sizing_summary.txt      step-1 TMY designs, governing-year + year-1 LOLP
     results/lcoe_comparison.csv     per-site LCOE at 5% and 8%, both diesels
+                                    (FINAL multi-year designs)
     results/diesel_ops_summary.txt  runtimes, fuel, replacement cadence
-    results/cold_charge_bound.txt   LFP cold-charge LOLP bound (Edinburgh)
-    results/degradation_resize_check.txt  exact vs linear-scaled sizing
+    results/resize_checks.txt       exact multi-year re-optimisations used by
+                                    the sizing-coupled sensitivity rows and
+                                    the combined worst case
+
+Run AFTER python -m src.multiyear (which fixes the final designs).
 """
 from __future__ import annotations
 from pathlib import Path
@@ -27,26 +31,34 @@ from .sizing import size_system, eol_ageing_factor
 from .economics import build_pv_battery_cashflows, build_diesel_cashflows
 from .diesel import (DieselArchitecture1, DieselArchitecture2,
                      lifetime_summary, annual_co2e_kg)
-from .monte_carlo import SITE_DESIGN
+from .monte_carlo import SITE_DESIGN, SITE_DESIGN_TMY, SITE_DESIGN_DEG08
+from .sensitivity import LOAD_DESIGNS, DEGRADATION_DESIGNS
 
 RESULTS = Path(__file__).resolve().parents[1] / 'results'
 RESULTS.mkdir(exist_ok=True)
 
 
 def sizing_and_reliability() -> pd.DataFrame:
+    """Step 1: TMY governing-year sizing (the multi-year step 2 is in
+    src/multiyear.py)."""
     load = LoadProfile()
     eol = eol_ageing_factor()
     rows = []
     lines = [
-        "CORRECTED sizing for LOLP <= 1.0% at END OF LIFE (year 25),",
-        f"explicit loss chain (total {LossChain().total_loss_pct:.1f}% incl. "
-        "MPPT controller), real PVGIS-SARAH2 TMY (2005-2020).",
+        "STEP 1 — sizing for LOLP <= 1.0% in the design-governing year",
+        "(year 24: PV at (1-d)^23, battery at 80% SoH) on the PVGIS-SARAH2",
+        f"typical meteorological year; explicit loss chain (total "
+        f"{LossChain().total_loss_pct:.1f}% incl. MPPT controller); ranked by",
+        "25-year lifetime NPV at 5%. These are SITE_DESIGN_TMY in",
+        "src/monte_carlo.py. The FINAL designs (SITE_DESIGN) come from the",
+        "sixteen-year check in src/multiyear.py (results/multiyear_summary.txt).",
         "",
     ]
     for key, site in SITES.items():
         w = get_or_create_tmy(site, prefer='real')
-        best, _ = size_system(w, site, load, target_lolp=0.01)
+        best, sweep = size_system(w, site, load, target_lolp=0.01)
         assert best is not None, f"no feasible design at {site.name}"
+        sweep.to_csv(RESULTS / f'sizing_sweep_{key}.csv', index=False)
         rows.append({
             'site': site.name,
             'pv_wp': best.pv_w,
@@ -56,22 +68,20 @@ def sizing_and_reliability() -> pd.DataFrame:
             'curtailed_eol_kwh': best.annual_curtailed_kwh,
         })
         lines.append(
-            f"{site.name:12s} {best.pv_w:.0f} Wp + {best.battery_kwh:.1f} kWh"
-            f"  EoL LOLP={best.lolp*100:.3f}%  year-1 LOLP="
+            f"{site.name:12s} {best.pv_w:.0f} Wp + {best.battery_kwh:.2f} kWh"
+            f"  governing-year LOLP={best.lolp*100:.3f}%  year-1 LOLP="
             f"{best.lolp_year1*100:.3f}%  curtailed {best.annual_curtailed_kwh:.0f} kWh/yr")
     lines += [
         "",
-        "Design criterion: the system must meet its reliability target in",
-        "its WORST year (year 25 output = (1-0.005)^24 = "
-        f"{eol:.4f} of year-1), not merely on day one.",
+        f"Governing-year PV factor (1-0.005)^23 = {eol:.4f}; battery SoH 0.80.",
     ]
     (RESULTS / 'sizing_summary.txt').write_text('\n'.join(lines) + '\n')
     df = pd.DataFrame(rows)
     # cross-check the module-level constants
     for _, r in df.iterrows():
-        wp, kwh = SITE_DESIGN[r['site']]
+        wp, kwh = SITE_DESIGN_TMY[r['site']]
         assert (wp, kwh) == (r['pv_wp'], r['battery_kwh']), \
-            f"SITE_DESIGN out of date for {r['site']}: {(r['pv_wp'], r['battery_kwh'])}"
+            f"SITE_DESIGN_TMY out of date for {r['site']}: {(r['pv_wp'], r['battery_kwh'])}"
     return df
 
 
@@ -127,56 +137,40 @@ def diesel_ops() -> None:
     (RESULTS / 'diesel_ops_summary.txt').write_text('\n'.join(lines))
 
 
-def cold_charge_bound() -> None:
-    site = SITES['edinburgh']
-    df = get_or_create_tmy(site, prefer='real')
-    wp, kwh = SITE_DESIGN['Edinburgh']
-    pv, bat, load = PVDesign(nameplate_w=wp), BatteryDesign(capacity_kwh=kwh), LoadProfile()
-    eol = eol_ageing_factor()
-    out = []
-    for label, age in [('year-1', 1.0), ('end-of-life', eol)]:
-        base = run_simulation(df, site, pv, bat, load, pv_ageing_factor=age)
-        cold = run_simulation(df, site, pv, bat, load, pv_ageing_factor=age,
-                              charge_temp_limit_c=0.0)
-        sub_zero_h = int((df['temp_air'] <= 0).sum())
-        out.append(
-            f"Edinburgh {label}: LOLP {base.lolp*100:.3f}% -> "
-            f"{cold.lolp*100:.3f}% with charging blocked at <=0 degC "
-            f"(ambient proxy; {sub_zero_h} sub-zero h/yr in TMY); "
-            f"EENS {base.annual_unmet_kwh:.2f} -> {cold.annual_unmet_kwh:.2f} kWh/yr")
-    (RESULTS / 'cold_charge_bound.txt').write_text('\n'.join(out) + '\n')
-    print('\n'.join(out))
-
-
-def degradation_resize_check() -> None:
-    """Verify the linear sizing approximation used in the tornado."""
-    site = SITES['southampton']
-    w = get_or_create_tmy(site, prefer='real')
-    load = LoadProfile()
-    lines = []
-    central_wp = SITE_DESIGN['Southampton'][0]
-    for deg in (0.3, 0.8):
-        best, _ = size_system(w, site, load, target_lolp=0.01,
-                              degradation_pct_yr=deg)
-        lines.append(
-            f"deg {deg}%/yr: exact re-size {best.pv_w:.0f} Wp + "
-            f"{best.battery_kwh:.1f} kWh (EoL LOLP {best.lolp*100:.3f}%). "
-            f"NOTE: the optimum moves along the PV-battery frontier, so a "
-            f"linear array rescale is NOT valid; the tornado hard-codes "
-            f"these exact designs (central {central_wp:.0f} Wp + 1.5 kWh).")
-    (RESULTS / 'degradation_resize_check.txt').write_text('\n'.join(lines) + '\n')
+def resize_checks() -> None:
+    """Exact multi-year re-optimisations (final criterion) used by the
+    sizing-coupled sensitivity rows (load, degradation; Southampton) and by
+    the combined worst case (0.8 %/yr, all sites). Asserts the constants in
+    sensitivity.py / monte_carlo.py match."""
+    from .multiyear import robust_design
+    lines = ["Exact re-optimisations under the FINAL multi-year criterion",
+             "(annual LOLP <= 1% in >= 15 of 16 years, both PV chains).", ""]
+    for mult, (wp, kwh) in LOAD_DESIGNS.items():
+        got = robust_design('southampton', load_mult=mult)
+        lines.append(f"Southampton load x{mult}: {got[0]:.0f} Wp + {got[1]:.2f} kWh "
+                     f"(constant {wp:.0f}/{kwh})")
+        assert (got[0], got[1]) == (wp, kwh), f"LOAD_DESIGNS stale at x{mult}: {got[:2]}"
+    for deg, (wp, kwh) in DEGRADATION_DESIGNS.items():
+        got = robust_design('southampton', degradation_pct_yr=deg)
+        lines.append(f"Southampton degradation {deg}%/yr: {got[0]:.0f} Wp + {got[1]:.2f} kWh "
+                     f"(constant {wp:.0f}/{kwh})")
+        assert (got[0], got[1]) == (wp, kwh), f"DEGRADATION_DESIGNS stale at {deg}: {got[:2]}"
+    for key, site in SITES.items():
+        got = robust_design(key, degradation_pct_yr=0.8)
+        wp, kwh = SITE_DESIGN_DEG08[site.name]
+        lines.append(f"{site.name} at 0.8%/yr: {got[0]:.0f} Wp + {got[1]:.2f} kWh (constant {wp:.0f}/{kwh})")
+        assert (got[0], got[1]) == (wp, kwh), f"SITE_DESIGN_DEG08 stale at {site.name}: {got[:2]}"
+    (RESULTS / 'resize_checks.txt').write_text('\n'.join(lines) + '\n')
     print('\n'.join(lines))
 
 
 if __name__ == '__main__':
-    print("1/5 sizing + reliability ...")
+    print("1/4 step-1 TMY sizing + reliability ...")
     print(sizing_and_reliability().to_string(index=False))
-    print("2/5 LCOE comparison ...")
+    print("2/4 LCOE comparison (final designs) ...")
     print(lcoe_comparison().to_string(index=False))
-    print("3/5 diesel ops ...")
+    print("3/4 diesel ops ...")
     diesel_ops()
-    print("4/5 cold-charge bound ...")
-    cold_charge_bound()
-    print("5/5 degradation resize check ...")
-    degradation_resize_check()
+    print("4/4 multi-year re-size checks ...")
+    resize_checks()
     print("done.")

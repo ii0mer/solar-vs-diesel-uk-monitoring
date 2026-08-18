@@ -4,10 +4,11 @@ For each site, find the smallest (PV_size_W, battery_kWh) combination that
 achieves a target Loss-of-Load Probability. We grid-search across a coarse
 mesh first, then refine near the boundary.
 
-"Smallest" is defined by a cost surrogate (PV_W * 1.5 + battery_kWh * 700)
-so we don't pick big-PV/tiny-battery solutions that would be uneconomical.
-This is just a sizing heuristic — the proper economic comparison is in
-economics.py.
+"Smallest" is the design with the lowest 25-year lifetime NPV at 5%
+(_cost_index, using the same cash-flow builder as economics.py), so a
+smaller battery bought three times is weighed against a larger array
+bought once. This is step 1 (typical meteorological year); step 2, the
+sixteen-year check that fixes the final designs, is in multiyear.py.
 """
 from __future__ import annotations
 from dataclasses import dataclass

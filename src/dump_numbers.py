@@ -23,9 +23,10 @@ from .economics import (build_pv_battery_cashflows, build_diesel_cashflows,
                         DEFAULT_PROJECT_YEARS)
 from .diesel import (DieselArchitecture1, DieselArchitecture2,
                      annual_co2e_kg, DEFRA_2025_GAS_OIL_KGCO2E_PER_LITRE)
-from .monte_carlo import SITE_DESIGN, SITE_DESIGN_DEG08, run_monte_carlo, summarise
+from .monte_carlo import (SITE_DESIGN, SITE_DESIGN_TMY, SITE_DESIGN_DEG08,
+                          run_monte_carlo, summarise)
 from .sensitivity import (CENTRAL, one_at_a_time_sensitivity, tornado_data,
-                          combined_worst_case)
+                          combined_worst_case, LOAD_DESIGNS, DEGRADATION_DESIGNS)
 from .sweeps_2d import breakeven_battery_cost, ratio_matrix, RATES, BATT_MULTS
 
 RESULTS = Path(__file__).resolve().parents[1] / 'results'
@@ -79,23 +80,37 @@ def main():
     N['eol_factor'] = eol
 
     # ---- sites, resource, sizing, reliability, yield -------------------
-    sites = {}
-    for key, site in SITES.items():
-        df = get_or_create_tmy(site, prefer='real')
-        wp, kwh = SITE_DESIGN[site.name]
+    def _design_metrics(df, site, wp, kwh, with_windows=True):
         pv = PVDesign(nameplate_w=wp)
         bat = BatteryDesign(capacity_kwh=kwh)
         y1 = two_pass(df, site, pv, bat, load)
         ye = two_pass(df, site, pv, bat, load, pv_ageing_factor=eol,
                       battery_soh=soh)
-        cold = two_pass(df, site, pv, bat, load, pv_ageing_factor=eol,
-                        battery_soh=soh, charge_temp_limit_c=0.0)
-        coldcap = two_pass(df, site, pv, bat, load, pv_ageing_factor=eol,
-                           battery_soh=soh * 0.85)   # +15% winter capacity derate
-        longest, days_hit, gov_win = outage_stats(ye.hourly)
+        m = {
+            'pv_wp': wp, 'battery_kwh': kwh,
+            'pv_annual_kwh_y1': y1.annual_pv_kwh,
+            'lolp_y1_pct': y1.lolp * 100, 'eens_y1_kwh': y1.annual_unmet_kwh,
+            'lolp_eol_pct': ye.lolp * 100, 'eens_eol_kwh': ye.annual_unmet_kwh,
+            'curtailed_y1_kwh': y1.annual_curtailed_kwh,
+            'curtailed_eol_kwh': ye.annual_curtailed_kwh,
+            'unmet_hours_eol': int(round(ye.lolp * 8760)),
+            'pv_capex_gbp': wp * 4.5, 'batt_capex_gbp': kwh * 700.0,
+            'capex_gbp': wp * 4.5 + kwh * 700.0 + 150.0 + 600.0,
+        }
+        if with_windows:
+            longest, days_hit, gov_win = outage_stats(ye.hourly)
+            m.update({'longest_unmet_run_h': longest, 'days_with_unmet': days_hit,
+                      'gov_window_start': gov_win[0], 'gov_window_end': gov_win[1],
+                      'gov_window_unmet_h': gov_win[2]})
+        return m
+
+    sites = {}
+    for key, site in SITES.items():
+        df = get_or_create_tmy(site, prefer='real')
         monthly_ghi = df['ghi'].resample('MS').sum() / 1000.0
         pv1kw = simulate_pv_dc(df, site, PVDesign(nameplate_w=1000.0))
-        sites[site.name] = {
+        wp, kwh = SITE_DESIGN[site.name]            # FINAL design
+        rec = {
             'lat': site.latitude, 'lon': site.longitude,
             'ghi_annual': annual_ghi_kwh_per_m2(df),
             'ghi_dec': float(monthly_ghi.iloc[11]),
@@ -103,22 +118,15 @@ def main():
             'ghi_min_month': float(monthly_ghi.min()),
             'ghi_max_month': float(monthly_ghi.max()),
             'specific_yield_kwh_per_kwp': float(pv1kw.sum() / 1000.0),
-            'pv_wp': wp, 'battery_kwh': kwh,
-            'pv_annual_kwh_y1': y1.annual_pv_kwh,
-            'lolp_y1_pct': y1.lolp * 100, 'eens_y1_kwh': y1.annual_unmet_kwh,
-            'lolp_eol_pct': ye.lolp * 100, 'eens_eol_kwh': ye.annual_unmet_kwh,
-            'curtailed_eol_kwh': ye.annual_curtailed_kwh,
-            'unmet_hours_eol': int(round(ye.lolp * 8760)),
-            'lolp_eol_cold_pct': cold.lolp * 100,
-            'eens_eol_cold_kwh': cold.annual_unmet_kwh,
-            'lolp_eol_coldcap15_pct': coldcap.lolp * 100,
-            'longest_unmet_run_h': longest,
-            'days_with_unmet': days_hit,
-            'gov_window_start': gov_win[0], 'gov_window_end': gov_win[1],
-            'gov_window_unmet_h': gov_win[2],
             'subzero_hours': int((df['temp_air'] <= 0).sum()),
-            'pv_capex_gbp': wp * 4.5, 'batt_capex_gbp': kwh * 700.0,
         }
+        # final design evaluated on the TMY (context only; the reliability
+        # claim for the final design is the sixteen-year record)
+        rec.update(_design_metrics(df, site, wp, kwh, with_windows=False))
+        # step-1 TMY design and its TMY reliability metrics (Table VIII)
+        wpt, kwht = SITE_DESIGN_TMY[site.name]
+        rec['tmy_design'] = _design_metrics(df, site, wpt, kwht, with_windows=True)
+        sites[site.name] = rec
     N['sites'] = sites
     g = [sites[s]['ghi_annual'] for s in sites]
     N['ghi_gradient_pct'] = (max(g) - min(g)) / min(g) * 100
@@ -213,21 +221,12 @@ def main():
             cad[k][site] = row
     N['cadence'] = cad
 
-    # ---- LOLP 0.1 % designs (price of reliability) and year-1-sized breach
-    price_rel = {}
+    # ---- year-1-sized TMY design evaluated in the governing year -----------
     y1_breach = {}
     from .sizing import _cost_index
     from .pv_model import simulate_pv_dc as _sim
     for key, site in SITES.items():
         df = get_or_create_tmy(site, prefer='real')
-        b01, _ = size_system(df, site, load, target_lolp=0.001)
-        wp, kwh = SITE_DESIGN[site.name]
-        price_rel[site.name] = {
-            'pv_wp': b01.pv_w, 'battery_kwh': b01.battery_kwh,
-            'lolp_pct': b01.lolp * 100, 'npv5': b01.cost_index,
-            'npv5_central': _cost_index(wp, kwh),
-        }
-        # year-1-sized design (no ageing) then evaluate in governing year
         ref = _sim(df, site, PVDesign(nameplate_w=1000.0))
         best = None
         for pv_w in np.arange(100, 1300, 50):
@@ -250,8 +249,15 @@ def main():
                            pv_series_w=pvs, pv_ageing_factor=eol, battery_soh=soh)
         y1_breach[site.name] = {'pv_wp': pv_w, 'battery_kwh': bk,
                                 'lolp_gov_pct': r.lolp * 100}
-    N['price_of_reliability'] = price_rel
     N['year1_sized'] = y1_breach
+
+    # ---- validation (Upgrade 1) and sixteen-year reliability (Upgrade 2) --
+    N['validation'] = json.loads((RESULTS / 'validation.json').read_text())
+    N['multiyear'] = json.loads((RESULTS / 'multiyear.json').read_text())
+    # price of reliability: 0.1 % target under the final criterion
+    N['price_of_reliability'] = {
+        s_: N['multiyear']['sites'][s_]['final_design_lolp_0p1']
+        for s_ in N['multiyear']['sites']}
 
     # ---- tilt check (Southampton, Edinburgh): latitude vs latitude+15
     tilt = {}
@@ -289,10 +295,12 @@ def main():
                           'batt_mult': float(BATT_MULTS[j])}
     N['grid_min'] = grid_min
 
-    # ---- degradation resize (from make_results provenance) ---------------
-    N['degradation_designs'] = {'0.3': [400, 1.25], '0.5': [500, 1.0],
-                                '0.8': [450, 1.25], '1.0': [550, 1.0]}
-    N['load_designs'] = {'0.8': [400, 0.75], '1.0': [500, 1.0], '1.2': [500, 1.5]}
+    # ---- sizing-coupled sensitivity designs (single source: sensitivity.py)
+    N['degradation_designs'] = {str(k): list(v) for k, v in DEGRADATION_DESIGNS.items()}
+    N['load_designs'] = {str(k): list(v) for k, v in LOAD_DESIGNS.items()}
+    N['site_design_tmy'] = {k: list(v) for k, v in SITE_DESIGN_TMY.items()}
+    N['site_design'] = {k: list(v) for k, v in SITE_DESIGN.items()}
+    N['site_design_deg08'] = {k: list(v) for k, v in SITE_DESIGN_DEG08.items()}
 
     # ---- carbon (DESNZ central values, 2020 prices) -----------------------
     N['carbon'] = {'central_2026_gbp_per_t': 264, 'central_2030_gbp_per_t': 280,

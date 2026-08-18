@@ -1,6 +1,6 @@
 [project]
 name = "solar-vs-diesel-uk-monitoring"
-version = "1.0.0"
+version = "1.3.0"
 description = "Techno-economic feasibility of off-grid solar PV–battery systems for remote environmental monitoring in the UK: a comparative study across four climatic regimes"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -17,6 +17,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
+]
+fast = [
+    "numba>=0.59",   # optional: accelerates the sixteen-year loops in src/multiyear.py
 ]
 
 [project.urls]

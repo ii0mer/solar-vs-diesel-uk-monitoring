@@ -5,7 +5,7 @@ Design rules (applied everywhere):
     7 pt ticks/annotations, no in-figure titles (captions carry titles).
   * Okabe–Ito colour-blind-safe palette. Sites run warm→cool south→north.
   * Top/right spines removed; light y-grid only where it aids reading.
-  * Column-width figures 3.45 in wide; page-width 7.1 in; 600 dpi PNG.
+  * Column-width figures 3.50 in wide; page-width 7.16 in; 600 dpi PNG.
   * Every number plotted comes from the model (SITE_DESIGN, results/).
 
     python -m src.figures_paper
@@ -31,7 +31,7 @@ from .simulation import run_simulation
 from .sizing import eol_ageing_factor
 from .economics import build_pv_battery_cashflows, build_diesel_cashflows
 from .diesel import DieselArchitecture1, DieselArchitecture2
-from .monte_carlo import SITE_DESIGN, run_monte_carlo
+from .monte_carlo import SITE_DESIGN, SITE_DESIGN_TMY, run_monte_carlo
 from .sensitivity import tornado_data, CENTRAL
 from .sweeps_2d import RATES, BATT_MULTS, ratio_matrix
 
@@ -131,12 +131,12 @@ def fig_architecture():
 
     # (a) Solar PV–battery
     ax = axs[0]
-    box(ax, 0.3, 2.6, 2.4, 1.3, 'PV array\n500–650 Wp\nlatitude tilt, south',
+    box(ax, 0.3, 2.6, 2.4, 1.3, 'PV array\n500–850 Wp\nlatitude tilt, south',
         fc='#e6f4ee', ec=SOLAR, bold=True)
     box(ax, 3.7, 2.6, 2.4, 1.3, 'MPPT charge\ncontroller\n(η ≈ 97%)')
     box(ax, 7.1, 2.6, 2.6, 1.3, 'DC load 14.64 W\nlogger · sensors ·\ncellular modem',
         fc='#f1f3f5')
-    box(ax, 3.7, 0.5, 2.4, 1.3, 'LFP battery\n1.0–1.5 kWh\n80% DoD',
+    box(ax, 3.7, 0.5, 2.4, 1.3, 'LFP battery\n1.5–2.0 kWh\n80% DoD',
         fc='#e6f4ee', ec=SOLAR)
     arrow(ax, 2.7, 3.25, 3.7, 3.25, 'DC')
     arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC bus')
@@ -148,12 +148,12 @@ def fig_architecture():
 
     # (b) Diesel A2
     ax = axs[1]
-    box(ax, 0.3, 2.6, 2.4, 1.3, '1 kW diesel\ngenset\n≈1.5 h/day at 30% load',
+    box(ax, 0.3, 2.6, 2.4, 1.3, '2 kVA-class diesel\ngenset (1.6 kW)\n≈0.9 h/day at 30% load',
         fc='#fdecec', ec=DIESEL_A2, bold=True)
     box(ax, 3.7, 2.6, 2.4, 1.3, 'Rectifier +\ncharge controller')
     box(ax, 7.1, 2.6, 2.6, 1.3, 'DC load 14.64 W\nlogger · sensors ·\ncellular modem',
         fc='#f1f3f5')
-    box(ax, 3.7, 0.5, 2.4, 1.3, 'Lead-acid buffer\n≈1.2 kWh, 4-yr life',
+    box(ax, 3.7, 0.5, 2.4, 1.3, 'Lead-acid buffer\n≈2.4 kWh, 4-yr life',
         fc='#fdecec', ec=DIESEL_A2)
     box(ax, 0.3, 0.5, 2.4, 1.3, 'Fuel tank 200 L\n≈84 L/yr used')
     arrow(ax, 2.7, 3.25, 3.7, 3.25, 'AC')
@@ -170,24 +170,119 @@ def fig_architecture():
 
 
 # ================================================================ Fig 3
-def fig_winter_week(site_key='edinburgh', days=10):
-    site = SITES[site_key]
-    df = get_or_create_tmy(site, prefer='real')
-    wp, kwh = SITE_DESIGN[site.name]
-    pv, bat, load = PVDesign(nameplate_w=wp), BatteryDesign(capacity_kwh=kwh), LoadProfile()
+def fig_validation():
+    """Monthly specific yield, no system losses: PVGIS sixteen-year mean
+    (band = min-max), this study's chain on the same PVGIS plane-of-array
+    inputs, and this study's TMY chain (Hay-Davies from GHI/DNI/DHI)."""
+    V = json.loads((RES / 'validation.json').read_text())
+    fig, axs = plt.subplots(1, 4, figsize=(PAGE_W, 2.15), sharey=True)
+    months = np.arange(1, 13)
+    for i, (ax, (key, site)) in enumerate(zip(axs, SITES.items())):
+        r = V['sites'][site.name]
+        pr, l1, l2 = r['pvgis_reference'], r['layer1_same_inputs'], r['layer2_tmy_chain']
+        mean = [pr['monthly_mean_kwh_per_kwp'][str(m)] for m in months]
+        lo = [pr['monthly_min_kwh_per_kwp'][str(m)] for m in months]
+        hi = [pr['monthly_max_kwh_per_kwp'][str(m)] for m in months]
+        study = [pr['study_on_pvgis_poa_monthly_mean_kwh_per_kwp'][str(m)] for m in months]
+        tmy = [l2['tmy_monthly_kwh_per_kwp'][str(m)] for m in months]
+        ax.fill_between(months, lo, hi, color=GREY, alpha=0.18, lw=0,
+                        label='PVGIS 2005–2020 range')
+        ax.plot(months, mean, color=INK, lw=1.2, label='PVGIS sixteen-year mean')
+        ax.plot(months, study, color=SITE_C[site.name], lw=1.1, ls='--',
+                label='This chain, PVGIS inputs')
+        ax.plot(months, tmy, color=SITE_C[site.name], lw=0, marker='o', ms=3.2,
+                mec='white', mew=0.4, label='This chain, TMY')
+        ax.set_title(site.name, fontsize=8, pad=3)
+        ax.set_xticks(months); ax.set_xticklabels(list('JFMAMJJASOND'))
+        ax.set_ylim(0, 190)
+        ax.yaxis.grid(True); ax.set_axisbelow(True)
+        ax.text(0.03, 0.97,
+                f"same-input bias {l1['annual_nmbe_pct']:+.1f}%\nTMY bias {l2['annual_bias_vs_pvgis_mean_pct']:+.1f}%",
+                transform=ax.transAxes, va='top', ha='left', fontsize=6.5)
+        _panel_below(ax, f'({chr(97 + i)})', y=-0.30)
+    axs[0].set_ylabel('Monthly yield (kWh/kWp)')
+    h, l = axs[0].get_legend_handles_labels()
+    fig.legend(h, l, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.12),
+               handlelength=1.6, columnspacing=1.4)
+    return _save(fig, 'fig03_validation.png', tight=True)
+
+
+# ================================================================ Fig 5
+def fig_multiyear():
+    """4 x 16 annual LOLP matrices (governing-year conditions, this study's
+    chain on PVGIS plane-of-array inputs): (a) TMY-sized designs, (b)
+    final designs."""
+    M = json.loads((RES / 'multiyear.json').read_text())
+    years = M['years']
+    sites = list(SITES.values())[::-1]          # Southampton drawn at the top
+    fig, axs = plt.subplots(1, 2, figsize=(PAGE_W, 2.05),
+                            gridspec_kw={'width_ratios': [1.0, 0.86]})
+    cmap = mpl.colormaps['YlOrRd']
+    vmax = 3.0
+    for k, (ax, dsg, lab) in enumerate(zip(axs, ('tmy_design', 'final_design'), ('a', 'b'))):
+        Z = np.array([[M['sites'][st.name][dsg]['by_model']['study']['lolp_pct_by_year'][str(y)]
+                       for y in years] for st in sites])
+        mesh = ax.pcolormesh(np.arange(len(years) + 1), np.arange(len(sites) + 1),
+                             np.clip(Z, 0, vmax), cmap=cmap, vmin=0, vmax=vmax,
+                             edgecolors='white', linewidth=0.4)
+        for i in range(len(sites)):
+            for j in range(len(years)):
+                v = Z[i, j]
+                bold = v > 1.0
+                ax.text(j + 0.5, i + 0.5, f'{v:.1f}' if v >= 0.05 else '0',
+                        ha='center', va='center', fontsize=5.6,
+                        fontweight='bold' if bold else 'normal',
+                        color='white' if v > 2.0 else INK)
+                if bold:
+                    ax.add_patch(mpl.patches.Rectangle((j, i), 1, 1, fill=False,
+                                                       ec=INK, lw=0.7))
+        ax.set_xticks(np.arange(len(years)) + 0.5)
+        ax.set_xticklabels([str(y)[2:] for y in years], fontsize=6)
+        ax.set_yticks(np.arange(len(sites)) + 0.5)
+        if k == 0:
+            ax.set_yticklabels([f"{st.name}\n{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
+                                f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
+                                for st in sites], fontsize=6.5)
+        else:
+            ax.set_yticklabels([f"{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
+                                f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
+                                for st in sites], fontsize=6.5)
+        ax.set_xlabel('Year (2005–2020)')
+        ax.tick_params(length=0)
+        for sp in ax.spines.values():
+            sp.set_visible(False)
+        _panel_below(ax, f'({lab})', y=-0.30)
+    cb = fig.colorbar(mesh, ax=axs, pad=0.012, fraction=0.03)
+    cb.set_label('Annual LOLP (%)', fontsize=7)
+    cb.set_ticks([0, 1, 2, 3]); cb.set_ticklabels(['0', '1', '2', '≥3'])
+    cb.ax.tick_params(labelsize=7)
+    return _save(fig, 'fig05_multiyear.png', tight=True)
+
+
+# ================================================================ Fig 6
+def fig_worst_event(site_key='edinburgh', days=12):
+    """The worst sixteen-year event for the final design at one site,
+    governing-year conditions, this study's chain on PVGIS inputs."""
+    from .multiyear import (_series, pv_per_kwp, simulate_multiyear)
+    from .pv_model import LossChain
     from .sizing import worst_life_state
-    eol, soh, _ = worst_life_state()
-    r1 = run_simulation(df, site, pv, bat, load, pv_ageing_factor=eol,
-                        battery_soh=soh)
-    r = run_simulation(df, site, pv, bat, load, pv_ageing_factor=eol,
-                       battery_soh=soh, initial_soc_frac=r1.final_soc_kwh / kwh)
-    h = r.hourly
-    # window: centred on the hour of maximum cumulative unmet in any 10-day run
-    roll = h['unmet_wh'].rolling(days * 24).sum()
-    end = roll.idxmax()
+    M = json.loads((RES / 'multiyear.json').read_text())
+    site = SITES[site_key]
+    ser = _series()[site_key]
+    fin = M['sites'][site.name]['final_design']
+    wp, kwh = fin['pv_wp'], fin['battery_kwh']
+    eol, soh, gov = worst_life_state()
+    pvk = pv_per_kwp(ser, site, 'study', LossChain())
+    load_w = LoadProfile().design_power_w()
+    unmet, curtail, soc = simulate_multiyear(pvk * wp / 1000.0 * eol, load_w, kwh,
+                                             battery_soh=soh, return_soc=True)
+    idx = ser.data.index.tz_convert(None)
+    h = pd.DataFrame({'pv_wh': pvk * wp / 1000.0 * eol, 'load_wh': load_w,
+                      'soc_frac': soc, 'unmet_wh': unmet}, index=idx)
+    ww = fin['by_model']['study']['worst_window']
+    end = pd.Timestamp(ww['end']) + pd.Timedelta(hours=23)
     start = end - pd.Timedelta(days=days)
     w = h.loc[start:end]
-
     fig, axs = plt.subplots(3, 1, figsize=(COL_W, 3.5), sharex=True,
                             gridspec_kw={'height_ratios': [1.3, 1.1, 0.6]})
     axs[0].fill_between(w.index, 0, w['pv_wh'], color=SITE_C[site.name],
@@ -198,11 +293,9 @@ def fig_winter_week(site_key='edinburgh', days=10):
     axs[0].text(0.01, 0.97, '(a)', transform=axs[0].transAxes, va='top', fontsize=8, family=SERIF)
     axs[1].text(0.01, 0.97, '(b)', transform=axs[1].transAxes, va='top', fontsize=8, family=SERIF)
     axs[2].text(0.01, 0.95, '(c)', transform=axs[2].transAxes, va='top', fontsize=8, family=SERIF)
-    axs[1].fill_between(w.index, 0, w['soc_frac'] * 100, color=SOLAR,
-                        alpha=0.5, lw=0)
-    axs[1].axhline((1 - bat.max_dod) * 100, color=DIESEL_A2, ls='--', lw=0.8)
-    axs[1].text(w.index[30], (1 - bat.max_dod) * 100 + 4, 'DoD floor (20%)',
-                fontsize=7, color=DIESEL_A2)
+    axs[1].fill_between(w.index, 0, w['soc_frac'] * 100, color=SOLAR, alpha=0.5, lw=0)
+    axs[1].axhline(20, color=DIESEL_A2, ls='--', lw=0.8)
+    axs[1].text(w.index[30], 24, 'DoD floor (20%)', fontsize=7, color=DIESEL_A2)
     axs[1].set_ylabel('State of charge (%)'); axs[1].set_ylim(0, 105)
     axs[2].bar(w.index, w['unmet_wh'], width=1 / 24, color=DIESEL_A2, lw=0)
     axs[2].set_ylabel('Unmet load\n(Wh)')
@@ -210,8 +303,8 @@ def fig_winter_week(site_key='edinburgh', days=10):
     axs[2].xaxis.set_major_locator(mdates.DayLocator(interval=2))
     for ax in axs:
         ax.yaxis.grid(True); ax.set_axisbelow(True)
-    axs[2].set_xlabel('Date (typical meteorological year)')
-    return _save(fig, 'fig03_winter_window.png'), (start, end)
+    axs[2].set_xlabel(f'Date ({start.year})')
+    return _save(fig, 'fig06_worst_event.png'), (start, end, wp, kwh)
 
 
 # ================================================================ Fig 4
@@ -228,6 +321,8 @@ def fig_sizing_landscape():
         cs = ax.contour(X, Y, piv.values, levels=[0.01], colors='white',
                         linewidths=1.0)
         ax.clabel(cs, fmt={0.01: 'LOLP 1%'}, fontsize=7, inline=True)
+        wpt, kwht = SITE_DESIGN_TMY[site.name]
+        ax.plot(wpt, kwht, marker='o', ms=6, mfc='none', mec='white', mew=1.1)
         wp, kwh = SITE_DESIGN[site.name]
         ax.plot(wp, kwh, marker='*', ms=9, color='white', mec=INK, mew=0.6)
         ax.set_title(site.name, fontsize=8, pad=3)
@@ -243,10 +338,10 @@ def fig_sizing_landscape():
     cb.set_ticks([-4, -3, -2, -1, 0])
     cb.set_ticklabels(['0.01%', '0.1%', '1%', '10%', '100%'])
     cb.ax.tick_params(labelsize=7)
-    return _save(fig, 'fig04_sizing_landscape.png')
+    return _save(fig, 'fig04_sizing_landscape.png', tight=True)
 
 
-# ================================================================ Fig 5
+# ================================================================ Fig 7
 def fig_lcoe_and_breakdown():
     fig, (ax, ax2) = plt.subplots(1, 2, figsize=(PAGE_W, 2.6), layout=None,
                                   gridspec_kw={'width_ratios': [1.35, 1]})
@@ -321,10 +416,10 @@ def fig_lcoe_and_breakdown():
     ax2.invert_yaxis()
     _panel_below(ax2, '(b)', y=-0.62)
     fig.subplots_adjust(wspace=0.55, bottom=0.34, left=0.08, right=0.99, top=0.97)
-    return _save(fig, 'fig05_lcoe_breakdown.png', tight=True)
+    return _save(fig, 'fig07_lcoe_breakdown.png', tight=True)
 
 
-# ================================================================ Fig 6
+# ================================================================ Fig 8
 def fig_tornado():
     td = tornado_data(architecture=2)
     order = {'Diesel visit cadence': 'Diesel visits (12→2/yr)',
@@ -357,10 +452,10 @@ def fig_tornado():
     ax.set_xlim(0.6, 5.0)
     ax.set_xlabel('Diesel-to-solar LCOE ratio (Southampton, 5%)')
     ax.xaxis.grid(True); ax.set_axisbelow(True)
-    return _save(fig, 'fig06_tornado.png')
+    return _save(fig, 'fig08_tornado.png')
 
 
-# ================================================================ Fig 7
+# ================================================================ Fig 9
 def fig_monte_carlo(n=5000):
     mc5 = run_monte_carlo(n=n, discount_rate=0.05)
     mc8 = run_monte_carlo(n=n, discount_rate=0.08)
@@ -404,19 +499,20 @@ def fig_monte_carlo(n=5000):
     ax.xaxis.grid(True); ax.set_axisbelow(True)
     _panel_below(ax, '(b)', y=-0.30)
     fig.subplots_adjust(wspace=0.45, bottom=0.30, left=0.08, right=0.99, top=0.97)
-    return _save(fig, 'fig07_monte_carlo.png', tight=True)
+    return _save(fig, 'fig09_monte_carlo.png', tight=True)
 
 
-# ================================================================ Fig 8
+# ================================================================ Fig 10
 def fig_sweep2d():
     fig, axs = plt.subplots(1, 4, figsize=(PAGE_W, 2.3), sharey=True)
     batt = BATT_MULTS * CENTRAL['battery_capex_gbp_per_kwh']
     mesh = None
     for i, (ax, site) in enumerate(zip(axs, SITE_DESIGN)):
         m = ratio_matrix(site).values
-        mesh = ax.pcolormesh(batt, RATES * 100, m, cmap='viridis', vmin=2.3,
-                             vmax=4.3, shading='auto')
-        cs = ax.contour(batt, RATES * 100, m, levels=[2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0],
+        mesh = ax.pcolormesh(batt, RATES * 100, m, cmap='viridis', vmin=2.0,
+                             vmax=4.2, shading='auto')
+        cs = ax.contour(batt, RATES * 100, m,
+                        levels=[2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0],
                         colors='white', linewidths=0.6)
         ax.clabel(cs, fontsize=7, fmt='%.2f')
         ax.plot(700, 5, marker='*', ms=9, color='white', mec=INK, mew=0.6)
@@ -428,16 +524,18 @@ def fig_sweep2d():
     cb = fig.colorbar(mesh, ax=axs, pad=0.015, fraction=0.03)
     cb.set_label('Diesel-to-solar LCOE ratio', fontsize=7)
     cb.ax.tick_params(labelsize=7)
-    return _save(fig, 'fig08_sweep2d.png')
+    return _save(fig, 'fig10_sweep2d.png', tight=True)
 
 
 if __name__ == '__main__':
     print('paper figures →', FIG)
     fig_ghi()
     fig_architecture()
-    _, win = fig_winter_week()
-    print('  winter window:', win[0].date(), '→', win[1].date())
+    fig_validation()
     fig_sizing_landscape()
+    fig_multiyear()
+    _, ev = fig_worst_event()
+    print('  worst event window:', ev[0].date(), '→', ev[1].date(), ev[2:], 'Wp/kWh')
     fig_lcoe_and_breakdown()
     fig_tornado()
     fig_monte_carlo()

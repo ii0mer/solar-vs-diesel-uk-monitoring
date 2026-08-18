@@ -23,7 +23,7 @@ from src.economics import (
     COMMERCIAL_WACC,
 )
 from src.diesel import DieselArchitecture1, DieselArchitecture2
-from src.monte_carlo import SITE_DESIGN
+from src.monte_carlo import SITE_DESIGN, SITE_DESIGN_TMY
 
 
 # =========================================================================
@@ -163,13 +163,15 @@ def _solar_cf(site):
 
 
 def test_southampton_solar_lcoe_at_5pct():
+    """Final design 500 Wp + 2.0 kWh (multi-year P90 under both PV chains)."""
     lcoe = _solar_cf('Southampton').lcoe_gbp_per_kwh(0.05)
-    assert 5.85 < lcoe < 5.95, f"expected ~£5.90, got £{lcoe:.3f}"
+    assert 6.47 < lcoe < 6.57, f"expected ~£6.52, got £{lcoe:.3f}"
 
 
 def test_edinburgh_solar_lcoe_at_5pct():
+    """Final design 850 Wp + 1.75 kWh."""
     lcoe = _solar_cf('Edinburgh').lcoe_gbp_per_kwh(0.05)
-    assert 6.53 < lcoe < 6.63, f"expected ~£6.58, got £{lcoe:.3f}"
+    assert 7.18 < lcoe < 7.28, f"expected ~£7.23, got £{lcoe:.3f}"
 
 
 def test_diesel_a1_lcoe_at_5pct():
@@ -181,7 +183,7 @@ def test_diesel_a1_lcoe_at_5pct():
 def test_diesel_a2_lcoe_at_5pct():
     lcoe = build_diesel_cashflows(
         DieselArchitecture2(), fuel_price_ppl=76.02).lcoe_gbp_per_kwh(0.05)
-    assert 21.9 < lcoe < 22.9, f"expected ~£22.4, got £{lcoe:.3f}"
+    assert 21.9 < lcoe < 22.9, f"expected ~£22.5, got £{lcoe:.3f}"
 
 
 def test_solar_beats_diesel_a2_all_sites_5pct():
@@ -189,7 +191,7 @@ def test_solar_beats_diesel_a2_all_sites_5pct():
         DieselArchitecture2(), fuel_price_ppl=76.02).lcoe_gbp_per_kwh(0.05)
     for site in SITE_DESIGN:
         ratio = di / _solar_cf(site).lcoe_gbp_per_kwh(0.05)
-        assert ratio > 3.3, f"{site}: expected >3.3x, got {ratio:.2f}x"
+        assert ratio > 3.0, f"{site}: expected >3.0x, got {ratio:.2f}x"
 
 
 def test_solar_robust_at_8pct_wacc():
@@ -198,7 +200,7 @@ def test_solar_robust_at_8pct_wacc():
             COMMERCIAL_WACC)
     for site in SITE_DESIGN:
         ratio = di / _solar_cf(site).lcoe_gbp_per_kwh(COMMERCIAL_WACC)
-        assert ratio > 3.0, f"{site}: expected >3.0x at 8%, got {ratio:.2f}x"
+        assert ratio > 2.7, f"{site}: expected >2.7x at 8%, got {ratio:.2f}x"
 
 
 def test_energy_denominator_is_flat_served_energy():
@@ -215,8 +217,9 @@ def test_energy_denominator_is_flat_served_energy():
 # =========================================================================
 
 def test_sized_systems_meet_governing_year_lolp_on_real_data():
-    """Every site's design must meet LOLP <= 1% in the design-governing
-    year (year 24: PV at (1-d)^23, battery at 80% SoH) on the real TMY."""
+    """Every site's step-1 TMY design must meet LOLP <= 1% in the
+    design-governing year (year 24: PV at (1-d)^23, battery at 80% SoH) on
+    the real TMY; the final designs, which are larger, must too."""
     from src.sites import SITES
     from src.weather import get_or_create_tmy
     from src.pv_model import PVDesign
@@ -227,16 +230,17 @@ def test_sized_systems_meet_governing_year_lolp_on_real_data():
     assert yr == 24 and abs(soh - 0.8) < 1e-9
     load = LoadProfile()
     for key, site in SITES.items():
-        wp, kwh = SITE_DESIGN[site.name]
         df = get_or_create_tmy(site, prefer='real')
-        pv = PVDesign(nameplate_w=wp)
-        bat = BatteryDesign(capacity_kwh=kwh)
-        r1 = run_simulation(df, site, pv, bat, load, pv_ageing_factor=eol,
-                            battery_soh=soh)
-        r = run_simulation(df, site, pv, bat, load,
-                           initial_soc_frac=r1.final_soc_kwh / kwh,
-                           pv_ageing_factor=eol, battery_soh=soh)
-        assert r.lolp <= 0.01, f"{site.name}: governing-year LOLP {r.lolp*100:.2f}% > 1%"
+        for designs in (SITE_DESIGN_TMY, SITE_DESIGN):
+            wp, kwh = designs[site.name]
+            pv = PVDesign(nameplate_w=wp)
+            bat = BatteryDesign(capacity_kwh=kwh)
+            r1 = run_simulation(df, site, pv, bat, load, pv_ageing_factor=eol,
+                                battery_soh=soh)
+            r = run_simulation(df, site, pv, bat, load,
+                               initial_soc_frac=r1.final_soc_kwh / kwh,
+                               pv_ageing_factor=eol, battery_soh=soh)
+            assert r.lolp <= 0.01, f"{site.name} {wp}/{kwh}: governing-year LOLP {r.lolp*100:.2f}% > 1%"
 
 
 def test_cold_charge_block_never_improves_lolp():
