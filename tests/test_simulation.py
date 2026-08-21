@@ -114,10 +114,10 @@ def test_diesel_arch2_runtime_satisfies_energy_balance():
 
 
 def test_diesel_arch2_annual_fuel():
-    """A2: 0.2527 L/h × 333 h/yr ≈ 84 L/yr. At a fixed 30% load fraction the
+    """A2: 0.2527 L/h × 334 h/yr ≈ 84 L/yr. At a fixed 30% load fraction the
     Skarstein–Uhlen annual fuel is independent of the genset rating."""
     arch2 = DieselArchitecture2()
-    assert abs(arch2.annual_fuel_litres - 84.2) < 1.0
+    assert abs(arch2.annual_fuel_litres - 84.4) < 1.0
 
 
 def test_diesel_visit_cost():

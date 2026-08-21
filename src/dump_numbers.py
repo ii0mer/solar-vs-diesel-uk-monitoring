@@ -231,7 +231,7 @@ def main():
         best = None
         for pv_w in np.arange(100, 1300, 50):
             pvs = ref * (pv_w / 1000.0)
-            for bk in [0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 7, 10]:
+            for bk in [0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 5, 7, 10]:
                 bat_ = BatteryDesign(capacity_kwh=bk); pv_ = PVDesign(nameplate_w=float(pv_w))
                 r1 = run_simulation(df, site, pv_, bat_, load, pv_series_w=pvs)
                 r = run_simulation(df, site, pv_, bat_, load,
@@ -259,17 +259,69 @@ def main():
         s_: N['multiyear']['sites'][s_]['final_design_lolp_0p1']
         for s_ in N['multiyear']['sites']}
 
-    # ---- tilt check (Southampton, Edinburgh): latitude vs latitude+15
+    # ---- tilt check (all sites): latitude vs latitude+15, yield and step-1 design
     tilt = {}
-    for key in ('southampton', 'edinburgh'):
-        site = SITES[key]; df = get_or_create_tmy(site, prefer='real')
+    for key, site in SITES.items():
+        df = get_or_create_tmy(site, prefer='real')
         base = simulate_pv_dc(df, site, PVDesign(nameplate_w=1000.0))
         steep = simulate_pv_dc(df, site, PVDesign(nameplate_w=1000.0,
                                                   tilt_deg=site.latitude + 15))
         dec_b = base[base.index.month == 12].sum(); dec_s = steep[steep.index.month == 12].sum()
+        best_s, _ = size_system(df, site, load, target_lolp=0.01,
+                                tilt_deg=site.latitude + 15)
+        wpt, kwht = SITE_DESIGN_TMY[site.name]
         tilt[site.name] = {'annual_delta_pct': (steep.sum() / base.sum() - 1) * 100,
-                           'december_delta_pct': (dec_s / dec_b - 1) * 100}
+                           'december_delta_pct': (dec_s / dec_b - 1) * 100,
+                           'design_lat': [wpt, kwht],
+                           'design_lat_plus15': [best_s.pv_w, best_s.battery_kwh],
+                           'lolp_gov_pct_lat_plus15': best_s.lolp * 100,
+                           'design_changed': (best_s.pv_w, best_s.battery_kwh) != (wpt, kwht)}
     N['tilt_plus15'] = tilt
+
+    # ---- solar-side visits: OAT rows, break-even solar visits, common visits
+    sv = oat[oat['parameter'] == 'Solar visit count']
+    N['solar_visits'] = {int(v.split('/')[0]): r for v, r in
+                         zip(sv['value'], sv['diesel_pv_ratio'])}
+    common = {}
+    sbe = {}
+    for rate in (0.05, 0.08):
+        k = f'{rate:.2f}'
+        common[k] = {}; sbe[k] = {}
+        a2_cf = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=76.02)
+        di = a2_cf.lcoe_gbp_per_kwh(rate)
+        for site, (wp, kwh) in SITE_DESIGN.items():
+            def _solar(v):
+                return build_pv_battery_cashflows(
+                    pv_capex_gbp_per_wp=4.50, pv_size_wp=wp,
+                    battery_capex_gbp_per_kwh=700.0, battery_kwh=kwh,
+                    annual_energy_delivered_kwh=128.2,
+                    annual_site_visits=v).lcoe_gbp_per_kwh(rate)
+            s0, s1 = _solar(0), _solar(1)
+            b_solar = s1 - s0                        # £/kWh per solar visit
+            sbe[k][site] = {'breakeven_solar_visits': (di - s0) / b_solar,
+                            'lcoe_per_solar_visit': b_solar}
+            # N common visits added to both systems (station visits that
+            # occur under either power system)
+            row = {}
+            for ncom in (0, 2, 4, 12):
+                a2n = DieselArchitecture2(); a2n.annual_site_visits = 12 + ncom
+                dn = build_diesel_cashflows(a2n, fuel_price_ppl=76.02).lcoe_gbp_per_kwh(rate)
+                row[str(ncom)] = dn / _solar(2 + ncom)
+            common[k][site] = row
+    N['solar_breakeven_visits'] = sbe
+    N['common_visits'] = common
+
+    # ---- diesel genset calendar-life sensitivity (A2, 10-yr calendar cap)
+    a2c = DieselArchitecture2(); a2c.genset_calendar_life_years = 10.0
+    base_npv = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=76.02).total_npv(0.05)
+    cal_npv = build_diesel_cashflows(a2c, fuel_price_ppl=76.02).total_npv(0.05)
+    N['diesel_calendar_life'] = {'years': 10, 'npv_delta_gbp': cal_npv - base_npv,
+                                 'npv_delta_pct': (cal_npv / base_npv - 1) * 100}
+    # A2 with the 5,000 h light-load life instead of 8,000 h
+    a2l = DieselArchitecture2(); a2l.genset_lifetime_hours = 5000
+    l_npv = build_diesel_cashflows(a2l, fuel_price_ppl=76.02).total_npv(0.05)
+    N['diesel_life_5000h'] = {'npv_delta_gbp': l_npv - base_npv,
+                              'npv_delta_pct': (l_npv / base_npv - 1) * 100}
 
     # ---- Monte Carlo ------------------------------------------------------
     mc = {}

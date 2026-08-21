@@ -90,8 +90,9 @@ class DieselArchitecture1:
         return self.annual_fuel_litres * (fuel_price_ppl / 100.0)
 
     @property
-    def annual_oil_changes(self) -> int:
-        return self.annual_runtime_hours // self.oil_change_interval_hours
+    def annual_oil_changes(self) -> float:
+        # 100 h interval under sustained light load: 87.6 changes a year
+        return self.annual_runtime_hours / self.oil_change_interval_hours
 
     @property
     def annual_oil_cost_gbp(self) -> float:
@@ -156,7 +157,7 @@ class DieselArchitecture2:
 
     @property
     def annual_runtime_hours(self) -> int:
-        return int(self.daily_runtime_hours * 365)
+        return int(round(self.daily_runtime_hours * 365))
 
     # --- Maintenance ---
     oil_change_interval_hours: int = 250      # Hatz 1B / Onan QD: 250 h or 12 months
@@ -171,11 +172,19 @@ class DieselArchitecture2:
     inspection_cost_per_visit_gbp: float = 120.0
     annual_site_visits: int = 12
 
+    # Automatic start/stop controller: A2 must start and stop itself daily
+    # and portable sets of this class are not sold with one (assumption,
+    # £150-400 retail range for small AMF/auto-start modules)
+    capex_autostart_gbp: float = 250.0
+    # optional calendar-life cap on the genset (years); None = hours-based only
+    genset_calendar_life_years: Optional[float] = None
+
     @property
     def total_capex_gbp(self) -> float:
         return (self.capex_genset_gbp + self.capex_fuel_tank_gbp
                 + self.capex_enclosure_gbp + self.capex_install_gbp
-                + self.capex_battery_gbp + self.capex_charge_controller_gbp)
+                + self.capex_battery_gbp + self.capex_charge_controller_gbp
+                + self.capex_autostart_gbp)
 
     @property
     def annual_fuel_litres(self) -> float:
@@ -185,9 +194,11 @@ class DieselArchitecture2:
         return self.annual_fuel_litres * (fuel_price_ppl / 100.0)
 
     @property
-    def annual_oil_changes(self) -> int:
-        # manufacturer interval in hours, with the manuals' 12-month floor
-        return max(1, self.annual_runtime_hours // self.oil_change_interval_hours)
+    def annual_oil_changes(self) -> float:
+        # manufacturer interval in hours (250 h) or 12 months, whichever comes
+        # first: at 334 h/yr the hours interval falls due 1.34 times a year;
+        # expressed as an annual average, floored at one change per year
+        return max(1.0, self.annual_runtime_hours / self.oil_change_interval_hours)
 
     @property
     def annual_oil_cost_gbp(self) -> float:

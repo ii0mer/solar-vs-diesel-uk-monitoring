@@ -53,7 +53,7 @@ from .economics import build_pv_battery_cashflows
 RESULTS = Path(__file__).resolve().parents[1] / 'results'
 YEARS = list(range(2005, 2021))
 PV_GRID = np.arange(100, 1300, 50)
-BATTERY_GRID = np.array([0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 7, 10])
+BATTERY_GRID = np.array([0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 5, 7, 10])
 CRITERIA = {
     'mean': 'sixteen-year mean annual LOLP <= target',
     'p90': 'annual LOLP <= target in at least 15 of the 16 years',
@@ -262,6 +262,83 @@ def robust_design(site_key: str, load_mult: float = 1.0,
     return float(row['pv_wp']), float(row['battery_kwh']), row
 
 
+
+# ---------------------------------------------------------------------------
+# Out-of-sample check (leave-one-year-out) and life-average LOLP
+# ---------------------------------------------------------------------------
+
+def lolp_matrix(pv_kwp_by_model: dict, index, load_w: float, eol: float,
+                soh: float, pv_grid=PV_GRID, battery_grid=BATTERY_GRID):
+    """Annual LOLP (%) of every grid design under each model:
+    dict model -> array [n_designs, n_years]; plus the design list and cost."""
+    designs, cost = [], []
+    for wp in pv_grid:
+        for kwh in battery_grid:
+            designs.append((float(wp), float(kwh)))
+            cost.append(float(_cost_index(float(wp), float(kwh))))
+    out = {}
+    for model, pvk in pv_kwp_by_model.items():
+        rows = []
+        for wp, kwh in designs:
+            yr, _ = evaluate(pvk, index, wp, kwh, load_w, eol, soh)
+            rows.append(yr['lolp_pct'].values)
+        out[model] = np.array(rows)
+    return designs, np.array(cost), out
+
+
+def leave_one_year_out(designs, cost, mats: dict, models=('study', 'pvgis'),
+                       target_pct: float = 1.0, allowance: int = 1) -> dict:
+    """For each held-out year: select the cheapest design with at most
+    ``allowance`` exceedances among the other years under every model in
+    ``models`` (the final criterion applied to fifteen years), then test the
+    held-out year. Returns per-model held-out exceedance counts and the
+    list of (year, design, LOLP) exceedances."""
+    n_years = next(iter(mats.values())).shape[1]
+    years = list(range(2005, 2005 + n_years))
+    exceed = {m: [] for m in models}
+    chosen = []
+    for h in range(n_years):
+        keep = [j for j in range(n_years) if j != h]
+        ok = np.ones(len(designs), dtype=bool)
+        for m in models:
+            ok &= (mats[m][:, keep] > target_pct).sum(axis=1) <= allowance
+        idx = np.where(ok)[0]
+        if len(idx) == 0:
+            chosen.append(None); continue
+        best = idx[np.argmin(cost[idx])]
+        chosen.append((years[h], designs[best]))
+        for m in models:
+            v = float(mats[m][best, h])
+            if v > target_pct:
+                exceed[m].append({'held_out_year': years[h], 'pv_wp': designs[best][0],
+                                  'battery_kwh': designs[best][1], 'lolp_pct': v})
+    return {'held_out_exceedances': {m: len(exceed[m]) for m in models},
+            'held_out_rate_pct': {m: len(exceed[m]) / n_years * 100 for m in models},
+            'details': exceed,
+            'in_sample_allowance': allowance, 'n_years': n_years}
+
+
+def life_average_lolp(pv_kwp: np.ndarray, index, wp: float, kwh: float,
+                      load_w: float, degradation_pct_yr: float = 0.5,
+                      battery_life_years: int = 12, project_years: int = 25,
+                      eol_soh: float = 0.8) -> dict:
+    """Expected LOLP along the actual ageing trajectory: for each project
+    year t the PV factor is (1-d)^(t-1) and the battery SoH falls linearly
+    from 1.0 at installation to ``eol_soh`` at the end of each battery
+    life; each year state is run through the sixteen weather years and the
+    annual LOLPs averaged, then averaged over the project years."""
+    per_year = []
+    for t in range(1, project_years + 1):
+        pv_f = (1.0 - degradation_pct_yr / 100.0) ** (t - 1)
+        age = ((t - 1) % battery_life_years) + 1          # 1..L
+        soh_t = 1.0 - (1.0 - eol_soh) * age / battery_life_years
+        yr, _ = evaluate(pv_kwp, index, wp, kwh, load_w, pv_f, soh_t)
+        per_year.append(float(yr['lolp_pct'].mean()))
+    return {'life_average_lolp_pct': float(np.mean(per_year)),
+            'by_project_year': per_year,
+            'max_project_year_mean_pct': float(np.max(per_year))}
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -371,10 +448,33 @@ def main(verbose: bool = True) -> dict:
             return {'mean_lolp_pct': float(t['lolp_pct'].mean()),
                     'max_lolp_pct': float(t['lolp_pct'].max()),
                     'years_within_1pct': int((t['lolp_pct'] <= 1.0).sum())}
+        # does extra array restore the criterion under the charge block?
+        incr = {}
+        for dwp in (50, 100, 150, 200):
+            incr[str(dwp)] = {}
+            for m in ('study', 'pvgis'):
+                pv_i = pvk[m] * (fin['pv_wp'] + dwp) / 1000.0 * eol
+                u_i, _ = simulate_multiyear(pv_i, load_w, fin['battery_kwh'],
+                                            battery_soh=soh, charge_blocked=subzero)
+                incr[str(dwp)][m] = _yr(u_i)
         rec['final_design']['cold_bounds'] = {
             'base': _yr(u_base), 'charge_blocked_below_0c': _yr(u_cold),
             'capacity_derate_15pct': _yr(u_cap),
+            'charge_blocked_with_extra_array_wp': incr,
             'subzero_hours_per_year_mean': float(subzero.sum() / 16.0)}
+        # life-average LOLP along the ageing trajectory (both chains)
+        rec['final_design']['life_average'] = {
+            m: life_average_lolp(pvk[m], idx, fin['pv_wp'], fin['battery_kwh'], load_w)
+            for m in ('study', 'pvgis')}
+        # energy-based loss-of-load (EENS / demand) for the record
+        for m in ('study', 'pvgis'):
+            b = rec['final_design']['by_model'][m]
+            b['llp_energy_pct_mean'] = b['mean_eens_kwh'] / (load_w * 8.766) * 100.0
+            b['llp_energy_pct_max'] = b['max_eens_kwh'] / (load_w * 8.766) * 100.0
+        # leave-one-year-out check of the selection rule
+        designs_l, cost_l, mats = lolp_matrix(pvk, idx, load_w, eol, soh)
+        rec['final_design']['leave_one_year_out'] = leave_one_year_out(
+            designs_l, cost_l, mats)
         # 0.1 % target under the final criterion (price of reliability)
         g01 = grid_search(pvk, idx, load_w, eol, soh, target_pct=0.1)
         r01 = select(g01, FINAL_CRITERION[0], ('study', 'pvgis'), target_pct=0.1)

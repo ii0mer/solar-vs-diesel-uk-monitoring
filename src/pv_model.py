@@ -22,6 +22,8 @@ from pvlib.location import Location
 
 from .sites import Site
 
+ALBEDO = 0.20      # ground albedo, as in PVGIS
+
 
 @dataclass
 class LossChain:
@@ -129,6 +131,9 @@ def simulate_pv_dc(weather: pd.DataFrame, site: Site,
 
     # Plane-of-array irradiance via Hay-Davies transposition.
     # dni_extra (top-of-atmosphere) is required for anisotropic transposition.
+    # Ground albedo 0.20, the value PVGIS uses, so that the sizing chain and
+    # the sixteen-year runs (which take PVGIS's ground-reflected component)
+    # share it.
     dni_extra = pvlib.irradiance.get_extra_radiation(times)
     poa = pvlib.irradiance.get_total_irradiance(
         surface_tilt=tilt,
@@ -139,6 +144,7 @@ def simulate_pv_dc(weather: pd.DataFrame, site: Site,
         ghi=weather['ghi'],
         dhi=weather['dhi'],
         dni_extra=dni_extra,
+        albedo=ALBEDO,
         model='haydavies',
     )
 

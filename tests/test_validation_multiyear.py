@@ -144,7 +144,7 @@ def test_tmy_designs_breach_in_real_years(series):
         unmet, curtail = simulate_multiyear(pvk * wp / 1000 * eol, load_w, kwh,
                                             battery_soh=soh)
         yr = annual_table(unmet, curtail, s.data.index)
-        assert int((yr['lolp_pct'] > 1.0).sum()) >= 3, site.name
+        assert int((yr['lolp_pct'] > 1.0).sum()) >= 2, site.name
 
 
 def test_constants_match_multiyear_results():

@@ -31,17 +31,17 @@
    "ghi_jun": 154.141,
    "ghi_min_month": 19.341,
    "ghi_max_month": 166.268,
-   "specific_yield_kwh_per_kwp": 1079.591687519452,
+   "specific_yield_kwh_per_kwp": 1072.1085350562548,
    "subzero_hours": 31,
    "pv_wp": 500.0,
    "battery_kwh": 2.0,
-   "pv_annual_kwh_y1": 539.795843759726,
+   "pv_annual_kwh_y1": 536.0542675281274,
    "lolp_y1_pct": 0.0,
    "eens_y1_kwh": 0.0,
    "lolp_eol_pct": 0.0,
    "eens_eol_kwh": 0.0,
-   "curtailed_y1_kwh": 405.02182464723643,
-   "curtailed_eol_kwh": 346.3084784252937,
+   "curtailed_y1_kwh": 401.2764040181614,
+   "curtailed_eol_kwh": 342.96981461072215,
    "unmet_hours_eol": 0,
    "pv_capex_gbp": 2250.0,
    "batt_capex_gbp": 1400.0,
@@ -49,14 +49,14 @@
    "tmy_design": {
     "pv_wp": 500.0,
     "battery_kwh": 1.0,
-    "pv_annual_kwh_y1": 539.795843759726,
-    "lolp_y1_pct": 0.14840182648401826,
-    "eens_y1_kwh": 0.16865449782166406,
-    "lolp_eol_pct": 0.7534246575342466,
-    "eens_eol_kwh": 0.8484689321458903,
-    "curtailed_y1_kwh": 405.4581811035864,
-    "curtailed_eol_kwh": 347.43064206555715,
-    "unmet_hours_eol": 66,
+    "pv_annual_kwh_y1": 536.0542675281274,
+    "lolp_y1_pct": 0.15981735159817353,
+    "eens_y1_kwh": 0.17999324194313143,
+    "lolp_eol_pct": 0.7648401826484018,
+    "eens_eol_kwh": 0.8746317926700005,
+    "curtailed_y1_kwh": 401.7250076213265,
+    "curtailed_eol_kwh": 344.1203207949628,
+    "unmet_hours_eol": 67,
     "pv_capex_gbp": 2250.0,
     "batt_capex_gbp": 700.0,
     "capex_gbp": 3700.0,
@@ -64,7 +64,7 @@
     "days_with_unmet": 10,
     "gov_window_start": "1990-12-09",
     "gov_window_end": "1990-12-19",
-    "gov_window_unmet_h": 43
+    "gov_window_unmet_h": 44
    }
   },
   "Birmingham": {
@@ -75,40 +75,40 @@
    "ghi_jun": 169.707,
    "ghi_min_month": 22.601,
    "ghi_max_month": 169.707,
-   "specific_yield_kwh_per_kwp": 978.4769536593669,
+   "specific_yield_kwh_per_kwp": 971.1914669059156,
    "subzero_hours": 330,
    "pv_wp": 800.0,
    "battery_kwh": 1.5,
-   "pv_annual_kwh_y1": 782.7815629274935,
+   "pv_annual_kwh_y1": 776.9531735247325,
    "lolp_y1_pct": 0.0,
    "eens_y1_kwh": 0.0,
-   "lolp_eol_pct": 0.12557077625570776,
-   "eens_eol_kwh": 0.13732576138414346,
-   "curtailed_y1_kwh": 648.1960711425546,
-   "curtailed_eol_kwh": 563.1637636834511,
-   "unmet_hours_eol": 11,
+   "lolp_eol_pct": 0.14840182648401826,
+   "eens_eol_kwh": 0.1623086513527307,
+   "curtailed_y1_kwh": 642.3658058502501,
+   "curtailed_eol_kwh": 557.9947696411014,
+   "unmet_hours_eol": 13,
    "pv_capex_gbp": 3600.0,
    "batt_capex_gbp": 1050.0,
    "capex_gbp": 5400.0,
    "tmy_design": {
-    "pv_wp": 550.0,
-    "battery_kwh": 1.25,
-    "pv_annual_kwh_y1": 538.1623245126518,
-    "lolp_y1_pct": 0.5707762557077625,
-    "eens_y1_kwh": 0.6913658541046561,
-    "lolp_eol_pct": 0.9931506849315069,
-    "eens_eol_kwh": 1.1624594824087762,
-    "curtailed_y1_kwh": 404.31168180678156,
-    "curtailed_eol_kwh": 346.2521047696358,
-    "unmet_hours_eol": 87,
-    "pv_capex_gbp": 2475.0,
-    "batt_capex_gbp": 875.0,
-    "capex_gbp": 4100.0,
+    "pv_wp": 500.0,
+    "battery_kwh": 1.5,
+    "pv_annual_kwh_y1": 485.5957334529578,
+    "lolp_y1_pct": 0.6050228310502284,
+    "eens_y1_kwh": 0.7001874290597179,
+    "lolp_eol_pct": 0.9703196347031963,
+    "eens_eol_kwh": 1.139189208343138,
+    "curtailed_y1_kwh": 351.6612662758795,
+    "curtailed_eol_kwh": 299.29913378447935,
+    "unmet_hours_eol": 85,
+    "pv_capex_gbp": 2250.0,
+    "batt_capex_gbp": 1050.0,
+    "capex_gbp": 4050.0,
     "longest_unmet_run_h": 17,
-    "days_with_unmet": 9,
+    "days_with_unmet": 8,
     "gov_window_start": "1990-01-29",
     "gov_window_end": "1990-02-08",
-    "gov_window_unmet_h": 82
+    "gov_window_unmet_h": 85
    }
   },
   "Liverpool": {
@@ -119,40 +119,40 @@
    "ghi_jun": 168.576,
    "ghi_min_month": 13.693,
    "ghi_max_month": 168.576,
-   "specific_yield_kwh_per_kwp": 976.739258969834,
+   "specific_yield_kwh_per_kwp": 969.2524928413567,
    "subzero_hours": 52,
    "pv_wp": 550.0,
    "battery_kwh": 2.0,
-   "pv_annual_kwh_y1": 537.2065924334087,
-   "lolp_y1_pct": 0.182648401826484,
-   "eens_y1_kwh": 0.22618656627781422,
-   "lolp_eol_pct": 0.6506849315068494,
-   "eens_eol_kwh": 0.7762109745096848,
-   "curtailed_y1_kwh": 402.63112573495107,
-   "curtailed_eol_kwh": 344.791341658629,
-   "unmet_hours_eol": 57,
+   "pv_annual_kwh_y1": 533.0888710627462,
+   "lolp_y1_pct": 0.2054794520547945,
+   "eens_y1_kwh": 0.2474208374559438,
+   "lolp_eol_pct": 0.6963470319634704,
+   "eens_eol_kwh": 0.8043977075250067,
+   "curtailed_y1_kwh": 398.5323891750246,
+   "curtailed_eol_kwh": 341.1475601813785,
+   "unmet_hours_eol": 61,
    "pv_capex_gbp": 2475.0,
    "batt_capex_gbp": 1400.0,
    "capex_gbp": 4625.0,
    "tmy_design": {
-    "pv_wp": 650.0,
-    "battery_kwh": 1.25,
-    "pv_annual_kwh_y1": 634.8805183303922,
+    "pv_wp": 600.0,
+    "battery_kwh": 1.5,
+    "pv_annual_kwh_y1": 581.551495704814,
     "lolp_y1_pct": 0.3538812785388128,
-    "eens_y1_kwh": 0.41589019779056235,
-    "lolp_eol_pct": 0.9817351598173516,
-    "eens_eol_kwh": 1.1745566264465366,
-    "curtailed_y1_kwh": 500.7507787959688,
-    "curtailed_eol_kwh": 432.47072722997984,
-    "unmet_hours_eol": 86,
-    "pv_capex_gbp": 2925.0,
-    "batt_capex_gbp": 875.0,
-    "capex_gbp": 4550.0,
-    "longest_unmet_run_h": 11,
-    "days_with_unmet": 11,
+    "eens_y1_kwh": 0.42559157840892753,
+    "lolp_eol_pct": 0.8904109589041096,
+    "eens_eol_kwh": 1.0411793041528457,
+    "curtailed_y1_kwh": 447.3424123349506,
+    "curtailed_eol_kwh": 384.72298235975313,
+    "unmet_hours_eol": 78,
+    "pv_capex_gbp": 2700.0,
+    "batt_capex_gbp": 1050.0,
+    "capex_gbp": 4500.0,
+    "longest_unmet_run_h": 12,
+    "days_with_unmet": 10,
     "gov_window_start": "1990-01-29",
     "gov_window_end": "1990-02-08",
-    "gov_window_unmet_h": 64
+    "gov_window_unmet_h": 68
    }
   },
   "Edinburgh": {
@@ -163,32 +163,32 @@
    "ghi_jun": 154.421,
    "ghi_min_month": 12.506,
    "ghi_max_month": 156.346,
-   "specific_yield_kwh_per_kwp": 928.4995113291282,
+   "specific_yield_kwh_per_kwp": 920.7663707800756,
    "subzero_hours": 481,
    "pv_wp": 850.0,
    "battery_kwh": 1.75,
-   "pv_annual_kwh_y1": 789.224584629759,
+   "pv_annual_kwh_y1": 782.6514151630641,
    "lolp_y1_pct": 0.0,
    "eens_y1_kwh": 0.0,
-   "lolp_eol_pct": 0.2511415525114155,
-   "eens_eol_kwh": 0.2893962279754037,
-   "curtailed_y1_kwh": 654.5146574985097,
-   "curtailed_eol_kwh": 568.9452272974592,
-   "unmet_hours_eol": 22,
+   "lolp_eol_pct": 0.28538812785388123,
+   "eens_eol_kwh": 0.2976016755307171,
+   "curtailed_y1_kwh": 647.9379013463642,
+   "curtailed_eol_kwh": 563.0929178636801,
+   "unmet_hours_eol": 25,
    "pv_capex_gbp": 3825.0,
    "batt_capex_gbp": 1225.0,
    "capex_gbp": 5800.0,
    "tmy_design": {
     "pv_wp": 550.0,
     "battery_kwh": 1.75,
-    "pv_annual_kwh_y1": 510.6747312310205,
+    "pv_annual_kwh_y1": 506.42150392904153,
     "lolp_y1_pct": 0.2625570776255708,
-    "eens_y1_kwh": 0.2973220945541821,
-    "lolp_eol_pct": 0.9360730593607305,
-    "eens_eol_kwh": 1.104739351704956,
-    "curtailed_y1_kwh": 376.15861307095645,
-    "curtailed_eol_kwh": 321.47444663697104,
-    "unmet_hours_eol": 82,
+    "eens_y1_kwh": 0.30332645648077494,
+    "lolp_eol_pct": 0.9703196347031963,
+    "eens_eol_kwh": 1.1365739953556084,
+    "curtailed_y1_kwh": 371.90708922160445,
+    "curtailed_eol_kwh": 317.7134104262725,
+    "unmet_hours_eol": 85,
     "pv_capex_gbp": 2475.0,
     "batt_capex_gbp": 1225.0,
     "capex_gbp": 4450.0,
@@ -209,8 +209,8 @@
    "fuel_l_per_h": 0.13824144000000002,
    "fuel_l_yr": 1210.9950144000002,
    "fuel_gbp_yr": 920.5984099468801,
-   "oil_changes_yr": 87,
-   "oil_gbp_yr": 2175.0,
+   "oil_changes_yr": 87.6,
+   "oil_gbp_yr": 2190.0,
    "visits_yr": 12,
    "visit_gbp_yr": 2400.0,
    "genset_life_yr": 0.5707762557077626,
@@ -218,19 +218,19 @@
    "co2e_t_25yr": 83.48781278525762
   },
   "A2": {
-   "capex": 4350.0,
+   "capex": 4600.0,
    "runtime_h_day": 0.9149999999999999,
-   "runtime_h_yr": 333,
+   "runtime_h_yr": 334,
    "fuel_l_per_h": 0.25272,
-   "fuel_l_yr": 84.15576,
-   "fuel_gbp_yr": 63.975208752,
-   "oil_changes_yr": 1,
-   "oil_gbp_yr": 25.0,
+   "fuel_l_yr": 84.40848,
+   "fuel_gbp_yr": 64.167326496,
+   "oil_changes_yr": 1.336,
+   "oil_gbp_yr": 33.4,
    "visits_yr": 12,
    "visit_gbp_yr": 2400.0,
-   "genset_life_yr": 24.024024024024023,
-   "co2e_kg_yr": 232.0729731216,
-   "co2e_t_25yr": 5.80182432804,
+   "genset_life_yr": 23.952095808383234,
+   "co2e_kg_yr": 232.7698889568,
+   "co2e_t_25yr": 5.81924722392,
    "pba_life_yr": 4.0,
    "charge_power_w": 480.0,
    "pba_eff": 0.8
@@ -239,14 +239,14 @@
  },
  "econ": {
   "0.05": {
-   "diesel_a1_lcoe": 75.10796854237796,
-   "diesel_a2_lcoe": 22.514963485733706,
-   "diesel_a1_npv": 135708.3592823979,
-   "diesel_a2_npv": 40681.01978058481,
+   "diesel_a1_lcoe": 75.22497322256515,
+   "diesel_a2_lcoe": 22.72034751123142,
+   "diesel_a1_npv": 135919.76845088854,
+   "diesel_a2_npv": 41052.11661177367,
    "diesel_a2_flows_npv": {
-    "CapEx (genset + tank + enclosure + install)": 4350.0,
-    "Fuel": 901.6630457518289,
-    "Oil & maintenance": 352.3486141511188,
+    "CapEx (genset + tank + enclosure + install)": 4600.0,
+    "Fuel": 904.3707425859186,
+    "Oil & maintenance": 470.7377485058947,
     "Site visits": 33825.4669585074,
     "Genset replacement (lumpy + salvage)": 59.552725625715425,
     "Battery replacement (lumpy + salvage)": 1191.9884365487428
@@ -263,9 +263,9 @@
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.4547763905222504,
-     "ratio_a1": 11.52483487813391,
-     "avoided_npv_vs_a2": 28905.722284576634
+     "ratio_a2": 3.486291248751069,
+     "ratio_a1": 11.542788494045721,
+     "avoided_npv_vs_a2": 29276.8191157655
     },
     "Birmingham": {
      "solar_lcoe": 6.9550142327012106,
@@ -278,9 +278,9 @@
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.2372275213862896,
-     "ratio_a1": 10.799110688980903,
-     "avoided_npv_vs_a2": 28114.39617695134
+     "ratio_a2": 3.266757874398658,
+     "ratio_a1": 10.815933757384856,
+     "avoided_npv_vs_a2": 28485.493008140205
     },
     "Liverpool": {
      "solar_lcoe": 6.6415803093882415,
@@ -293,9 +293,9 @@
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.390000939069811,
-     "ratio_a1": 11.308749581211671,
-     "avoided_npv_vs_a2": 28680.722284576634
+     "ratio_a2": 3.4209249083557647,
+     "ratio_a1": 11.326366575170445,
+     "avoided_npv_vs_a2": 29051.8191157655
     },
     "Edinburgh": {
      "solar_lcoe": 7.234140173721352,
@@ -308,21 +308,21 @@
       "Annual O&M": 845.636673962685,
       "Site visits": 5637.577826417901
      },
-     "ratio_a2": 3.1123205999686436,
-     "ratio_a1": 10.382432015239937,
-     "avoided_npv_vs_a2": 27610.059230763985
+     "ratio_a2": 3.1407115380159585,
+     "ratio_a1": 10.398605973357617,
+     "avoided_npv_vs_a2": 27981.15606195285
     }
    }
   },
   "0.08": {
-   "diesel_a1_lcoe": 75.80464907660777,
-   "diesel_a2_lcoe": 23.27293055090899,
-   "diesel_a1_npv": 103739.14038984198,
-   "diesel_a2_npv": 31849.15225006711,
+   "diesel_a1_lcoe": 75.92165375679498,
+   "diesel_a2_lcoe": 23.522632676548554,
+   "diesel_a1_npv": 103899.26203267081,
+   "diesel_a2_npv": 32190.871183970314,
    "diesel_a2_flows_npv": {
-    "CapEx (genset + tank + enclosure + install)": 4350.0,
-    "Fuel": 682.9210350458329,
-    "Oil & maintenance": 266.8694047147143,
+    "CapEx (genset + tank + enclosure + install)": 4600.0,
+    "Fuel": 684.9718489648895,
+    "Oil & maintenance": 356.53752469885836,
     "Site visits": 25619.462852612574,
     "Genset replacement (lumpy + salvage)": 39.08412588168977,
     "Battery replacement (lumpy + salvage)": 890.814831812299
@@ -339,9 +339,9 @@
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.204226748131825,
-     "ratio_a1": 10.43681558163401,
-     "avoided_npv_vs_a2": 21909.421153122654
+     "ratio_a2": 3.2386058405408993,
+     "ratio_a1": 10.452924834617528,
+     "avoided_npv_vs_a2": 22251.14008702586
     },
     "Birmingham": {
      "solar_lcoe": 7.886258080319745,
@@ -354,9 +354,9 @@
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 2.9510739204676644,
-     "ratio_a1": 9.612245542125892,
-     "avoided_npv_vs_a2": 21056.758325546274
+     "ratio_a2": 2.9827368616365186,
+     "ratio_a1": 9.627082069030736,
+     "avoided_npv_vs_a2": 21398.47725944948
     },
     "Liverpool": {
      "solar_lcoe": 7.4276099731148975,
@@ -369,9 +369,9 @@
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 3.1333000299084204,
-     "ratio_a1": 10.205792893136765,
-     "avoided_npv_vs_a2": 21684.421153122654
+     "ratio_a2": 3.1669181286701202,
+     "ratio_a1": 10.221545561977848,
+     "avoided_npv_vs_a2": 22026.14008702586
     },
     "Edinburgh": {
      "solar_lcoe": 8.232378944840761,
@@ -384,9 +384,9 @@
       "Annual O&M": 640.4865713153144,
       "Site visits": 4269.910475435428
      },
-     "ratio_a2": 2.826999425906427,
-     "ratio_a1": 9.208109780237292,
-     "avoided_npv_vs_a2": 20583.089739334464
+     "ratio_a2": 2.8573311352838306,
+     "ratio_a1": 9.222322522504282,
+     "avoided_npv_vs_a2": 20924.80867323767
     }
    }
   }
@@ -397,380 +397,429 @@
    "label": "baseline",
    "value": "",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.4547763905222504
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.486291248751069
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2016 minimum",
    "value": "44.96 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.31107285347161,
-   "diesel_pv_ratio": 3.4234906838839043
+   "diesel_lcoe_gbp_per_kwh": 22.515844594788362,
+   "diesel_pv_ratio": 3.4549115910417374
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2020 COVID low",
    "value": "52.47 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.360371586513732,
-   "diesel_pv_ratio": 3.4310552575108835
+   "diesel_lcoe_gbp_per_kwh": 22.565291372073855,
+   "diesel_pv_ratio": 3.462498881106035
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2025 mean (CENTRAL)",
    "value": "76.02 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.4547763905222504
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.486291248751069
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2024 mean",
    "value": "80.84 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.546603950881906,
-   "diesel_pv_ratio": 3.4596314164719217
+   "diesel_lcoe_gbp_per_kwh": 22.752082992791482,
+   "diesel_pv_ratio": 3.491160854358248
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2022 spike",
    "value": "104.27 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.7004081206791,
-   "diesel_pv_ratio": 3.483231677467944
+   "diesel_lcoe_gbp_per_kwh": 22.90634903697245,
+   "diesel_pv_ratio": 3.5148319870089124
   },
   {
    "parameter": "Fuel price",
    "label": "Fuel: 2026 Iran spike",
    "value": "117.56 ppl",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.787649154251643,
-   "diesel_pv_ratio": 3.4966182531673518
+   "diesel_lcoe_gbp_per_kwh": 22.9938520556308,
+   "diesel_pv_ratio": 3.528258762635346
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: -30%",
    "value": "70%",
    "pv_lcoe_gbp_per_kwh": 6.146015212010553,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.6633432734977496
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.696760702256525
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: -15%",
    "value": "85%",
    "pv_lcoe_gbp_per_kwh": 6.331534488888452,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.5560042396114904
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.5884425096482646
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: +15%",
    "value": "115%",
    "pv_lcoe_gbp_per_kwh": 6.702573042644247,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.359152275176292
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.3897948394856976
   },
   {
    "parameter": "Battery cost",
    "label": "Battery: +30%",
    "value": "130%",
    "pv_lcoe_gbp_per_kwh": 6.888092319522146,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.2686791119105756
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.2984963698639307
   },
   {
    "parameter": "PV cost",
    "label": "PV: -30%",
    "value": "70%",
    "pv_lcoe_gbp_per_kwh": 6.1434741349006705,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.664858513496083
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.698289764444295
   },
   {
    "parameter": "PV cost",
    "label": "PV: -15%",
    "value": "85%",
    "pv_lcoe_gbp_per_kwh": 6.330263950333509,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.556717960322572
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.5891627409998286
   },
   {
    "parameter": "PV cost",
    "label": "PV: +15%",
    "value": "115%",
    "pv_lcoe_gbp_per_kwh": 6.703843581199188,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.3585156355492134
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.3891523923604416
   },
   {
    "parameter": "PV cost",
    "label": "PV: +30%",
    "value": "130%",
    "pv_lcoe_gbp_per_kwh": 6.890633396632028,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.267473712465746
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.2972799746299906
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 3%",
    "value": "3.0%",
    "pv_lcoe_gbp_per_kwh": 6.06538609434927,
-   "diesel_lcoe_gbp_per_kwh": 22.0582758529644,
-   "diesel_pv_ratio": 3.6367471929799615
+   "diesel_lcoe_gbp_per_kwh": 22.23728588029499,
+   "diesel_pv_ratio": 3.6662605701246354
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 5% (CENTRAL)",
    "value": "5.0%",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.4547763905222504
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.486291248751069
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 7%",
    "value": "7.0%",
    "pv_lcoe_gbp_per_kwh": 7.0060549705608155,
-   "diesel_lcoe_gbp_per_kwh": 23.011378923709984,
-   "diesel_pv_ratio": 3.2844987686227056
+   "diesel_lcoe_gbp_per_kwh": 23.24573732502954,
+   "diesel_pv_ratio": 3.317949605406648
   },
   {
    "parameter": "Discount rate",
    "label": "Discount: 10%",
    "value": "10.0%",
    "pv_lcoe_gbp_per_kwh": 7.799852132659863,
-   "diesel_lcoe_gbp_per_kwh": 23.819320613846678,
-   "diesel_pv_ratio": 3.053816945337904
+   "diesel_lcoe_gbp_per_kwh": 24.101178147321757,
+   "diesel_pv_ratio": 3.0899532116005517
   },
   {
    "parameter": "Load magnitude",
    "label": "Load: -20%",
    "value": "80% (re-sized 500 Wp+1.2 kWh)",
    "pv_lcoe_gbp_per_kwh": 7.566569466964504,
-   "diesel_lcoe_gbp_per_kwh": 27.904432370482084,
-   "diesel_pv_ratio": 3.687857818832206
+   "diesel_lcoe_gbp_per_kwh": 28.093961566316793,
+   "diesel_pv_ratio": 3.7129060519399824
   },
   {
    "parameter": "Load magnitude",
    "label": "Load: +20%",
-   "value": "120% (re-sized 600 Wp+2.5 kWh)",
-   "pv_lcoe_gbp_per_kwh": 5.89608803983886,
-   "diesel_lcoe_gbp_per_kwh": 18.976364780430877,
-   "diesel_pv_ratio": 3.2184669991714543
+   "value": "120% (re-sized 650 Wp+2.2 kWh)",
+   "pv_lcoe_gbp_per_kwh": 5.871027328358564,
+   "diesel_lcoe_gbp_per_kwh": 19.191069877081993,
+   "diesel_pv_ratio": 3.2687754295375555
   },
   {
    "parameter": "PV degradation",
    "label": "PV degr: 0.3%",
    "value": "0.3%/yr (re-sized 600 Wp+1.5 kWh)",
    "pv_lcoe_gbp_per_kwh": 6.456908058213639,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.4869574233898373
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.518765840614619
   },
   {
    "parameter": "PV degradation",
    "label": "PV degr: 0.8%",
    "value": "0.8%/yr (re-sized 550 Wp+2.0 kWh)",
    "pv_lcoe_gbp_per_kwh": 6.6415803093882415,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.390000939069811
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.4209249083557647
   },
   {
    "parameter": "PV degradation",
    "label": "PV degr: 1.0%",
    "value": "1.0%/yr (re-sized 550 Wp+2.0 kWh)",
    "pv_lcoe_gbp_per_kwh": 6.6415803093882415,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.390000939069811
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.4209249083557647
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 12/yr (central)",
    "value": "12/yr",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.4547763905222504
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.486291248751069
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 6/yr",
    "value": "6/yr",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 13.154589070757103,
-   "diesel_pv_ratio": 2.0184871175771613
+   "diesel_lcoe_gbp_per_kwh": 13.359973096254821,
+   "diesel_pv_ratio": 2.0500019758059804
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 4/yr",
    "value": "4/yr",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 10.034464265764903,
-   "diesel_pv_ratio": 1.5397240265954653
+   "diesel_lcoe_gbp_per_kwh": 10.239848291262621,
+   "diesel_pv_ratio": 1.5712388848242844
   },
   {
    "parameter": "Diesel visit cadence",
    "label": "Diesel visits: 2/yr",
    "value": "2/yr",
    "pv_lcoe_gbp_per_kwh": 6.517053765766349,
-   "diesel_lcoe_gbp_per_kwh": 6.9143394607727044,
-   "diesel_pv_ratio": 1.0609609356137695
+   "diesel_lcoe_gbp_per_kwh": 7.119723486270422,
+   "diesel_pv_ratio": 1.0924757938425884
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 8 yr",
    "value": "8 yr",
    "pv_lcoe_gbp_per_kwh": 6.974528228128366,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.228170099725248
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.2576178299200156
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 10 yr",
    "value": "10 yr",
    "pv_lcoe_gbp_per_kwh": 6.708390914940431,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.3562390402130635
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.3868550296659587
   },
   {
    "parameter": "Solar battery life",
    "label": "Batt life: 15 yr",
    "value": "15 yr",
    "pv_lcoe_gbp_per_kwh": 6.351527775114784,
-   "diesel_lcoe_gbp_per_kwh": 22.514963485733706,
-   "diesel_pv_ratio": 3.544810679085288
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.577146840205831
+  },
+  {
+   "parameter": "Solar visit count",
+   "label": "Solar visits: 1/yr",
+   "value": "1/yr",
+   "pv_lcoe_gbp_per_kwh": 4.956991363270249,
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 4.583495480662337
+  },
+  {
+   "parameter": "Solar visit count",
+   "label": "Solar visits: 2/yr (central)",
+   "value": "2/yr",
+   "pv_lcoe_gbp_per_kwh": 6.517053765766349,
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 3.486291248751069
+  },
+  {
+   "parameter": "Solar visit count",
+   "label": "Solar visits: 3/yr",
+   "value": "3/yr",
+   "pv_lcoe_gbp_per_kwh": 8.07711616826245,
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 2.812928158753847
+  },
+  {
+   "parameter": "Solar visit count",
+   "label": "Solar visits: 4/yr",
+   "value": "4/yr",
+   "pv_lcoe_gbp_per_kwh": 9.63717857075855,
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 2.357572534784222
+  },
+  {
+   "parameter": "Solar visit count",
+   "label": "Solar visits: 6/yr",
+   "value": "6/yr",
+   "pv_lcoe_gbp_per_kwh": 12.75730337575075,
+   "diesel_lcoe_gbp_per_kwh": 22.72034751123142,
+   "diesel_pv_ratio": 1.7809678771470274
   },
   {
    "parameter": "Site visit cost",
    "label": "Visits: -50%",
    "value": "50%",
    "pv_lcoe_gbp_per_kwh": 4.956991363270249,
-   "diesel_lcoe_gbp_per_kwh": 13.154589070757103,
-   "diesel_pv_ratio": 2.653744601660693
+   "diesel_lcoe_gbp_per_kwh": 13.359973096254821,
+   "diesel_pv_ratio": 2.6951778038686998
   },
   {
    "parameter": "Site visit cost",
    "label": "Visits: +100%",
    "value": "200%",
    "pv_lcoe_gbp_per_kwh": 9.63717857075855,
-   "diesel_lcoe_gbp_per_kwh": 41.2357123156869,
-   "diesel_pv_ratio": 4.278815839399892
+   "diesel_lcoe_gbp_per_kwh": 41.44109634118462,
+   "diesel_pv_ratio": 4.300127473711712
   }
  ],
  "tornado": [
   {
+   "parameter": "Solar visit count",
+   "low_ratio": 1.7809678771470274,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 4.583495480662337,
+   "delta_low": -1.7053233716040417,
+   "delta_high": 1.0972042319112676,
+   "range": 2.8025276035153093
+  },
+  {
    "parameter": "Diesel visit cadence",
-   "low_ratio": 1.0609609356137695,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.4547763905222504,
+   "low_ratio": 1.0924757938425884,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.486291248751069,
    "delta_low": -2.3938154549084807,
    "delta_high": 0.0,
    "range": 2.3938154549084807
   },
   {
    "parameter": "Site visit cost",
-   "low_ratio": 2.653744601660693,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 4.278815839399892,
-   "delta_low": -0.8010317888615575,
-   "delta_high": 0.8240394488776412,
-   "range": 1.6250712377391987
+   "low_ratio": 2.6951778038686998,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 4.300127473711712,
+   "delta_low": -0.7911134448823693,
+   "delta_high": 0.8138362249606432,
+   "range": 1.6049496698430126
   },
   {
    "parameter": "Discount rate",
-   "low_ratio": 3.053816945337904,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.6367471929799615,
-   "delta_low": -0.40095944518434656,
-   "delta_high": 0.18197080245771113,
-   "range": 0.5829302476420577
+   "low_ratio": 3.0899532116005517,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.6662605701246354,
+   "delta_low": -0.3963380371505174,
+   "delta_high": 0.17996932137356625,
+   "range": 0.5763073585240837
   },
   {
    "parameter": "Load magnitude",
-   "low_ratio": 3.2184669991714543,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.687857818832206,
-   "delta_low": -0.2363093913507961,
-   "delta_high": 0.23308142830995582,
-   "range": 0.4693908196607519
+   "low_ratio": 3.2687754295375555,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.7129060519399824,
+   "delta_low": -0.2175158192135136,
+   "delta_high": 0.22661480318891325,
+   "range": 0.44413062240242684
   },
   {
    "parameter": "PV cost",
-   "low_ratio": 3.267473712465746,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.664858513496083,
-   "delta_low": -0.18730267805650458,
-   "delta_high": 0.21008212297383277,
-   "range": 0.39738480103033735
+   "low_ratio": 3.2972799746299906,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.698289764444295,
+   "delta_low": -0.18901127412107854,
+   "delta_high": 0.2119985156932258,
+   "range": 0.40100978981430435
   },
   {
    "parameter": "Battery cost",
-   "low_ratio": 3.2686791119105756,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.6633432734977496,
-   "delta_low": -0.1860972786116748,
-   "delta_high": 0.2085668829754992,
-   "range": 0.394664161587174
+   "low_ratio": 3.2984963698639307,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.696760702256525,
+   "delta_low": -0.18779487888713842,
+   "delta_high": 0.2104694535054561,
+   "range": 0.3982643323925945
   },
   {
    "parameter": "Solar battery life",
-   "low_ratio": 3.228170099725248,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.544810679085288,
-   "delta_low": -0.22660629079700234,
-   "delta_high": 0.09003428856303763,
-   "range": 0.31664057936004
+   "low_ratio": 3.2576178299200156,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.577146840205831,
+   "delta_low": -0.22867341883105352,
+   "delta_high": 0.09085559145476196,
+   "range": 0.3195290102858155
   },
   {
    "parameter": "PV degradation",
-   "low_ratio": 3.390000939069811,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.4869574233898373,
-   "delta_low": -0.06477545145243946,
-   "delta_high": 0.03218103286758689,
-   "range": 0.09695648432002635
+   "low_ratio": 3.4209249083557647,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.518765840614619,
+   "delta_low": -0.06536634039530442,
+   "delta_high": 0.03247459186354984,
+   "range": 0.09784093225885426
   },
   {
    "parameter": "Fuel price",
-   "low_ratio": 3.4234906838839043,
-   "central_ratio": 3.4547763905222504,
-   "high_ratio": 3.4966182531673518,
-   "delta_low": -0.03128570663834607,
-   "delta_high": 0.04184186264510137,
-   "range": 0.07312756928344744
+   "low_ratio": 3.4549115910417374,
+   "central_ratio": 3.486291248751069,
+   "high_ratio": 3.528258762635346,
+   "delta_low": -0.03137965770933171,
+   "delta_high": 0.041967513884277,
+   "range": 0.0733471715936087
   }
  ],
- "central_ratio": 3.4547763905222504,
+ "central_ratio": 3.486291248751069,
  "visit_cadence": {
-  "12": 3.4547763905222504,
-  "6": 2.0184871175771613,
-  "4": 1.5397240265954653,
-  "2": 1.0609609356137695
+  "12": 3.486291248751069,
+  "6": 2.0500019758059804,
+  "4": 1.5712388848242844,
+  "2": 1.0924757938425884
  },
  "worst_case": [
   {
    "site": "Southampton",
    "solar_lcoe_worst": 8.130909093671681,
-   "diesel_lcoe_worst": 14.255055566607984,
-   "ratio_worst": 1.7531933271401043
+   "diesel_lcoe_worst": 13.150488697359238,
+   "ratio_worst": 1.6173454340541473
   },
   {
    "site": "Birmingham",
-   "solar_lcoe_worst": 8.97243941320393,
-   "diesel_lcoe_worst": 14.255055566607984,
-   "ratio_worst": 1.588760303650544
+   "solar_lcoe_worst": 8.966936489115428,
+   "diesel_lcoe_worst": 13.150488697359238,
+   "ratio_worst": 1.4665531213834335
   },
   {
    "site": "Liverpool",
    "solar_lcoe_worst": 8.382267604713656,
-   "diesel_lcoe_worst": 14.255055566607984,
-   "ratio_worst": 1.7006204333767445
+   "diesel_lcoe_worst": 13.150488697359238,
+   "ratio_worst": 1.5688462021856995
   },
   {
    "site": "Edinburgh",
    "solar_lcoe_worst": 9.639060159923527,
-   "diesel_lcoe_worst": 14.255055566607984,
-   "ratio_worst": 1.4788843860396736
+   "diesel_lcoe_worst": 13.150488697359238,
+   "ratio_worst": 1.3642915885134976
   }
  ],
  "worst_case_cadence": {
@@ -778,140 +827,140 @@
    {
     "site": "Southampton",
     "solar_lcoe_worst": 8.130909093671681,
-    "diesel_lcoe_worst": 9.574868359119685,
-    "ratio_worst": 1.1775889078100559
+    "diesel_lcoe_worst": 8.470301489870938,
+    "ratio_worst": 1.0417410147240986
    },
    {
     "site": "Birmingham",
-    "solar_lcoe_worst": 8.97243941320393,
-    "diesel_lcoe_worst": 9.574868359119685,
-    "ratio_worst": 1.0671421581325158
+    "solar_lcoe_worst": 8.966936489115428,
+    "diesel_lcoe_worst": 8.470301489870938,
+    "ratio_worst": 0.9446148637444535
    },
    {
     "site": "Liverpool",
     "solar_lcoe_worst": 8.382267604713656,
-    "diesel_lcoe_worst": 9.574868359119685,
-    "ratio_worst": 1.1422766261644268
+    "diesel_lcoe_worst": 8.470301489870938,
+    "ratio_worst": 1.0105023949733813
    },
    {
     "site": "Edinburgh",
     "solar_lcoe_worst": 9.639060159923527,
-    "diesel_lcoe_worst": 9.574868359119685,
-    "ratio_worst": 0.9933404502369709
+    "diesel_lcoe_worst": 8.470301489870938,
+    "ratio_worst": 0.8787476527107948
    }
   ],
   "4": [
    {
     "site": "Southampton",
     "solar_lcoe_worst": 8.130909093671681,
-    "diesel_lcoe_worst": 8.014805956623585,
-    "ratio_worst": 0.9857207680333728
+    "diesel_lcoe_worst": 6.910239087374838,
+    "ratio_worst": 0.8498728749474157
    },
    {
     "site": "Birmingham",
-    "solar_lcoe_worst": 8.97243941320393,
-    "diesel_lcoe_worst": 8.014805956623585,
-    "ratio_worst": 0.8932694429598397
+    "solar_lcoe_worst": 8.966936489115428,
+    "diesel_lcoe_worst": 6.910239087374838,
+    "ratio_worst": 0.7706354445314602
    },
    {
     "site": "Liverpool",
     "solar_lcoe_worst": 8.382267604713656,
-    "diesel_lcoe_worst": 8.014805956623585,
-    "ratio_worst": 0.9561620237603207
+    "diesel_lcoe_worst": 6.910239087374838,
+    "ratio_worst": 0.8243877925692754
    },
    {
     "site": "Edinburgh",
     "solar_lcoe_worst": 9.639060159923527,
-    "diesel_lcoe_worst": 8.014805956623585,
-    "ratio_worst": 0.8314924716360699
+    "diesel_lcoe_worst": 6.910239087374838,
+    "ratio_worst": 0.7168996741098939
    }
   ],
   "2": [
    {
     "site": "Southampton",
     "solar_lcoe_worst": 8.130909093671681,
-    "diesel_lcoe_worst": 6.454743554127485,
-    "ratio_worst": 0.79385262825669
+    "diesel_lcoe_worst": 5.350176684878738,
+    "ratio_worst": 0.6580047351707329
    },
    {
     "site": "Birmingham",
-    "solar_lcoe_worst": 8.97243941320393,
-    "diesel_lcoe_worst": 6.454743554127485,
-    "ratio_worst": 0.7193967277871636
+    "solar_lcoe_worst": 8.966936489115428,
+    "diesel_lcoe_worst": 5.350176684878738,
+    "ratio_worst": 0.5966560253184667
    },
    {
     "site": "Liverpool",
     "solar_lcoe_worst": 8.382267604713656,
-    "diesel_lcoe_worst": 6.454743554127485,
-    "ratio_worst": 0.7700474213562147
+    "diesel_lcoe_worst": 5.350176684878738,
+    "ratio_worst": 0.6382731901651694
    },
    {
     "site": "Edinburgh",
     "solar_lcoe_worst": 9.639060159923527,
-    "diesel_lcoe_worst": 6.454743554127485,
-    "ratio_worst": 0.6696444930351689
+    "diesel_lcoe_worst": 5.350176684878738,
+    "ratio_worst": 0.5550516955089929
    }
   ]
  },
  "cadence": {
   "0.05": {
    "Southampton": {
-    "12": 3.4547763905222513,
-    "6": 2.018487117577162,
-    "4": 1.539724026595466,
-    "2": 1.0609609356137695,
-    "breakeven_visits": 1.7453398695009261
+    "12": 3.4862912487510704,
+    "6": 2.0500019758059813,
+    "4": 1.571238884824285,
+    "2": 1.0924757938425884,
+    "breakeven_visits": 1.6136887091568888
    },
    "Birmingham": {
-    "12": 3.2372275213862904,
-    "6": 1.8913820490699538,
-    "4": 1.4427668916311749,
-    "2": 0.9941517341923959,
-    "breakeven_visits": 2.0260725288061723
+    "12": 3.2667578743986594,
+    "6": 1.920912402082323,
+    "4": 1.472297244643544,
+    "2": 1.023682087204765,
+    "breakeven_visits": 1.8944213684621352
    },
    "Liverpool": {
-    "12": 3.3900009390698123,
-    "6": 1.9806414223678614,
-    "4": 1.5108549168005445,
-    "2": 1.0410684112332276,
-    "breakeven_visits": 1.8251613839625593
+    "12": 3.420924908355766,
+    "6": 2.011565391653815,
+    "4": 1.5417788860864985,
+    "2": 1.0719923805191816,
+    "breakeven_visits": 1.693510223618522
    },
    "Edinburgh": {
-    "12": 3.1123205999686445,
-    "6": 1.8184039505541107,
-    "4": 1.3870984007492664,
-    "2": 0.9557928509444216,
-    "breakeven_visits": 2.204992257000083
+    "12": 3.14071153801596,
+    "6": 1.8467948886014263,
+    "4": 1.4154893387965817,
+    "2": 0.984183788991737,
+    "breakeven_visits": 2.0733410966560455
    }
   },
   "0.08": {
    "Southampton": {
-    "12": 3.204226748131824,
-    "6": 1.915486509450308,
-    "4": 1.4859064298898028,
-    "2": 1.0563263503292977,
-    "breakeven_visits": 1.7377608832005245
+    "12": 3.238605840540898,
+    "6": 1.9498656018593825,
+    "4": 1.5202855222988771,
+    "2": 1.0907054427383718,
+    "breakeven_visits": 1.5777018206655635
    },
    "Birmingham": {
-    "12": 2.951073920467663,
-    "6": 1.7641517680801417,
-    "4": 1.3685110506176348,
-    "2": 0.9728703331551276,
-    "breakeven_visits": 2.1371429463522964
+    "12": 2.9827368616365173,
+    "6": 1.795814709248996,
+    "4": 1.400173991786489,
+    "2": 1.0045332743239819,
+    "breakeven_visits": 1.9770838838173355
    },
    "Liverpool": {
-    "12": 3.1333000299084186,
-    "6": 1.8730865226217461,
-    "4": 1.4530153535261885,
-    "2": 1.0329441844306309,
-    "breakeven_visits": 1.8431495096339887
+    "12": 3.166918128670119,
+    "6": 1.9067046213834462,
+    "4": 1.4866334522878886,
+    "2": 1.066562283192331,
+    "breakeven_visits": 1.6830904470990278
    },
    "Edinburgh": {
-    "12": 2.8269994259064255,
-    "6": 1.689980044547317,
-    "4": 1.3109735840942809,
-    "2": 0.9319671236412446,
-    "breakeven_visits": 2.3590064205102674
+    "12": 2.8573311352838293,
+    "6": 1.7203117539247206,
+    "4": 1.3413052934716843,
+    "2": 0.9622988330186479,
+    "breakeven_visits": 2.1989473579753067
    }
   }
  },
@@ -919,22 +968,22 @@
   "Southampton": {
    "pv_wp": 450.0,
    "battery_kwh": 0.75,
-   "lolp_gov_pct": 2.3972602739726026
+   "lolp_gov_pct": 2.4543378995433787
   },
   "Birmingham": {
    "pv_wp": 500.0,
    "battery_kwh": 1.0,
-   "lolp_gov_pct": 1.7351598173515983
+   "lolp_gov_pct": 1.7694063926940637
   },
   "Liverpool": {
    "pv_wp": 600.0,
    "battery_kwh": 1.0,
-   "lolp_gov_pct": 1.906392694063927
+   "lolp_gov_pct": 1.9634703196347032
   },
   "Edinburgh": {
    "pv_wp": 550.0,
    "battery_kwh": 1.25,
-   "lolp_gov_pct": 1.6894977168949772
+   "lolp_gov_pct": 1.7579908675799085
   }
  },
  "validation": {
@@ -1089,30 +1138,30 @@
      }
     },
     "layer2_tmy_chain": {
-     "tmy_annual_kwh_per_kwp_noloss": 1237.2480826236167,
-     "annual_bias_vs_pvgis_mean_pct": 1.2826924508461124,
+     "tmy_annual_kwh_per_kwp_noloss": 1228.672140307551,
+     "annual_bias_vs_pvgis_mean_pct": 0.5806549692179974,
      "tmy_within_16yr_band": true,
-     "monthly_nmbe_pct": 1.282692450846131,
-     "monthly_nrmse_pct": 7.941551895930286,
-     "winter_monthly_nmbe_pct": 0.5505561449047214,
-     "winter_monthly_nrmse_pct": 13.284837271447508,
+     "monthly_nmbe_pct": 0.5806549692180258,
+     "monthly_nrmse_pct": 7.8256247167096715,
+     "winter_monthly_nmbe_pct": 0.1247614270589693,
+     "winter_monthly_nrmse_pct": 13.160384256885605,
      "tmy_monthly_kwh_per_kwp": {
-      "1": 57.6524838270916,
-      "2": 78.57503618339155,
-      "3": 126.5358771080893,
-      "4": 140.55567213793967,
-      "5": 142.3802620446993,
-      "6": 127.60943041358891,
-      "7": 140.5454393760792,
-      "8": 133.31225313655628,
-      "9": 114.91200022442682,
-      "10": 75.48121400234966,
-      "11": 62.673655373361285,
-      "12": 37.01475879604325
+      "1": 57.43507355134725,
+      "2": 78.20827295906949,
+      "3": 125.8227502614732,
+      "4": 139.55654302607567,
+      "5": 141.15592618083951,
+      "6": 126.44731814847673,
+      "7": 139.30613712903389,
+      "8": 132.25958578404646,
+      "9": 114.15229551666684,
+      "10": 75.0546675154716,
+      "11": 62.41515235761286,
+      "12": 36.85841787743753
      },
-     "poa_monthly_nmbe_pct": -0.9997310176390087,
-     "poa_monthly_nrmse_pct": 8.093692610512731,
-     "poa_tmy_annual_kwh_m2": 1299.153257137674
+     "poa_monthly_nmbe_pct": -1.7970650283977259,
+     "poa_monthly_nrmse_pct": 8.243682049441151,
+     "poa_tmy_annual_kwh_m2": 1288.6900625650571
     }
    },
    "Birmingham": {
@@ -1265,30 +1314,30 @@
      }
     },
     "layer2_tmy_chain": {
-     "tmy_annual_kwh_per_kwp_noloss": 1121.3672250367676,
-     "annual_bias_vs_pvgis_mean_pct": 2.8639694406380256,
+     "tmy_annual_kwh_per_kwp_noloss": 1113.0178142170175,
+     "annual_bias_vs_pvgis_mean_pct": 2.0980708837384787,
      "tmy_within_16yr_band": true,
-     "monthly_nmbe_pct": 2.8639694406380256,
-     "monthly_nrmse_pct": 15.383295638050107,
-     "winter_monthly_nmbe_pct": 5.7857025462994125,
-     "winter_monthly_nrmse_pct": 23.097427854779152,
+     "monthly_nmbe_pct": 2.0980708837384716,
+     "monthly_nrmse_pct": 15.143966834789726,
+     "winter_monthly_nmbe_pct": 5.357039407798196,
+     "winter_monthly_nrmse_pct": 23.044980817516862,
      "tmy_monthly_kwh_per_kwp": {
-      "1": 57.34960900105793,
-      "2": 49.17765503796392,
-      "3": 116.38477141222009,
-      "4": 114.42362776918631,
-      "5": 150.20363889732613,
-      "6": 139.9671618677913,
-      "7": 119.77414622522014,
-      "8": 100.85558571709635,
-      "9": 94.38238531987803,
-      "10": 62.527376594056086,
-      "11": 54.15546413102402,
-      "12": 62.16580306394738
+      "1": 57.13631167813661,
+      "2": 48.907782745760635,
+      "3": 115.671722099974,
+      "4": 113.48618290866268,
+      "5": 148.89097945992538,
+      "6": 138.62553501050468,
+      "7": 118.6326526185287,
+      "8": 99.93945877985462,
+      "9": 93.69208849758228,
+      "10": 62.13368687587954,
+      "11": 53.92897023013585,
+      "12": 61.97244331207251
      },
-     "poa_monthly_nmbe_pct": -0.08593144441794355,
-     "poa_monthly_nrmse_pct": 15.421072512867017,
-     "poa_tmy_annual_kwh_m2": 1171.4477535088538
+     "poa_monthly_nmbe_pct": -0.9432586867552691,
+     "poa_monthly_nrmse_pct": 15.325898199469043,
+     "poa_tmy_annual_kwh_m2": 1161.39597514994
     }
    },
    "Liverpool": {
@@ -1441,30 +1490,30 @@
      }
     },
     "layer2_tmy_chain": {
-     "tmy_annual_kwh_per_kwp_noloss": 1119.3757689634538,
-     "annual_bias_vs_pvgis_mean_pct": 2.840883457837906,
+     "tmy_annual_kwh_per_kwp_noloss": 1110.7956852664468,
+     "annual_bias_vs_pvgis_mean_pct": 2.052601799427989,
      "tmy_within_16yr_band": true,
-     "monthly_nmbe_pct": 2.840883457837907,
-     "monthly_nrmse_pct": 12.069733535936669,
-     "winter_monthly_nmbe_pct": -2.7666492783961756,
-     "winter_monthly_nrmse_pct": 9.445308972112358,
+     "monthly_nmbe_pct": 2.0526017994279657,
+     "monthly_nrmse_pct": 11.751307644309387,
+     "winter_monthly_nmbe_pct": -3.198020104490419,
+     "winter_monthly_nrmse_pct": 9.533519322667264,
      "tmy_monthly_kwh_per_kwp": {
-      "1": 45.4818827025107,
-      "2": 64.08551279375287,
-      "3": 116.84529668785221,
-      "4": 153.47849587119293,
-      "5": 123.10159938204157,
-      "6": 139.17529327104202,
-      "7": 121.79880798054742,
-      "8": 110.63336766793955,
-      "9": 98.45021807240488,
-      "10": 65.34378580964143,
-      "11": 50.57344963159761,
-      "12": 30.408059092930678
+      "1": 45.29457677053464,
+      "2": 63.773439476140204,
+      "3": 116.11116174869372,
+      "4": 152.34707984968375,
+      "5": 121.93562305799345,
+      "6": 137.78995970045838,
+      "7": 120.60864089663622,
+      "8": 109.64450564149001,
+      "9": 97.7115880200508,
+      "10": 64.94358267427944,
+      "11": 50.35173008440686,
+      "12": 30.283797346079186
      },
-     "poa_monthly_nmbe_pct": 0.30747315936174247,
-     "poa_monthly_nrmse_pct": 12.350454429551018,
-     "poa_tmy_annual_kwh_m2": 1169.2637581633724
+     "poa_monthly_nmbe_pct": -0.5744999727109853,
+     "poa_monthly_nrmse_pct": 12.208354010148366,
+     "poa_tmy_annual_kwh_m2": 1158.9827772301962
     }
    },
    "Edinburgh": {
@@ -1617,30 +1666,30 @@
      }
     },
     "layer2_tmy_chain": {
-     "tmy_annual_kwh_per_kwp_noloss": 1064.0914091775371,
-     "annual_bias_vs_pvgis_mean_pct": 3.2417596732347898,
+     "tmy_annual_kwh_per_kwp_noloss": 1055.2289721769723,
+     "annual_bias_vs_pvgis_mean_pct": 2.3818959594221756,
      "tmy_within_16yr_band": true,
-     "monthly_nmbe_pct": 3.241759673234769,
-     "monthly_nrmse_pct": 15.647292883170918,
-     "winter_monthly_nmbe_pct": 14.431959384148502,
-     "winter_monthly_nrmse_pct": 20.845097021103637,
+     "monthly_nmbe_pct": 2.381895959422183,
+     "monthly_nrmse_pct": 15.421687696371542,
+     "winter_monthly_nmbe_pct": 13.966749336106076,
+     "winter_monthly_nrmse_pct": 20.436719733679773,
      "tmy_monthly_kwh_per_kwp": {
-      "1": 34.37596706085679,
-      "2": 72.99095694274612,
-      "3": 67.73664642541681,
-      "4": 98.64680041654664,
-      "5": 139.6833497651389,
-      "6": 130.07631526089463,
-      "7": 124.44189355763854,
-      "8": 112.11638851178799,
-      "9": 91.0650062347198,
-      "10": 86.30646826149813,
-      "11": 67.96793256154007,
-      "12": 38.683684178752536
+      "1": 34.229200351119886,
+      "2": 72.64243518611677,
+      "3": 67.21534250970821,
+      "4": 97.71146960961191,
+      "5": 138.22225100396628,
+      "6": 128.65039247012515,
+      "7": 123.09187232577575,
+      "8": 111.02025824262822,
+      "9": 90.34343977181645,
+      "10": 85.82547340842135,
+      "11": 67.71631913319402,
+      "12": 38.56051816448845
      },
-     "poa_monthly_nmbe_pct": 0.43800331213927457,
-     "poa_monthly_nrmse_pct": 14.845057279884163,
-     "poa_tmy_annual_kwh_m2": 1102.1254956962152
+     "poa_monthly_nmbe_pct": -0.509228624190603,
+     "poa_monthly_nrmse_pct": 14.790896797350827,
+     "poa_tmy_annual_kwh_m2": 1091.7313377784951
     }
    }
   },
@@ -1738,8 +1787,13 @@
    1.5,
    1.75,
    2.0,
+   2.25,
    2.5,
+   2.75,
    3.0,
+   3.25,
+   3.5,
+   3.75,
    4.0,
    5.0,
    7.0,
@@ -2161,7 +2215,9 @@
        "total_unmet_hours_16yr": 212,
        "mean_eens_kwh": 0.17559324321905415,
        "max_eens_kwh": 0.7550237224483648,
-       "mean_curtailed_kwh": 350.8405416022986
+       "mean_curtailed_kwh": 350.8405416022986,
+       "llp_energy_pct_mean": 0.13682493714775898,
+       "llp_energy_pct_max": 0.5883260168512822
       },
       "pvgis": {
        "lolp_pct_by_year": {
@@ -2252,7 +2308,9 @@
        "total_unmet_hours_16yr": 575,
        "mean_eens_kwh": 0.4675542136170856,
        "max_eens_kwh": 1.198378303382554,
-       "mean_curtailed_kwh": 340.3526550148845
+       "mean_curtailed_kwh": 340.3526550148845,
+       "llp_energy_pct_mean": 0.3643253847274785,
+       "llp_energy_pct_max": 0.9337946781642639
       }
      },
      "year1_conditions_study": {
@@ -2276,113 +2334,256 @@
        "max_lolp_pct": 0.821917808219178,
        "years_within_1pct": 16
       },
+      "charge_blocked_with_extra_array_wp": {
+       "50": {
+        "study": {
+         "mean_lolp_pct": 0.1833521252838286,
+         "max_lolp_pct": 1.1073059360730595,
+         "years_within_1pct": 15
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.40296842640417196,
+         "max_lolp_pct": 1.7694063926940637,
+         "years_within_1pct": 15
+        }
+       },
+       "100": {
+        "study": {
+         "mean_lolp_pct": 0.12557077625570776,
+         "max_lolp_pct": 0.7876712328767124,
+         "years_within_1pct": 16
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.2924390080345335,
+         "max_lolp_pct": 1.4269406392694064,
+         "years_within_1pct": 15
+        }
+       },
+       "150": {
+        "study": {
+         "mean_lolp_pct": 0.08062214611872147,
+         "max_lolp_pct": 0.5251141552511416,
+         "years_within_1pct": 16
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.21044255433290915,
+         "max_lolp_pct": 1.1187214611872145,
+         "years_within_1pct": 15
+        }
+       },
+       "200": {
+        "study": {
+         "mean_lolp_pct": 0.04209474885844749,
+         "max_lolp_pct": 0.410958904109589,
+         "years_within_1pct": 16
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.16479604885595228,
+         "max_lolp_pct": 0.8105022831050228,
+         "years_within_1pct": 16
+        }
+       }
+      },
       "subzero_hours_per_year_mean": 186.5625
+     },
+     "life_average": {
+      "study": {
+       "life_average_lolp_pct": 0.060119582304064674,
+       "by_project_year": [
+        0.01569634703196347,
+        0.020690639269406393,
+        0.026398401826484015,
+        0.030679223744292237,
+        0.03567351598173516,
+        0.040667808219178085,
+        0.0449486301369863,
+        0.049942922374429224,
+        0.05779109589041097,
+        0.06848535319509944,
+        0.08202959303341067,
+        0.09700077351099133,
+        0.029252283105022835,
+        0.03496004566210045,
+        0.039240867579908675,
+        0.0435216894977169,
+        0.04851598173515982,
+        0.05778914651795294,
+        0.0677699335030067,
+        0.08131612271377597,
+        0.09343732065773386,
+        0.11268737368066473,
+        0.13050853669186818,
+        0.15117773286423636,
+        0.04280821917808218
+       ],
+       "max_project_year_mean_pct": 0.15117773286423636
+      },
+      "pvgis": {
+       "life_average_lolp_pct": 0.21363180564912543,
+       "by_project_year": [
+        0.07704699703071588,
+        0.08988556403922449,
+        0.10272023230281707,
+        0.12054334468647852,
+        0.13836645707013998,
+        0.1568991410285201,
+        0.1754298756144422,
+        0.19824338149063053,
+        0.2267627005514385,
+        0.25385897771789306,
+        0.27953026361753625,
+        0.31233820208598445,
+        0.12411264565711005,
+        0.14122423709359483,
+        0.1647531626618759,
+        0.18471083788706738,
+        0.20538588217680964,
+        0.2296282780647254,
+        0.2560071861666292,
+        0.28524777303690396,
+        0.31163447862863985,
+        0.34087311612645654,
+        0.3743945249145395,
+        0.41004464842677846,
+        0.18115323315118398
+       ],
+       "max_project_year_mean_pct": 0.41004464842677846
+      }
+     },
+     "leave_one_year_out": {
+      "held_out_exceedances": {
+       "study": 0,
+       "pvgis": 2
+      },
+      "held_out_rate_pct": {
+       "study": 0.0,
+       "pvgis": 12.5
+      },
+      "details": {
+       "study": [],
+       "pvgis": [
+        {
+         "held_out_year": 2005,
+         "pv_wp": 600.0,
+         "battery_kwh": 1.5,
+         "lolp_pct": 1.0616438356164384
+        },
+        {
+         "held_out_year": 2006,
+         "pv_wp": 600.0,
+         "battery_kwh": 1.5,
+         "lolp_pct": 1.2100456621004567
+        }
+       ]
+      },
+      "in_sample_allowance": 1,
+      "n_years": 16
      }
     },
     "final_design_lolp_0p1": {
      "pv_wp": 550.0,
-     "battery_kwh": 3.0,
-     "cost_index": 13117.645280757592,
+     "battery_kwh": 2.75,
+     "cost_index": 12838.308334570236,
      "delta_pv_wp": 50.0,
-     "delta_battery_kwh": 1.0,
-     "lcoe_5pct": 7.259977898981236,
-     "lcoe_delta_pct": 11.39969317297056,
-     "npv_5pct": 13117.645280757592,
-     "npv_delta_pct": 11.39969317297056,
-     "capex_gbp": 5325.0,
+     "delta_battery_kwh": 0.75,
+     "lcoe_5pct": 7.105378501582988,
+     "lcoe_delta_pct": 9.027464817109077,
+     "npv_5pct": 12838.308334570236,
+     "npv_delta_pct": 9.027464817109054,
+     "capex_gbp": 5150.0,
      "years_ok_study": 16,
-     "mean_lolp_pct_study": 0.0,
-     "max_lolp_pct_study": 0.0,
+     "mean_lolp_pct_study": 0.005707762557077625,
+     "max_lolp_pct_study": 0.091324200913242,
      "years_ok_pvgis": 15,
-     "mean_lolp_pct_pvgis": 0.024257990867579907,
-     "max_lolp_pct_pvgis": 0.3881278538812785
+     "mean_lolp_pct_pvgis": 0.044948630136986294,
+     "max_lolp_pct_pvgis": 0.502283105022831
     }
    },
    "Birmingham": {
     "tmy_design": {
-     "pv_wp": 550.0,
-     "battery_kwh": 1.25,
-     "lcoe_5pct": 6.177782117193496,
-     "npv_5pct": 11162.286657446111,
-     "capex_gbp": 4100.0,
+     "pv_wp": 500.0,
+     "battery_kwh": 1.5,
+     "lcoe_5pct": 6.207854970969852,
+     "npv_5pct": 11216.623603633467,
+     "capex_gbp": 4050.0,
      "by_model": {
       "study": {
        "lolp_pct_by_year": {
-        "2005": 1.7465753424657535,
-        "2006": 2.7054794520547945,
-        "2007": 0.7648401826484018,
-        "2008": 1.1953551912568305,
-        "2009": 1.1529680365296804,
-        "2010": 0.502283105022831,
-        "2011": 0.684931506849315,
-        "2012": 0.2163023679417122,
-        "2013": 0.9474885844748858,
-        "2014": 0.10273972602739725,
-        "2015": 0.91324200913242,
-        "2016": 0.2163023679417122,
-        "2017": 0.8333333333333334,
-        "2018": 0.2397260273972603,
-        "2019": 1.7694063926940637,
-        "2020": 0.5806010928961749
+        "2005": 1.872146118721461,
+        "2006": 2.545662100456621,
+        "2007": 0.6278538812785388,
+        "2008": 1.0018214936247722,
+        "2009": 1.1073059360730595,
+        "2010": 0.6164383561643836,
+        "2011": 0.593607305936073,
+        "2012": 0.14799635701275046,
+        "2013": 0.9246575342465754,
+        "2014": 0.0684931506849315,
+        "2015": 0.9817351598173516,
+        "2016": 0.1366120218579235,
+        "2017": 0.5707762557077625,
+        "2018": 0.19406392694063926,
+        "2019": 1.7237442922374429,
+        "2020": 0.3073770491803279
        },
        "unmet_hours_by_year": {
-        "2005": 153,
-        "2006": 237,
-        "2007": 67,
-        "2008": 105,
-        "2009": 101,
-        "2010": 44,
-        "2011": 60,
-        "2012": 19,
-        "2013": 83,
-        "2014": 9,
-        "2015": 80,
-        "2016": 19,
-        "2017": 73,
-        "2018": 21,
-        "2019": 155,
-        "2020": 51
+        "2005": 164,
+        "2006": 223,
+        "2007": 55,
+        "2008": 88,
+        "2009": 97,
+        "2010": 54,
+        "2011": 52,
+        "2012": 13,
+        "2013": 81,
+        "2014": 6,
+        "2015": 86,
+        "2016": 12,
+        "2017": 50,
+        "2018": 17,
+        "2019": 151,
+        "2020": 27
        },
        "eens_kwh_by_year": {
-        "2005": 1.9819673961784467,
-        "2006": 3.077758200299481,
-        "2007": 0.8948194936667218,
-        "2008": 1.4391436491161753,
-        "2009": 1.3945216280710233,
-        "2010": 0.5539610226416228,
-        "2011": 0.8020232675755522,
-        "2012": 0.23014450735190267,
-        "2013": 1.1309744275521445,
-        "2014": 0.1082812111267206,
-        "2015": 1.0576112951469392,
-        "2016": 0.27113462874801986,
-        "2017": 0.9676468218460587,
-        "2018": 0.24276874087097178,
-        "2019": 2.0594787408862363,
-        "2020": 0.7110082732056586
+        "2005": 2.1100702623216643,
+        "2006": 2.8754777367240414,
+        "2007": 0.7165985493495917,
+        "2008": 1.1986735694077155,
+        "2009": 1.3209244871958925,
+        "2010": 0.7035800890840445,
+        "2011": 0.6873628314056921,
+        "2012": 0.17287916954852772,
+        "2013": 1.1005596923024232,
+        "2014": 0.08783007680200904,
+        "2015": 1.144541215833392,
+        "2016": 0.16436417217035906,
+        "2017": 0.6570605146752334,
+        "2018": 0.22644317577342052,
+        "2019": 2.02017529171079,
+        "2020": 0.36636392857102884
        },
        "curtailed_kwh_by_year": {
-        "2005": 316.5277818938387,
-        "2006": 342.4570185436288,
-        "2007": 361.1601309937821,
-        "2008": 328.4922338300219,
-        "2009": 351.3259366919,
-        "2010": 350.1688067288353,
-        "2011": 352.98729989417,
-        "2012": 335.8616375439249,
-        "2013": 328.3151631383962,
-        "2014": 361.7736911593673,
-        "2015": 351.1966374480883,
-        "2016": 340.46655669157155,
-        "2017": 319.86966105479894,
-        "2018": 362.3065570674217,
-        "2019": 362.68643732264513,
-        "2020": 373.5766559422084
+        "2005": 276.010265739872,
+        "2006": 299.02169868739014,
+        "2007": 315.79567417019575,
+        "2008": 286.1838969941901,
+        "2009": 307.0205253475737,
+        "2010": 306.4703113515831,
+        "2011": 308.58663462772785,
+        "2012": 292.92587741227237,
+        "2013": 286.03156586983954,
+        "2014": 316.4906974180079,
+        "2015": 307.1561318061032,
+        "2016": 297.10707970654653,
+        "2017": 278.1906186756109,
+        "2018": 317.2836753606623,
+        "2019": 317.3416732361087,
+        "2020": 326.93359461223775
        },
-       "mean_lolp_pct": 0.9107234199166604,
-       "median_lolp_pct": 0.7990867579908676,
-       "max_lolp_pct": 2.7054794520547945,
-       "min_lolp_pct": 0.10273972602739725,
+       "mean_lolp_pct": 0.8387681837462884,
+       "median_lolp_pct": 0.6221461187214612,
+       "max_lolp_pct": 2.545662100456621,
+       "min_lolp_pct": 0.0684931506849315,
        "worst_year": 2006,
        "worst_window": {
         "start": "2006-01-01",
@@ -2391,102 +2592,102 @@
        },
        "years_within_1pct": 11,
        "years_over_1pct": 5,
-       "p90_lolp_pct": 1.7579908675799087,
-       "total_unmet_hours_16yr": 1277,
-       "mean_eens_kwh": 1.0577027065177296,
-       "max_eens_kwh": 3.077758200299481,
-       "mean_curtailed_kwh": 346.19826287153745
+       "p90_lolp_pct": 1.797945205479452,
+       "total_unmet_hours_16yr": 1176,
+       "mean_eens_kwh": 0.972056547679739,
+       "max_eens_kwh": 2.8754777367240414,
+       "mean_curtailed_kwh": 302.40937006349515
       },
       "pvgis": {
        "lolp_pct_by_year": {
-        "2005": 2.7625570776255706,
-        "2006": 3.8470319634703194,
-        "2007": 1.3470319634703196,
-        "2008": 1.9011839708561022,
-        "2009": 1.4497716894977168,
-        "2010": 1.1073059360730595,
-        "2011": 1.552511415525114,
-        "2012": 1.0132058287795993,
-        "2013": 2.077625570776256,
-        "2014": 0.4337899543378996,
-        "2015": 2.191780821917808,
-        "2016": 0.6602914389799636,
-        "2017": 1.9634703196347032,
-        "2018": 1.038812785388128,
-        "2019": 2.5342465753424657,
-        "2020": 1.2067395264116576
+        "2005": 2.7054794520547945,
+        "2006": 3.6301369863013697,
+        "2007": 1.1643835616438356,
+        "2008": 1.5938069216757742,
+        "2009": 1.3242009132420092,
+        "2010": 1.221461187214612,
+        "2011": 1.3013698630136987,
+        "2012": 0.9448998178506375,
+        "2013": 1.7465753424657535,
+        "2014": 0.3082191780821918,
+        "2015": 2.180365296803653,
+        "2016": 0.546448087431694,
+        "2017": 1.6210045662100456,
+        "2018": 0.821917808219178,
+        "2019": 2.4315068493150687,
+        "2020": 0.8310564663023678
        },
        "unmet_hours_by_year": {
-        "2005": 242,
-        "2006": 337,
-        "2007": 118,
-        "2008": 167,
-        "2009": 127,
-        "2010": 97,
-        "2011": 136,
-        "2012": 89,
-        "2013": 182,
-        "2014": 38,
-        "2015": 192,
-        "2016": 58,
-        "2017": 172,
-        "2018": 91,
-        "2019": 222,
-        "2020": 106
+        "2005": 237,
+        "2006": 318,
+        "2007": 102,
+        "2008": 140,
+        "2009": 116,
+        "2010": 107,
+        "2011": 114,
+        "2012": 83,
+        "2013": 153,
+        "2014": 27,
+        "2015": 191,
+        "2016": 48,
+        "2017": 142,
+        "2018": 72,
+        "2019": 213,
+        "2020": 73
        },
        "eens_kwh_by_year": {
-        "2005": 3.257795641052052,
-        "2006": 4.416052528550948,
-        "2007": 1.5488132072514837,
-        "2008": 2.2804357869265663,
-        "2009": 1.758393050552309,
-        "2010": 1.2947868621471508,
-        "2011": 1.7488792873577925,
-        "2012": 1.1828685703794837,
-        "2013": 2.32932058384454,
-        "2014": 0.5105375269598497,
-        "2015": 2.5323563159874483,
-        "2016": 0.7965927424704526,
-        "2017": 2.1978836520515226,
-        "2018": 1.2082913058139195,
-        "2019": 2.8919419138199824,
-        "2020": 1.421808304897788
+        "2005": 3.174940083948255,
+        "2006": 4.148222132072816,
+        "2007": 1.3622090208365099,
+        "2008": 1.8684105497611099,
+        "2009": 1.589295505632096,
+        "2010": 1.4424240288087966,
+        "2011": 1.521930158605686,
+        "2012": 1.067631484080685,
+        "2013": 1.9256947564195401,
+        "2014": 0.37854694343070566,
+        "2015": 2.535576440643166,
+        "2016": 0.6296489330305753,
+        "2017": 1.8098754131157635,
+        "2018": 0.9205233780270504,
+        "2019": 2.7412021177729256,
+        "2020": 1.0059474050656207
        },
        "curtailed_kwh_by_year": {
-        "2005": 302.8925996356912,
-        "2006": 329.66164103746905,
-        "2007": 348.13144011039805,
-        "2008": 316.35929585570864,
-        "2009": 338.9341763440538,
-        "2010": 337.30702692273394,
-        "2011": 340.4046944379187,
-        "2012": 322.4847926073942,
-        "2013": 315.26514983082643,
-        "2014": 348.7373540092228,
-        "2015": 339.5287303522264,
-        "2016": 327.40079906060504,
-        "2017": 306.58893061535923,
-        "2018": 349.41208812292496,
-        "2019": 350.0883567932831,
-        "2020": 361.03680273704947
+        "2005": 263.4806385735021,
+        "2006": 287.4256108549296,
+        "2007": 303.9679366462879,
+        "2008": 275.03151300226364,
+        "2009": 295.65013005105027,
+        "2010": 294.81808806358697,
+        "2011": 297.15110431475284,
+        "2012": 280.708313520018,
+        "2013": 273.84826998791647,
+        "2014": 304.52644995666503,
+        "2015": 296.5720291913671,
+        "2016": 285.18628410041555,
+        "2017": 266.1225785996798,
+        "2018": 305.33022571568915,
+        "2019": 305.84669467015544,
+        "2020": 315.4758142234015
        },
-       "mean_lolp_pct": 1.6929598023804178,
-       "median_lolp_pct": 1.5011415525114153,
-       "max_lolp_pct": 3.8470319634703194,
-       "min_lolp_pct": 0.4337899543378996,
+       "mean_lolp_pct": 1.5233020186141677,
+       "median_lolp_pct": 1.312785388127854,
+       "max_lolp_pct": 3.6301369863013697,
+       "min_lolp_pct": 0.3082191780821918,
        "worst_year": 2006,
        "worst_window": {
         "start": "2006-01-01",
         "end": "2006-01-11",
-        "unmet_h": 118
+        "unmet_h": 115
        },
-       "years_within_1pct": 2,
-       "years_over_1pct": 14,
-       "p90_lolp_pct": 2.648401826484018,
-       "total_unmet_hours_16yr": 2374,
-       "mean_eens_kwh": 1.9610473300039557,
-       "max_eens_kwh": 4.416052528550948,
-       "mean_curtailed_kwh": 333.3896174045541
+       "years_within_1pct": 5,
+       "years_over_1pct": 11,
+       "p90_lolp_pct": 2.5684931506849313,
+       "total_unmet_hours_16yr": 2136,
+       "mean_eens_kwh": 1.7576298969532065,
+       "max_eens_kwh": 4.148222132072816,
+       "mean_curtailed_kwh": 290.6963550919801
       }
      }
     },
@@ -2496,12 +2697,12 @@
        "pv_wp": 550.0,
        "battery_kwh": 1.25,
        "cost_index": 11162.286657446111,
-       "delta_pv_wp": 0.0,
-       "delta_battery_kwh": 0.0,
+       "delta_pv_wp": 50.0,
+       "delta_battery_kwh": -0.25,
        "lcoe_5pct": 6.177782117193496,
-       "lcoe_delta_pct": 0.0,
+       "lcoe_delta_pct": -0.48443228646589676,
        "npv_5pct": 11162.286657446111,
-       "npv_delta_pct": 0.0,
+       "npv_delta_pct": -0.48443228646589676,
        "capex_gbp": 4100.0,
        "years_ok_study": 11,
        "mean_lolp_pct_study": 0.9107234199166604,
@@ -2514,12 +2715,12 @@
        "pv_wp": 600.0,
        "battery_kwh": 1.5,
        "cost_index": 11666.623603633467,
-       "delta_pv_wp": 50.0,
-       "delta_battery_kwh": 0.25,
+       "delta_pv_wp": 100.0,
+       "delta_battery_kwh": 0.0,
        "lcoe_5pct": 6.456908058213639,
-       "lcoe_delta_pct": 4.51822249028988,
+       "lcoe_delta_pct": 4.01190247530665,
        "npv_5pct": 11666.623603633467,
-       "npv_delta_pct": 4.518222490289858,
+       "npv_delta_pct": 4.01190247530665,
        "capex_gbp": 4500.0,
        "years_ok_study": 14,
        "mean_lolp_pct_study": 0.41295311213414176,
@@ -2534,12 +2735,12 @@
        "pv_wp": 700.0,
        "battery_kwh": 1.25,
        "cost_index": 11837.286657446111,
-       "delta_pv_wp": 150.0,
-       "delta_battery_kwh": 0.0,
+       "delta_pv_wp": 200.0,
+       "delta_battery_kwh": -0.25,
        "lcoe_5pct": 6.5513617480591755,
-       "lcoe_delta_pct": 6.047148050527107,
+       "lcoe_delta_pct": 5.533421426494067,
        "npv_5pct": 11837.286657446111,
-       "npv_delta_pct": 6.047148050527107,
+       "npv_delta_pct": 5.533421426494067,
        "capex_gbp": 4775.0,
        "years_ok_study": 15,
        "mean_lolp_pct_study": 0.3551288769119445,
@@ -2552,12 +2753,12 @@
        "pv_wp": 800.0,
        "battery_kwh": 1.5,
        "cost_index": 12566.623603633467,
-       "delta_pv_wp": 250.0,
-       "delta_battery_kwh": 0.25,
+       "delta_pv_wp": 300.0,
+       "delta_battery_kwh": 0.0,
        "lcoe_5pct": 6.9550142327012106,
-       "lcoe_delta_pct": 12.581086557659349,
+       "lcoe_delta_pct": 12.035707425919927,
        "npv_5pct": 12566.623603633467,
-       "npv_delta_pct": 12.581086557659349,
+       "npv_delta_pct": 12.035707425919927,
        "capex_gbp": 5400.0,
        "years_ok_study": 16,
        "mean_lolp_pct_study": 0.109098578985453,
@@ -2572,12 +2773,12 @@
        "pv_wp": 650.0,
        "battery_kwh": 1.75,
        "cost_index": 12170.960549820822,
-       "delta_pv_wp": 100.0,
-       "delta_battery_kwh": 0.5,
+       "delta_pv_wp": 150.0,
+       "delta_battery_kwh": 0.25,
        "lcoe_5pct": 6.736033999233781,
-       "lcoe_delta_pct": 9.036444980579738,
+       "lcoe_delta_pct": 8.508237237079186,
        "npv_5pct": 12170.960549820822,
-       "npv_delta_pct": 9.036444980579738,
+       "npv_delta_pct": 8.508237237079186,
        "capex_gbp": 4900.0,
        "years_ok_study": 16,
        "mean_lolp_pct_study": 0.1761647890311151,
@@ -2590,12 +2791,12 @@
        "pv_wp": 600.0,
        "battery_kwh": 2.5,
        "cost_index": 12783.971388382883,
-       "delta_pv_wp": 50.0,
-       "delta_battery_kwh": 1.25,
+       "delta_pv_wp": 100.0,
+       "delta_battery_kwh": 1.0,
        "lcoe_5pct": 7.0753056478066325,
-       "lcoe_delta_pct": 14.528248384079824,
+       "lcoe_delta_pct": 13.973436571783493,
        "npv_5pct": 12783.971388382883,
-       "npv_delta_pct": 14.528248384079824,
+       "npv_delta_pct": 13.97343657178347,
        "capex_gbp": 5200.0,
        "years_ok_study": 16,
        "mean_lolp_pct_study": 0.051356217406492495,
@@ -2610,12 +2811,12 @@
      "pv_wp": 800.0,
      "battery_kwh": 1.5,
      "cost_index": 12566.623603633467,
-     "delta_pv_wp": 250.0,
-     "delta_battery_kwh": 0.25,
+     "delta_pv_wp": 300.0,
+     "delta_battery_kwh": 0.0,
      "lcoe_5pct": 6.9550142327012106,
-     "lcoe_delta_pct": 12.581086557659349,
+     "lcoe_delta_pct": 12.035707425919927,
      "npv_5pct": 12566.623603633467,
-     "npv_delta_pct": 12.581086557659349,
+     "npv_delta_pct": 12.035707425919927,
      "capex_gbp": 5400.0,
      "years_ok_study": 16,
      "mean_lolp_pct_study": 0.109098578985453,
@@ -2713,7 +2914,9 @@
        "total_unmet_hours_16yr": 153,
        "mean_eens_kwh": 0.1260671874621932,
        "max_eens_kwh": 0.9459203980194567,
-       "mean_curtailed_kwh": 563.2999333590416
+       "mean_curtailed_kwh": 563.2999333590416,
+       "llp_energy_pct_mean": 0.0982334780353187,
+       "llp_energy_pct_max": 0.7370756222341417
       },
       "pvgis": {
        "lolp_pct_by_year": {
@@ -2804,7 +3007,9 @@
        "total_unmet_hours_16yr": 461,
        "mean_eens_kwh": 0.38857416320564636,
        "max_eens_kwh": 1.963485601662692,
-       "mean_curtailed_kwh": 543.6749732176718
+       "mean_curtailed_kwh": 543.6749732176718,
+       "llp_energy_pct_mean": 0.3027829230964756,
+       "llp_energy_pct_max": 1.5299779713213653
       }
      },
      "year1_conditions_study": {
@@ -2828,217 +3033,360 @@
        "max_lolp_pct": 1.0502283105022832,
        "years_within_1pct": 15
       },
+      "charge_blocked_with_extra_array_wp": {
+       "50": {
+        "study": {
+         "mean_lolp_pct": 0.4472874092372184,
+         "max_lolp_pct": 2.819634703196347,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.6848047976395438,
+         "max_lolp_pct": 3.458904109589041,
+         "years_within_1pct": 11
+        }
+       },
+       "100": {
+        "study": {
+         "mean_lolp_pct": 0.39949659405644133,
+         "max_lolp_pct": 2.682648401826484,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.6227504241834468,
+         "max_lolp_pct": 3.2305936073059356,
+         "years_within_1pct": 12
+        }
+       },
+       "150": {
+        "study": {
+         "mean_lolp_pct": 0.36454629525663096,
+         "max_lolp_pct": 2.591324200913242,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.5628345123137959,
+         "max_lolp_pct": 3.0251141552511416,
+         "years_within_1pct": 13
+        }
+       },
+       "200": {
+        "study": {
+         "mean_lolp_pct": 0.32388823389974297,
+         "max_lolp_pct": 2.5,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.5093398333208573,
+         "max_lolp_pct": 2.8424657534246576,
+         "years_within_1pct": 13
+        }
+       }
+      },
       "subzero_hours_per_year_mean": 436.75
+     },
+     "life_average": {
+      "study": {
+       "life_average_lolp_pct": 0.04783299960076852,
+       "by_project_year": [
+        0.014982876712328768,
+        0.01783480861840956,
+        0.022111731791301745,
+        0.02567713401701724,
+        0.03066752750954413,
+        0.0335175100431669,
+        0.03708096289642439,
+        0.042069407016493254,
+        0.048482842403373506,
+        0.05347323589590039,
+        0.06202903161414278,
+        0.07343675923846596,
+        0.026388654964193927,
+        0.029952107817451407,
+        0.03351556067070889,
+        0.037792483843601066,
+        0.04064441574968186,
+        0.047061749881478154,
+        0.054192554332909156,
+        0.06203487973151683,
+        0.07344260735584,
+        0.08628117436434862,
+        0.09626391072186043,
+        0.109098578985453,
+        0.037792483843601066
+       ],
+       "max_project_year_mean_pct": 0.109098578985453
+      },
+      "pvgis": {
+       "life_average_lolp_pct": 0.199781202435312,
+       "by_project_year": [
+        0.10555461985677571,
+        0.11482778463956882,
+        0.12552594068917333,
+        0.13693756705841256,
+        0.1490626637472865,
+        0.1619031801282531,
+        0.17545326808393844,
+        0.19113596950869577,
+        0.21110144222371932,
+        0.23178038525837763,
+        0.2517439086009432,
+        0.27099786036879003,
+        0.14050491865658607,
+        0.15405890535718741,
+        0.16618400204606132,
+        0.17830909873493525,
+        0.18971877573171644,
+        0.20469775369912915,
+        0.22394975609451803,
+        0.2439113300646256,
+        0.26459222247174186,
+        0.2859865851984929,
+        0.3073750998078698,
+        0.3287675131621628,
+        0.18044950969383933
+       ],
+       "max_project_year_mean_pct": 0.3287675131621628
+      }
+     },
+     "leave_one_year_out": {
+      "held_out_exceedances": {
+       "study": 0,
+       "pvgis": 2
+      },
+      "held_out_rate_pct": {
+       "study": 0.0,
+       "pvgis": 12.5
+      },
+      "details": {
+       "study": [],
+       "pvgis": [
+        {
+         "held_out_year": 2006,
+         "pv_wp": 750.0,
+         "battery_kwh": 1.5,
+         "lolp_pct": 1.9406392694063925
+        },
+        {
+         "held_out_year": 2019,
+         "pv_wp": 750.0,
+         "battery_kwh": 1.5,
+         "lolp_pct": 1.038812785388128
+        }
+       ]
+      },
+      "in_sample_allowance": 1,
+      "n_years": 16
      }
     },
     "final_design_lolp_0p1": {
-     "pv_wp": 800.0,
-     "battery_kwh": 2.5,
-     "cost_index": 13683.971388382883,
-     "delta_pv_wp": 0.0,
-     "delta_battery_kwh": 1.0,
-     "lcoe_5pct": 7.5734118222942035,
-     "lcoe_delta_pct": 8.891392151081456,
-     "npv_5pct": 13683.971388382883,
-     "npv_delta_pct": 8.891392151081456,
-     "capex_gbp": 6100.0,
+     "pv_wp": 850.0,
+     "battery_kwh": 2.25,
+     "cost_index": 13629.63444219553,
+     "delta_pv_wp": 50.0,
+     "delta_battery_kwh": 0.75,
+     "lcoe_5pct": 7.5433389685178485,
+     "lcoe_delta_pct": 8.459001177171466,
+     "npv_5pct": 13629.63444219553,
+     "npv_delta_pct": 8.459001177171466,
+     "capex_gbp": 6150.0,
      "years_ok_study": 16,
      "mean_lolp_pct_study": 0.0,
      "max_lolp_pct_study": 0.0,
      "years_ok_pvgis": 15,
-     "mean_lolp_pct_pvgis": 0.026394503081567978,
-     "max_lolp_pct_pvgis": 0.3424657534246575
+     "mean_lolp_pct_pvgis": 0.04493498452978016,
+     "max_lolp_pct_pvgis": 0.5136986301369862
     }
    },
    "Liverpool": {
     "tmy_design": {
-     "pv_wp": 650.0,
-     "battery_kwh": 1.25,
-     "lcoe_5pct": 6.426835204437282,
-     "npv_5pct": 11612.286657446111,
-     "capex_gbp": 4550.0,
+     "pv_wp": 600.0,
+     "battery_kwh": 1.5,
+     "lcoe_5pct": 6.456908058213639,
+     "npv_5pct": 11666.623603633467,
+     "capex_gbp": 4500.0,
      "by_model": {
       "study": {
        "lolp_pct_by_year": {
-        "2005": 1.0616438356164384,
-        "2006": 2.8767123287671232,
+        "2005": 0.7990867579908676,
+        "2006": 2.9566210045662102,
         "2007": 0.228310502283105,
-        "2008": 1.2636612021857925,
-        "2009": 0.46803652968036524,
-        "2010": 0.31963470319634707,
-        "2011": 0.14840182648401826,
-        "2012": 0.26183970856102007,
-        "2013": 0.4794520547945206,
-        "2014": 0.14840182648401826,
+        "2008": 1.0701275045537342,
+        "2009": 0.10273972602739725,
+        "2010": 0.2625570776255708,
+        "2011": 0.15981735159817353,
+        "2012": 0.15938069216757741,
+        "2013": 0.3881278538812785,
+        "2014": 0.03424657534246575,
         "2015": 0.182648401826484,
-        "2016": 0.34153005464480873,
-        "2017": 0.410958904109589,
+        "2016": 0.26183970856102007,
+        "2017": 0.182648401826484,
         "2018": 0.0,
-        "2019": 1.187214611872146,
-        "2020": 0.44398907103825136
+        "2019": 0.9817351598173516,
+        "2020": 0.1935336976320583
        },
        "unmet_hours_by_year": {
-        "2005": 93,
-        "2006": 252,
+        "2005": 70,
+        "2006": 259,
         "2007": 20,
-        "2008": 111,
-        "2009": 41,
-        "2010": 28,
-        "2011": 13,
-        "2012": 23,
-        "2013": 42,
-        "2014": 13,
+        "2008": 94,
+        "2009": 9,
+        "2010": 23,
+        "2011": 14,
+        "2012": 14,
+        "2013": 34,
+        "2014": 3,
         "2015": 16,
-        "2016": 30,
-        "2017": 36,
+        "2016": 23,
+        "2017": 16,
         "2018": 0,
-        "2019": 104,
-        "2020": 39
+        "2019": 86,
+        "2020": 17
        },
        "eens_kwh_by_year": {
-        "2005": 1.2042398906882337,
-        "2006": 3.229455631940524,
-        "2007": 0.26266505425083786,
-        "2008": 1.5360283539311272,
-        "2009": 0.5453223144379533,
-        "2010": 0.36571716768509305,
-        "2011": 0.18627105858050633,
-        "2012": 0.2858100109648302,
-        "2013": 0.5251199305655238,
-        "2014": 0.17482614043963005,
-        "2015": 0.2170283233185176,
-        "2016": 0.380629806572722,
-        "2017": 0.42812889626722517,
+        "2005": 0.8960174452696344,
+        "2006": 3.294523032073306,
+        "2007": 0.2705364924485353,
+        "2008": 1.2707242830394179,
+        "2009": 0.10862870343748554,
+        "2010": 0.3042908938973512,
+        "2011": 0.19236965439470102,
+        "2012": 0.1777355934180801,
+        "2013": 0.4420377143311901,
+        "2014": 0.035382285430089505,
+        "2015": 0.21908734014365217,
+        "2016": 0.2921356157175846,
+        "2017": 0.19870116979535762,
         "2018": 0.0,
-        "2019": 1.334651999818595,
-        "2020": 0.515220327527343
+        "2019": 1.1120216777648961,
+        "2020": 0.21335807522910533
        },
        "curtailed_kwh_by_year": {
-        "2005": 411.9766496228347,
-        "2006": 438.65097084638205,
-        "2007": 444.265103381811,
-        "2008": 412.13395987096,
-        "2009": 402.3947921209245,
-        "2010": 441.83326117615616,
-        "2011": 422.6373676974442,
-        "2012": 416.1049718733562,
-        "2013": 429.58441687654874,
-        "2014": 432.79634281787753,
-        "2015": 444.6384902182099,
-        "2016": 435.9535424255402,
-        "2017": 395.8963478119729,
-        "2018": 456.8706382976441,
-        "2019": 454.11536574132674,
-        "2020": 458.34801292666094
+        "2005": 369.5543642905533,
+        "2006": 395.04069257710967,
+        "2007": 399.62513179254313,
+        "2008": 369.7157625460215,
+        "2009": 360.5231189432435,
+        "2010": 397.446749208727,
+        "2011": 379.74872580650765,
+        "2012": 373.6685265643807,
+        "2013": 385.8629220617915,
+        "2014": 388.9399008610813,
+        "2015": 400.0890329354288,
+        "2016": 391.8794194108151,
+        "2017": 354.75723579054863,
+        "2018": 411.35541252323975,
+        "2019": 408.56251816679236,
+        "2020": 412.4014018073085
        },
-       "mean_lolp_pct": 0.6139022225965017,
-       "median_lolp_pct": 0.37624447937719885,
-       "max_lolp_pct": 2.8767123287671232,
+       "mean_lolp_pct": 0.4977137759812361,
+       "median_lolp_pct": 0.21092209995758165,
+       "max_lolp_pct": 2.9566210045662102,
        "min_lolp_pct": 0.0,
        "worst_year": 2006,
        "worst_window": {
         "start": "2006-12-22",
         "end": "2006-12-31",
-        "unmet_h": 119
+        "unmet_h": 134
        },
-       "years_within_1pct": 12,
-       "years_over_1pct": 4,
-       "p90_lolp_pct": 1.2254379070289692,
-       "total_unmet_hours_16yr": 861,
-       "mean_eens_kwh": 0.6994446816867914,
-       "max_eens_kwh": 3.229455631940524,
-       "mean_curtailed_kwh": 431.1375146066031
+       "years_within_1pct": 14,
+       "years_over_1pct": 2,
+       "p90_lolp_pct": 1.025931332185543,
+       "total_unmet_hours_16yr": 698,
+       "mean_eens_kwh": 0.5642218735243991,
+       "max_eens_kwh": 3.294523032073306,
+       "mean_curtailed_kwh": 387.44818220538076
       },
       "pvgis": {
        "lolp_pct_by_year": {
-        "2005": 2.04337899543379,
-        "2006": 4.08675799086758,
-        "2007": 0.9703196347031963,
-        "2008": 1.5938069216757742,
-        "2009": 0.7534246575342466,
-        "2010": 0.6392694063926941,
-        "2011": 0.776255707762557,
-        "2012": 0.9335154826958106,
-        "2013": 1.0616438356164384,
-        "2014": 0.593607305936073,
-        "2015": 1.038812785388128,
-        "2016": 0.7741347905282332,
-        "2017": 1.2442922374429224,
-        "2018": 0.0684931506849315,
-        "2019": 1.872146118721461,
-        "2020": 1.2750455373406193
+        "2005": 1.5182648401826484,
+        "2006": 3.9954337899543377,
+        "2007": 0.8904109589041096,
+        "2008": 1.331967213114754,
+        "2009": 0.410958904109589,
+        "2010": 0.4794520547945206,
+        "2011": 0.4908675799086758,
+        "2012": 0.6602914389799636,
+        "2013": 0.8904109589041096,
+        "2014": 0.365296803652968,
+        "2015": 0.9018264840182649,
+        "2016": 0.5236794171220401,
+        "2017": 0.9703196347031963,
+        "2018": 0.0,
+        "2019": 1.5410958904109588,
+        "2020": 0.9676684881602914
        },
        "unmet_hours_by_year": {
-        "2005": 179,
-        "2006": 358,
-        "2007": 85,
-        "2008": 140,
-        "2009": 66,
-        "2010": 56,
-        "2011": 68,
-        "2012": 82,
-        "2013": 93,
-        "2014": 52,
-        "2015": 91,
-        "2016": 68,
-        "2017": 109,
-        "2018": 6,
-        "2019": 164,
-        "2020": 112
+        "2005": 133,
+        "2006": 350,
+        "2007": 78,
+        "2008": 117,
+        "2009": 36,
+        "2010": 42,
+        "2011": 43,
+        "2012": 58,
+        "2013": 78,
+        "2014": 32,
+        "2015": 79,
+        "2016": 46,
+        "2017": 85,
+        "2018": 0,
+        "2019": 135,
+        "2020": 85
        },
        "eens_kwh_by_year": {
-        "2005": 2.3997062195828938,
-        "2006": 4.67735693858394,
-        "2007": 1.1648520752531204,
-        "2008": 1.9519664096439304,
-        "2009": 0.8486184531912181,
-        "2010": 0.7250481248244811,
-        "2011": 0.8737085980015366,
-        "2012": 1.1145590909803584,
-        "2013": 1.240580947675046,
-        "2014": 0.6734440635067732,
-        "2015": 1.2023519676125534,
-        "2016": 0.8877201900416413,
-        "2017": 1.4244653605924786,
-        "2018": 0.06018065011631992,
-        "2019": 2.145190202736118,
-        "2020": 1.4693628072229705
+        "2005": 1.7772583100125972,
+        "2006": 4.639718720647374,
+        "2007": 1.1031761404391078,
+        "2008": 1.6163153829382628,
+        "2009": 0.46334496922564516,
+        "2010": 0.5666361059107085,
+        "2011": 0.5780134987223403,
+        "2012": 0.7551704956373927,
+        "2013": 1.0403023424305193,
+        "2014": 0.4280448042540149,
+        "2015": 1.0411362149499506,
+        "2016": 0.5896798431482339,
+        "2017": 1.1414052374423038,
+        "2018": 0.0,
+        "2019": 1.7880430849377047,
+        "2020": 1.1071551801285984
        },
        "curtailed_kwh_by_year": {
-        "2005": 397.6079603397595,
-        "2006": 424.6458207394746,
-        "2007": 430.41525412364973,
-        "2008": 398.1819891989106,
-        "2009": 386.87879793571733,
-        "2010": 427.27043338097985,
-        "2011": 407.5360305062284,
-        "2012": 401.35108484900735,
-        "2013": 415.1598108850677,
-        "2014": 417.7724238052795,
-        "2015": 431.16504660430274,
-        "2016": 421.684879874401,
-        "2017": 380.8057099583745,
-        "2018": 441.619812638877,
-        "2019": 440.6323037114393,
-        "2020": 444.7315652397493
+        "2005": 356.0245881878241,
+        "2006": 382.09606566024416,
+        "2007": 386.88707043172377,
+        "2008": 356.726702224849,
+        "2009": 346.22912603657227,
+        "2010": 383.90522747869926,
+        "2011": 365.53309993838315,
+        "2012": 359.83353690089154,
+        "2013": 372.4244617211735,
+        "2014": 374.9952145114431,
+        "2015": 387.5111044527792,
+        "2016": 378.51849825146417,
+        "2017": 340.8098039439666,
+        "2018": 397.19149657841376,
+        "2019": 396.0128803560855,
+        "2020": 399.8216434016962
        },
-       "mean_lolp_pct": 1.2328065349202784,
-       "median_lolp_pct": 1.004566210045662,
-       "max_lolp_pct": 4.08675799086758,
-       "min_lolp_pct": 0.0684931506849315,
+       "mean_lolp_pct": 0.9961215285575268,
+       "median_lolp_pct": 0.8904109589041096,
+       "max_lolp_pct": 3.9954337899543377,
+       "min_lolp_pct": 0.0,
        "worst_year": 2006,
        "worst_window": {
         "start": "2006-12-22",
         "end": "2006-12-31",
-        "unmet_h": 143
+        "unmet_h": 155
        },
-       "years_within_1pct": 8,
-       "years_over_1pct": 8,
-       "p90_lolp_pct": 1.9577625570776256,
-       "total_unmet_hours_16yr": 1729,
-       "mean_eens_kwh": 1.4286945062228362,
-       "max_eens_kwh": 4.67735693858394,
-       "mean_curtailed_kwh": 416.71618273695117
+       "years_within_1pct": 12,
+       "years_over_1pct": 4,
+       "p90_lolp_pct": 1.5296803652968036,
+       "total_unmet_hours_16yr": 1397,
+       "mean_eens_kwh": 1.1647125206765472,
+       "max_eens_kwh": 4.639718720647374,
+       "mean_curtailed_kwh": 374.0325325047631
       }
      }
     },
@@ -3048,12 +3396,12 @@
        "pv_wp": 600.0,
        "battery_kwh": 1.25,
        "cost_index": 11387.286657446111,
-       "delta_pv_wp": -50.0,
-       "delta_battery_kwh": 0.0,
+       "delta_pv_wp": 0.0,
+       "delta_battery_kwh": -0.25,
        "lcoe_5pct": 6.302308660815389,
-       "lcoe_delta_pct": -1.9376028738984252,
+       "lcoe_delta_pct": -2.3943255193418556,
        "npv_5pct": 11387.286657446111,
-       "npv_delta_pct": -1.9376028738984363,
+       "npv_delta_pct": -2.3943255193418445,
        "capex_gbp": 4325.0,
        "years_ok_study": 12,
        "mean_lolp_pct_study": 0.8114340831399556,
@@ -3066,12 +3414,12 @@
        "pv_wp": 600.0,
        "battery_kwh": 1.5,
        "cost_index": 11666.623603633467,
-       "delta_pv_wp": -50.0,
-       "delta_battery_kwh": 0.25,
+       "delta_pv_wp": 0.0,
+       "delta_battery_kwh": 0.0,
        "lcoe_5pct": 6.456908058213639,
-       "lcoe_delta_pct": 0.46792632485104235,
+       "lcoe_delta_pct": 0.0,
        "npv_5pct": 11666.623603633467,
-       "npv_delta_pct": 0.46792632485104235,
+       "npv_delta_pct": 0.0,
        "capex_gbp": 4500.0,
        "years_ok_study": 14,
        "mean_lolp_pct_study": 0.4977137759812361,
@@ -3086,12 +3434,12 @@
        "pv_wp": 550.0,
        "battery_kwh": 1.75,
        "cost_index": 11720.960549820822,
-       "delta_pv_wp": -100.0,
-       "delta_battery_kwh": 0.5,
+       "delta_pv_wp": -50.0,
+       "delta_battery_kwh": 0.25,
        "lcoe_5pct": 6.486980911989995,
-       "lcoe_delta_pct": 0.9358526497020847,
+       "lcoe_delta_pct": 0.4657469721611074,
        "npv_5pct": 11720.960549820822,
-       "npv_delta_pct": 0.9358526497020847,
+       "npv_delta_pct": 0.4657469721611074,
        "capex_gbp": 4450.0,
        "years_ok_study": 15,
        "mean_lolp_pct_study": 0.45426616263692393,
@@ -3104,12 +3452,12 @@
        "pv_wp": 550.0,
        "battery_kwh": 2.0,
        "cost_index": 12000.297496008174,
-       "delta_pv_wp": -100.0,
-       "delta_battery_kwh": 0.75,
+       "delta_pv_wp": -50.0,
+       "delta_battery_kwh": 0.5,
        "lcoe_5pct": 6.6415803093882415,
-       "lcoe_delta_pct": 3.341381848451519,
+       "lcoe_delta_pct": 2.8600724915029074,
        "npv_5pct": 12000.297496008174,
-       "npv_delta_pct": 3.341381848451519,
+       "npv_delta_pct": 2.8600724915029074,
        "capex_gbp": 4625.0,
        "years_ok_study": 15,
        "mean_lolp_pct_study": 0.3102445760660728,
@@ -3124,12 +3472,12 @@
        "pv_wp": 800.0,
        "battery_kwh": 1.75,
        "cost_index": 12845.960549820822,
-       "delta_pv_wp": 150.0,
-       "delta_battery_kwh": 0.5,
+       "delta_pv_wp": 200.0,
+       "delta_battery_kwh": 0.25,
        "lcoe_5pct": 7.109613630099459,
-       "lcoe_delta_pct": 10.623867019194243,
+       "lcoe_delta_pct": 10.108639708064814,
        "npv_5pct": 12845.960549820822,
-       "npv_delta_pct": 10.623867019194243,
+       "npv_delta_pct": 10.108639708064814,
        "capex_gbp": 5575.0,
        "years_ok_study": 16,
        "mean_lolp_pct_study": 0.0834058499887716,
@@ -3139,22 +3487,22 @@
        "max_lolp_pct_pvgis": 2.214611872146119
       },
       "robust": {
-       "pv_wp": 700.0,
-       "battery_kwh": 3.0,
-       "cost_index": 13792.645280757592,
-       "delta_pv_wp": 50.0,
-       "delta_battery_kwh": 1.75,
-       "lcoe_5pct": 7.633557529846915,
-       "lcoe_delta_pct": 18.776307265144677,
-       "npv_5pct": 13792.645280757592,
-       "npv_delta_pct": 18.776307265144677,
-       "capex_gbp": 6000.0,
+       "pv_wp": 750.0,
+       "battery_kwh": 2.75,
+       "cost_index": 13738.308334570236,
+       "delta_pv_wp": 150.0,
+       "delta_battery_kwh": 1.25,
+       "lcoe_5pct": 7.6034846760705594,
+       "lcoe_delta_pct": 17.75736323825139,
+       "npv_5pct": 13738.308334570236,
+       "npv_delta_pct": 17.75736323825139,
+       "capex_gbp": 6050.0,
        "years_ok_study": 16,
-       "mean_lolp_pct_study": 0.023544520547945206,
-       "max_lolp_pct_study": 0.2625570776255708,
+       "mean_lolp_pct_study": 0.014982876712328766,
+       "max_lolp_pct_study": 0.17123287671232876,
        "years_ok_pvgis": 16,
-       "mean_lolp_pct_pvgis": 0.06920272225965017,
-       "max_lolp_pct_pvgis": 0.9474885844748858
+       "mean_lolp_pct_pvgis": 0.07560836015669836,
+       "max_lolp_pct_pvgis": 0.9817351598173516
       }
      }
     },
@@ -3162,12 +3510,12 @@
      "pv_wp": 550.0,
      "battery_kwh": 2.0,
      "cost_index": 12000.297496008174,
-     "delta_pv_wp": -100.0,
-     "delta_battery_kwh": 0.75,
+     "delta_pv_wp": -50.0,
+     "delta_battery_kwh": 0.5,
      "lcoe_5pct": 6.6415803093882415,
-     "lcoe_delta_pct": 3.341381848451519,
+     "lcoe_delta_pct": 2.8600724915029074,
      "npv_5pct": 12000.297496008174,
-     "npv_delta_pct": 3.341381848451519,
+     "npv_delta_pct": 2.8600724915029074,
      "capex_gbp": 4625.0,
      "years_ok_study": 15,
      "mean_lolp_pct_study": 0.3102445760660728,
@@ -3265,7 +3613,9 @@
        "total_unmet_hours_16yr": 435,
        "mean_eens_kwh": 0.3531057998793913,
        "max_eens_kwh": 2.9084311387570265,
-       "mean_curtailed_kwh": 343.62199598767813
+       "mean_curtailed_kwh": 343.62199598767813,
+       "llp_energy_pct_mean": 0.27514543264478075,
+       "llp_energy_pct_max": 2.2662939670325137
       },
       "pvgis": {
        "lolp_pct_by_year": {
@@ -3356,7 +3706,9 @@
        "total_unmet_hours_16yr": 910,
        "mean_eens_kwh": 0.7651565518665983,
        "max_eens_kwh": 4.1777168594892,
-       "mean_curtailed_kwh": 331.14740318584745
+       "mean_curtailed_kwh": 331.14740318584745,
+       "llp_energy_pct_mean": 0.5962216723039762,
+       "llp_energy_pct_max": 3.255340787843681
       }
      },
      "year1_conditions_study": {
@@ -3380,26 +3732,170 @@
        "max_lolp_pct": 3.0707762557077625,
        "years_within_1pct": 15
       },
+      "charge_blocked_with_extra_array_wp": {
+       "50": {
+        "study": {
+         "mean_lolp_pct": 0.24036152281857426,
+         "max_lolp_pct": 2.1575342465753424,
+         "years_within_1pct": 15
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.5199210270229807,
+         "max_lolp_pct": 3.2420091324200913,
+         "years_within_1pct": 15
+        }
+       },
+       "100": {
+        "study": {
+         "mean_lolp_pct": 0.1654568861192205,
+         "max_lolp_pct": 1.6894977168949772,
+         "years_within_1pct": 15
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.38014127492077754,
+         "max_lolp_pct": 2.8767123287671232,
+         "years_within_1pct": 15
+        }
+       },
+       "150": {
+        "study": {
+         "mean_lolp_pct": 0.11908716346033886,
+         "max_lolp_pct": 1.2100456621004567,
+         "years_within_1pct": 15
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.29099062429822586,
+         "max_lolp_pct": 2.545662100456621,
+         "years_within_1pct": 15
+        }
+       },
+       "200": {
+        "study": {
+         "mean_lolp_pct": 0.08056756368989694,
+         "max_lolp_pct": 0.821917808219178,
+         "years_within_1pct": 16
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.22608626830850614,
+         "max_lolp_pct": 2.1575342465753424,
+         "years_within_1pct": 15
+        }
+       }
+      },
       "subzero_hours_per_year_mean": 162.0
+     },
+     "life_average": {
+      "study": {
+       "life_average_lolp_pct": 0.18720751615639894,
+       "by_project_year": [
+        0.10412962858996433,
+        0.11340084400029943,
+        0.12338552973026923,
+        0.13337021546023906,
+        0.14192796055093945,
+        0.15405305723981336,
+        0.16332427265014846,
+        0.1768763099782918,
+        0.18757446602789632,
+        0.20326691431494373,
+        0.21538811225890162,
+        0.23250165306784443,
+        0.14193770741322956,
+        0.15120892282356466,
+        0.16048013823389976,
+        0.17260523492277366,
+        0.18615727225091697,
+        0.2018497205379644,
+        0.2132613469072036,
+        0.22538644359607757,
+        0.23964610312648155,
+        0.2603269955335978,
+        0.2845732901664296,
+        0.3102445760660728,
+        0.18331118846221026
+       ],
+       "max_project_year_mean_pct": 0.3102445760660728
+      },
+      "pvgis": {
+       "life_average_lolp_pct": 0.3935176348030042,
+       "by_project_year": [
+        0.23181547396262198,
+        0.24608098161039998,
+        0.2596310695660853,
+        0.27888502133393217,
+        0.2988524434214138,
+        0.3209602764677995,
+        0.3444931007809966,
+        0.3715913273199091,
+        0.40010674763580106,
+        0.4307664776555131,
+        0.46498576178356665,
+        0.5034819690845123,
+        0.2881698823514734,
+        0.3045719022132395,
+        0.3259682143124486,
+        0.34878951767846894,
+        0.38015881927289963,
+        0.4086781383337076,
+        0.44788586658183005,
+        0.4799647397509794,
+        0.5170340064126556,
+        0.5548147940215086,
+        0.6004418057738852,
+        0.6489246481772588,
+        0.3808878845721986
+       ],
+       "max_project_year_mean_pct": 0.6489246481772588
+      }
+     },
+     "leave_one_year_out": {
+      "held_out_exceedances": {
+       "study": 1,
+       "pvgis": 1
+      },
+      "held_out_rate_pct": {
+       "study": 6.25,
+       "pvgis": 6.25
+      },
+      "details": {
+       "study": [
+        {
+         "held_out_year": 2006,
+         "pv_wp": 550.0,
+         "battery_kwh": 2.0,
+         "lolp_pct": 2.6255707762557075
+        }
+       ],
+       "pvgis": [
+        {
+         "held_out_year": 2006,
+         "pv_wp": 550.0,
+         "battery_kwh": 2.0,
+         "lolp_pct": 3.6073059360730597
+        }
+       ]
+      },
+      "in_sample_allowance": 1,
+      "n_years": 16
      }
     },
     "final_design_lolp_0p1": {
      "pv_wp": 850.0,
-     "battery_kwh": 3.0,
-     "cost_index": 14467.645280757592,
+     "battery_kwh": 2.75,
+     "cost_index": 14188.308334570238,
      "delta_pv_wp": 300.0,
-     "delta_battery_kwh": 1.0,
-     "lcoe_5pct": 8.007137160712594,
-     "lcoe_delta_pct": 20.560721811856464,
-     "npv_5pct": 14467.645280757592,
-     "npv_delta_pct": 20.560721811856464,
-     "capex_gbp": 6675.0,
+     "delta_battery_kwh": 0.75,
+     "lcoe_5pct": 7.852537763314346,
+     "lcoe_delta_pct": 18.232971634994,
+     "npv_5pct": 14188.308334570238,
+     "npv_delta_pct": 18.232971634994,
+     "capex_gbp": 6500.0,
      "years_ok_study": 16,
      "mean_lolp_pct_study": 0.0,
      "max_lolp_pct_study": 0.0,
      "years_ok_pvgis": 15,
-     "mean_lolp_pct_pvgis": 0.021404109589041098,
-     "max_lolp_pct_pvgis": 0.2625570776255708
+     "mean_lolp_pct_pvgis": 0.03423682848017566,
+     "max_lolp_pct_pvgis": 0.410958904109589
     }
    },
    "Edinburgh": {
@@ -3691,22 +4187,22 @@
        "max_lolp_pct_pvgis": 1.82648401826484
       },
       "robust": {
-       "pv_wp": 1000.0,
-       "battery_kwh": 3.0,
-       "cost_index": 15142.645280757592,
-       "delta_pv_wp": 450.0,
-       "delta_battery_kwh": 1.25,
-       "lcoe_5pct": 8.380716791578273,
-       "lcoe_delta_pct": 29.19286961501697,
-       "npv_5pct": 15142.645280757592,
-       "npv_delta_pct": 29.19286961501697,
-       "capex_gbp": 7350.0,
+       "pv_wp": 1050.0,
+       "battery_kwh": 2.75,
+       "cost_index": 15088.308334570238,
+       "delta_pv_wp": 500.0,
+       "delta_battery_kwh": 1.0,
+       "lcoe_5pct": 8.350643937801918,
+       "lcoe_delta_pct": 28.72928178911831,
+       "npv_5pct": 15088.308334570238,
+       "npv_delta_pct": 28.72928178911831,
+       "capex_gbp": 7400.0,
        "years_ok_study": 16,
-       "mean_lolp_pct_study": 0.021404109589041095,
-       "max_lolp_pct_study": 0.3424657534246575,
+       "mean_lolp_pct_study": 0.0221175799086758,
+       "max_lolp_pct_study": 0.3538812785388128,
        "years_ok_pvgis": 16,
-       "mean_lolp_pct_pvgis": 0.06633519537390524,
-       "max_lolp_pct_pvgis": 0.9589041095890412
+       "mean_lolp_pct_pvgis": 0.07487929485739951,
+       "max_lolp_pct_pvgis": 0.9931506849315069
       }
      }
     },
@@ -3817,7 +4313,9 @@
        "total_unmet_hours_16yr": 433,
        "mean_eens_kwh": 0.3580432878352189,
        "max_eens_kwh": 2.0928204339184533,
-       "mean_curtailed_kwh": 566.2156350095137
+       "mean_curtailed_kwh": 566.2156350095137,
+       "llp_energy_pct_mean": 0.2789927986757228,
+       "llp_energy_pct_max": 1.6307576480902162
       },
       "pvgis": {
        "lolp_pct_by_year": {
@@ -3908,7 +4406,9 @@
        "total_unmet_hours_16yr": 899,
        "mean_eens_kwh": 0.7575566902473891,
        "max_eens_kwh": 4.481389750225678,
-       "mean_curtailed_kwh": 546.9580598560586
+       "mean_curtailed_kwh": 546.9580598560586,
+       "llp_energy_pct_mean": 0.5902997440491246,
+       "llp_energy_pct_max": 3.4919673426403417
       }
      },
      "year1_conditions_study": {
@@ -3932,26 +4432,170 @@
        "max_lolp_pct": 2.2031963470319638,
        "years_within_1pct": 15
       },
+      "charge_blocked_with_extra_array_wp": {
+       "50": {
+        "study": {
+         "mean_lolp_pct": 0.7610038176510219,
+         "max_lolp_pct": 6.381278538812786,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 1.0946973950145968,
+         "max_lolp_pct": 7.614155251141552,
+         "years_within_1pct": 12
+        }
+       },
+       "100": {
+        "study": {
+         "mean_lolp_pct": 0.6889842521895352,
+         "max_lolp_pct": 6.15296803652968,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 1.016256596676398,
+         "max_lolp_pct": 7.442922374429224,
+         "years_within_1pct": 13
+        }
+       },
+       "150": {
+        "study": {
+         "mean_lolp_pct": 0.6340840756543653,
+         "max_lolp_pct": 5.981735159817352,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.9392388402325522,
+         "max_lolp_pct": 7.237442922374429,
+         "years_within_1pct": 14
+        }
+       },
+       "200": {
+        "study": {
+         "mean_lolp_pct": 0.5962954905556802,
+         "max_lolp_pct": 5.810502283105023,
+         "years_within_1pct": 14
+        },
+        "pvgis": {
+         "mean_lolp_pct": 0.8900327806472541,
+         "max_lolp_pct": 7.054794520547945,
+         "years_within_1pct": 14
+        }
+       }
+      },
       "subzero_hours_per_year_mean": 430.3125
+     },
+     "life_average": {
+      "study": {
+       "life_average_lolp_pct": 0.17993113256980311,
+       "by_project_year": [
+        0.08910386568355916,
+        0.09907685517878084,
+        0.10834222247174191,
+        0.11903063165905631,
+        0.13542485403099033,
+        0.14754410260249018,
+        0.16393442622950818,
+        0.1774747673229034,
+        0.19030358746912196,
+        0.20455544950969384,
+        0.22308423472315791,
+        0.24304190994834943,
+        0.1233095042044065,
+        0.13399986276417897,
+        0.14611716196322078,
+        0.15894988085435535,
+        0.17035370973376252,
+        0.1838940508271577,
+        0.19814981161264567,
+        0.21739401651820245,
+        0.23948820395738202,
+        0.2615882395139357,
+        0.28582673665693537,
+        0.3086363437882077,
+        0.16965388502133394
+       ],
+       "max_project_year_mean_pct": 0.3086363437882077
+      },
+      "pvgis": {
+       "life_average_lolp_pct": 0.4370313708610924,
+       "by_project_year": [
+        0.26588855515632404,
+        0.2901270522993238,
+        0.31008862626943134,
+        0.3329021321456197,
+        0.3550002183297153,
+        0.37709830451381093,
+        0.4013387510292687,
+        0.42842723070589117,
+        0.45623113007460636,
+        0.4826100381765102,
+        0.5111274078648602,
+        0.546775582004641,
+        0.34576214225116647,
+        0.3685756481273548,
+        0.38853917146992034,
+        0.41063725765401604,
+        0.4320218735184769,
+        0.4569777397260274,
+        0.48050471592185046,
+        0.5104431781320957,
+        0.5389644465653617,
+        0.5731876294383312,
+        0.6031299903934925,
+        0.6409224742370936,
+        0.4185029755221199
+       ],
+       "max_project_year_mean_pct": 0.6409224742370936
+      }
+     },
+     "leave_one_year_out": {
+      "held_out_exceedances": {
+       "study": 1,
+       "pvgis": 1
+      },
+      "held_out_rate_pct": {
+       "study": 6.25,
+       "pvgis": 6.25
+      },
+      "details": {
+       "study": [
+        {
+         "held_out_year": 2010,
+         "pv_wp": 850.0,
+         "battery_kwh": 1.75,
+         "lolp_pct": 1.8150684931506849
+        }
+       ],
+       "pvgis": [
+        {
+         "held_out_year": 2010,
+         "pv_wp": 850.0,
+         "battery_kwh": 1.75,
+         "lolp_pct": 3.7899543378995433
+        }
+       ]
+      },
+      "in_sample_allowance": 1,
+      "n_years": 16
      }
     },
     "final_design_lolp_0p1": {
-     "pv_wp": 750.0,
-     "battery_kwh": 4.0,
-     "cost_index": 15134.993065507007,
-     "delta_pv_wp": -100.0,
-     "delta_battery_kwh": 2.25,
-     "lcoe_5pct": 8.376481663061803,
-     "lcoe_delta_pct": 15.790978083202024,
-     "npv_5pct": 15134.993065507007,
-     "npv_delta_pct": 15.790978083202,
-     "capex_gbp": 6925.0,
+     "pv_wp": 850.0,
+     "battery_kwh": 3.5,
+     "cost_index": 15026.3191731323,
+     "delta_pv_wp": 0.0,
+     "delta_battery_kwh": 1.75,
+     "lcoe_5pct": 8.316335955509091,
+     "lcoe_delta_pct": 14.959563345467242,
+     "npv_5pct": 15026.3191731323,
+     "npv_delta_pct": 14.959563345467242,
+     "capex_gbp": 7025.0,
      "years_ok_study": 15,
-     "mean_lolp_pct_study": 0.04780251141552511,
-     "max_lolp_pct_study": 0.7648401826484018,
+     "mean_lolp_pct_study": 0.028538812785388126,
+     "max_lolp_pct_study": 0.45662100456621,
      "years_ok_pvgis": 15,
-     "mean_lolp_pct_pvgis": 0.14768640679192555,
-     "max_lolp_pct_pvgis": 2.3515981735159817
+     "mean_lolp_pct_pvgis": 0.11556854617361578,
+     "max_lolp_pct_pvgis": 1.7694063926940637
     }
    }
   }
@@ -3959,86 +4603,242 @@
  "price_of_reliability": {
   "Southampton": {
    "pv_wp": 550.0,
-   "battery_kwh": 3.0,
-   "cost_index": 13117.645280757592,
+   "battery_kwh": 2.75,
+   "cost_index": 12838.308334570236,
    "delta_pv_wp": 50.0,
-   "delta_battery_kwh": 1.0,
-   "lcoe_5pct": 7.259977898981236,
-   "lcoe_delta_pct": 11.39969317297056,
-   "npv_5pct": 13117.645280757592,
-   "npv_delta_pct": 11.39969317297056,
-   "capex_gbp": 5325.0,
+   "delta_battery_kwh": 0.75,
+   "lcoe_5pct": 7.105378501582988,
+   "lcoe_delta_pct": 9.027464817109077,
+   "npv_5pct": 12838.308334570236,
+   "npv_delta_pct": 9.027464817109054,
+   "capex_gbp": 5150.0,
    "years_ok_study": 16,
-   "mean_lolp_pct_study": 0.0,
-   "max_lolp_pct_study": 0.0,
+   "mean_lolp_pct_study": 0.005707762557077625,
+   "max_lolp_pct_study": 0.091324200913242,
    "years_ok_pvgis": 15,
-   "mean_lolp_pct_pvgis": 0.024257990867579907,
-   "max_lolp_pct_pvgis": 0.3881278538812785
+   "mean_lolp_pct_pvgis": 0.044948630136986294,
+   "max_lolp_pct_pvgis": 0.502283105022831
   },
   "Birmingham": {
-   "pv_wp": 800.0,
-   "battery_kwh": 2.5,
-   "cost_index": 13683.971388382883,
-   "delta_pv_wp": 0.0,
-   "delta_battery_kwh": 1.0,
-   "lcoe_5pct": 7.5734118222942035,
-   "lcoe_delta_pct": 8.891392151081456,
-   "npv_5pct": 13683.971388382883,
-   "npv_delta_pct": 8.891392151081456,
-   "capex_gbp": 6100.0,
+   "pv_wp": 850.0,
+   "battery_kwh": 2.25,
+   "cost_index": 13629.63444219553,
+   "delta_pv_wp": 50.0,
+   "delta_battery_kwh": 0.75,
+   "lcoe_5pct": 7.5433389685178485,
+   "lcoe_delta_pct": 8.459001177171466,
+   "npv_5pct": 13629.63444219553,
+   "npv_delta_pct": 8.459001177171466,
+   "capex_gbp": 6150.0,
    "years_ok_study": 16,
    "mean_lolp_pct_study": 0.0,
    "max_lolp_pct_study": 0.0,
    "years_ok_pvgis": 15,
-   "mean_lolp_pct_pvgis": 0.026394503081567978,
-   "max_lolp_pct_pvgis": 0.3424657534246575
+   "mean_lolp_pct_pvgis": 0.04493498452978016,
+   "max_lolp_pct_pvgis": 0.5136986301369862
   },
   "Liverpool": {
    "pv_wp": 850.0,
-   "battery_kwh": 3.0,
-   "cost_index": 14467.645280757592,
+   "battery_kwh": 2.75,
+   "cost_index": 14188.308334570238,
    "delta_pv_wp": 300.0,
-   "delta_battery_kwh": 1.0,
-   "lcoe_5pct": 8.007137160712594,
-   "lcoe_delta_pct": 20.560721811856464,
-   "npv_5pct": 14467.645280757592,
-   "npv_delta_pct": 20.560721811856464,
-   "capex_gbp": 6675.0,
+   "delta_battery_kwh": 0.75,
+   "lcoe_5pct": 7.852537763314346,
+   "lcoe_delta_pct": 18.232971634994,
+   "npv_5pct": 14188.308334570238,
+   "npv_delta_pct": 18.232971634994,
+   "capex_gbp": 6500.0,
    "years_ok_study": 16,
    "mean_lolp_pct_study": 0.0,
    "max_lolp_pct_study": 0.0,
    "years_ok_pvgis": 15,
-   "mean_lolp_pct_pvgis": 0.021404109589041098,
-   "max_lolp_pct_pvgis": 0.2625570776255708
+   "mean_lolp_pct_pvgis": 0.03423682848017566,
+   "max_lolp_pct_pvgis": 0.410958904109589
   },
   "Edinburgh": {
-   "pv_wp": 750.0,
-   "battery_kwh": 4.0,
-   "cost_index": 15134.993065507007,
-   "delta_pv_wp": -100.0,
-   "delta_battery_kwh": 2.25,
-   "lcoe_5pct": 8.376481663061803,
-   "lcoe_delta_pct": 15.790978083202024,
-   "npv_5pct": 15134.993065507007,
-   "npv_delta_pct": 15.790978083202,
-   "capex_gbp": 6925.0,
+   "pv_wp": 850.0,
+   "battery_kwh": 3.5,
+   "cost_index": 15026.3191731323,
+   "delta_pv_wp": 0.0,
+   "delta_battery_kwh": 1.75,
+   "lcoe_5pct": 8.316335955509091,
+   "lcoe_delta_pct": 14.959563345467242,
+   "npv_5pct": 15026.3191731323,
+   "npv_delta_pct": 14.959563345467242,
+   "capex_gbp": 7025.0,
    "years_ok_study": 15,
-   "mean_lolp_pct_study": 0.04780251141552511,
-   "max_lolp_pct_study": 0.7648401826484018,
+   "mean_lolp_pct_study": 0.028538812785388126,
+   "max_lolp_pct_study": 0.45662100456621,
    "years_ok_pvgis": 15,
-   "mean_lolp_pct_pvgis": 0.14768640679192555,
-   "max_lolp_pct_pvgis": 2.3515981735159817
+   "mean_lolp_pct_pvgis": 0.11556854617361578,
+   "max_lolp_pct_pvgis": 1.7694063926940637
   }
  },
  "tilt_plus15": {
   "Southampton": {
-   "annual_delta_pct": -6.386323135852356,
-   "december_delta_pct": 3.9260277023269063
+   "annual_delta_pct": -6.9113741155746755,
+   "december_delta_pct": 3.659607908543272,
+   "design_lat": [
+    500.0,
+    1.0
+   ],
+   "design_lat_plus15": [
+    500.0,
+    1.0
+   ],
+   "lolp_gov_pct_lat_plus15": 0.9817351598173516,
+   "design_changed": false
+  },
+  "Birmingham": {
+   "annual_delta_pct": -7.130057996132311,
+   "december_delta_pct": 6.252727384911405,
+   "design_lat": [
+    500.0,
+    1.5
+   ],
+   "design_lat_plus15": [
+    550.0,
+    1.5
+   ],
+   "lolp_gov_pct_lat_plus15": 0.9474885844748858,
+   "design_changed": true
+  },
+  "Liverpool": {
+   "annual_delta_pct": -7.434661252327923,
+   "december_delta_pct": 4.188332564052444,
+   "design_lat": [
+    600.0,
+    1.5
+   ],
+   "design_lat_plus15": [
+    700.0,
+    1.25
+   ],
+   "lolp_gov_pct_lat_plus15": 0.9817351598173516,
+   "design_changed": true
   },
   "Edinburgh": {
-   "annual_delta_pct": -6.859778184007426,
-   "december_delta_pct": 5.792643141196585
+   "annual_delta_pct": -7.420261890710245,
+   "december_delta_pct": 5.626698387215168,
+   "design_lat": [
+    550.0,
+    1.75
+   ],
+   "design_lat_plus15": [
+    550.0,
+    1.75
+   ],
+   "lolp_gov_pct_lat_plus15": 0.9474885844748858,
+   "design_changed": false
   }
+ },
+ "solar_visits": {
+  "1": 4.583495480662337,
+  "2": 3.486291248751069,
+  "3": 2.812928158753847,
+  "4": 2.357572534784222,
+  "6": 1.7809678771470274
+ },
+ "solar_breakeven_visits": {
+  "0.05": {
+   "Southampton": {
+    "breakeven_solar_visits": 12.386311290843109,
+    "lcoe_per_solar_visit": 1.5600624024960998
+   },
+   "Birmingham": {
+    "breakeven_solar_visits": 12.105578631537863,
+    "lcoe_per_solar_visit": 1.5600624024960998
+   },
+   "Liverpool": {
+    "breakeven_solar_visits": 12.30648977638147,
+    "lcoe_per_solar_visit": 1.5600624024961007
+   },
+   "Edinburgh": {
+    "breakeven_solar_visits": 11.926658903343954,
+    "lcoe_per_solar_visit": 1.5600624024960998
+   }
+  },
+  "0.08": {
+   "Southampton": {
+    "breakeven_solar_visits": 12.422298179334444,
+    "lcoe_per_solar_visit": 1.560062402496099
+   },
+   "Birmingham": {
+    "breakeven_solar_visits": 12.022916116182673,
+    "lcoe_per_solar_visit": 1.560062402496099
+   },
+   "Liverpool": {
+    "breakeven_solar_visits": 12.316909552900979,
+    "lcoe_per_solar_visit": 1.560062402496099
+   },
+   "Edinburgh": {
+    "breakeven_solar_visits": 11.801052642024697,
+    "lcoe_per_solar_visit": 1.5600624024960998
+   }
+  }
+ },
+ "common_visits": {
+  "0.05": {
+   "Southampton": {
+    "0": 3.486291248751069,
+    "2": 2.6813316912721374,
+    "4": 2.270119026585548,
+    "12": 1.6420247437949778
+   },
+   "Birmingham": {
+    "0": 3.266757874398658,
+    "2": 2.5647757534212157,
+    "4": 2.194772114183169,
+    "12": 1.614016153680005
+   },
+   "Liverpool": {
+    "0": 3.4209249083557647,
+    "2": 2.6471269120962035,
+    "4": 2.248174157125204,
+    "12": 1.6339625636709434
+   },
+   "Edinburgh": {
+    "0": 3.1407115380159585,
+    "2": 2.4956356022708364,
+    "4": 2.1493067653599542,
+    "12": 1.5966585846434407
+   }
+  },
+  "0.08": {
+   "Southampton": {
+    "0": 3.2386058405408993,
+    "2": 2.565918462734254,
+    "4": 2.204095209096609,
+    "12": 1.6257492821291313
+   },
+   "Birmingham": {
+    "0": 2.9827368616365186,
+    "2": 2.4206642417551727,
+    "4": 2.106881823804263,
+    "12": 1.5876788264444588
+   },
+   "Liverpool": {
+    "0": 3.1669181286701202,
+    "2": 2.525922204342919,
+    "4": 2.1775818009818897,
+    "12": 1.6155270709206102
+   },
+   "Edinburgh": {
+    "0": 2.8573311352838306,
+    "2": 2.346861808518035,
+    "4": 2.0564945872676343,
+    "12": 1.5672905148324545
+   }
+  }
+ },
+ "diesel_calendar_life": {
+  "years": 10,
+  "npv_delta_gbp": 1795.3802456170233,
+  "npv_delta_pct": 4.373416997217894
+ },
+ "diesel_life_5000h": {
+  "npv_delta_gbp": 782.1295242627311,
+  "npv_delta_pct": 1.905211201798096
  },
  "mc": {
   "5%": [
@@ -4048,12 +4848,12 @@
     "solar_p10": 5.7071179456374965,
     "solar_p50": 7.123756805262695,
     "solar_p90": 8.807361319026839,
-    "diesel_p10": 18.007094423504267,
-    "diesel_p50": 25.270306716043763,
-    "diesel_p90": 34.38973539030447,
-    "ratio_p10": 3.0453917612944674,
-    "ratio_p50": 3.565504151007061,
-    "ratio_p90": 4.026869480583049,
+    "diesel_p10": 18.18205503201394,
+    "diesel_p50": 25.4811195241254,
+    "diesel_p90": 34.63067573371165,
+    "ratio_p10": 3.072689409033623,
+    "ratio_p50": 3.5941958109477716,
+    "ratio_p90": 4.052727341408988,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4062,12 +4862,12 @@
     "solar_p10": 6.094337606765784,
     "solar_p50": 7.536502448758236,
     "solar_p90": 9.257900742434519,
-    "diesel_p10": 18.007094423504267,
-    "diesel_p50": 25.270306716043763,
-    "diesel_p90": 34.38973539030447,
-    "ratio_p10": 2.855083850234371,
-    "ratio_p50": 3.364720303027749,
-    "ratio_p90": 3.8303898030621952,
+    "diesel_p10": 18.18205503201394,
+    "diesel_p50": 25.4811195241254,
+    "diesel_p90": 34.63067573371165,
+    "ratio_p10": 2.879664212041305,
+    "ratio_p50": 3.3930456569801835,
+    "ratio_p90": 3.862426119984896,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4076,12 +4876,12 @@
     "solar_p10": 5.827668683456027,
     "solar_p50": 7.253368849265087,
     "solar_p90": 8.94229915506182,
-    "diesel_p10": 18.007094423504267,
-    "diesel_p50": 25.270306716043763,
-    "diesel_p90": 34.38973539030447,
-    "ratio_p10": 2.9826153625484992,
-    "ratio_p50": 3.50334173893021,
-    "ratio_p90": 3.9685156434864832,
+    "diesel_p10": 18.18205503201394,
+    "diesel_p50": 25.4811195241254,
+    "diesel_p90": 34.63067573371165,
+    "ratio_p10": 3.008984164634611,
+    "ratio_p50": 3.5322169696066132,
+    "ratio_p90": 3.9969989843673015,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4090,16 +4890,16 @@
     "solar_p10": 6.351986477354683,
     "solar_p50": 7.826677043788022,
     "solar_p90": 9.568072408399724,
-    "diesel_p10": 18.007094423504267,
-    "diesel_p50": 25.270306716043763,
-    "diesel_p90": 34.38973539030447,
-    "ratio_p10": 2.7274400903395866,
-    "ratio_p50": 3.2366292422450007,
-    "ratio_p90": 3.7139340557008045,
+    "diesel_p10": 18.18205503201394,
+    "diesel_p50": 25.4811195241254,
+    "diesel_p90": 34.63067573371165,
+    "ratio_p10": 2.7469702143423986,
+    "ratio_p50": 3.2675234880197834,
+    "ratio_p90": 3.7428205445069866,
     "p_solar_beats_diesel": 1.0
    }
   ],
-  "5%_min_ratio": 2.0860680563253298,
+  "5%_min_ratio": 2.0516447774532627,
   "8%": [
    {
     "site": "Southampton",
@@ -4107,12 +4907,12 @@
     "solar_p10": 6.406297887023666,
     "solar_p50": 7.874462264477538,
     "solar_p90": 9.616510491635397,
-    "diesel_p10": 18.743004473110307,
-    "diesel_p50": 26.008497694646053,
-    "diesel_p90": 35.195822648548265,
-    "ratio_p10": 2.8234115023970228,
-    "ratio_p50": 3.320054067098262,
-    "ratio_p90": 3.786125237479325,
+    "diesel_p10": 18.95574301948208,
+    "diesel_p50": 26.30143681719682,
+    "diesel_p90": 35.42643694398792,
+    "ratio_p10": 2.84721687482673,
+    "ratio_p50": 3.3515938530577993,
+    "ratio_p90": 3.81950329608264,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4121,12 +4921,12 @@
     "solar_p10": 6.941986742125869,
     "solar_p50": 8.483724671148167,
     "solar_p90": 10.256650507626937,
-    "diesel_p10": 18.743004473110307,
-    "diesel_p50": 26.008497694646053,
-    "diesel_p90": 35.195822648548265,
-    "ratio_p10": 2.588052181731174,
-    "ratio_p50": 3.0809689832691154,
-    "ratio_p90": 3.553199109403029,
+    "diesel_p10": 18.95574301948208,
+    "diesel_p50": 26.30143681719682,
+    "diesel_p90": 35.42643694398792,
+    "ratio_p10": 2.61745537014475,
+    "ratio_p50": 3.115592047005694,
+    "ratio_p90": 3.586579913329376,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4135,12 +4935,12 @@
     "solar_p10": 6.55465062775761,
     "solar_p50": 8.04139393594118,
     "solar_p90": 9.797510169322228,
-    "diesel_p10": 18.743004473110307,
-    "diesel_p50": 26.008497694646053,
-    "diesel_p90": 35.195822648548265,
-    "ratio_p10": 2.7558225626060464,
-    "ratio_p50": 3.251198866430773,
-    "ratio_p90": 3.7176242849155723,
+    "diesel_p10": 18.95574301948208,
+    "diesel_p50": 26.30143681719682,
+    "diesel_p90": 35.42643694398792,
+    "ratio_p10": 2.777437733923428,
+    "ratio_p50": 3.284084821657344,
+    "ratio_p90": 3.752102793809665,
     "p_solar_beats_diesel": 1.0
    },
    {
@@ -4149,16 +4949,16 @@
     "solar_p10": 7.267184283767427,
     "solar_p50": 8.842060386738765,
     "solar_p90": 10.65472787152053,
-    "diesel_p10": 18.743004473110307,
-    "diesel_p50": 26.008497694646053,
-    "diesel_p90": 35.195822648548265,
-    "ratio_p10": 2.4642987922686217,
-    "ratio_p50": 2.95402165509704,
-    "ratio_p90": 3.431123588554157,
+    "diesel_p10": 18.95574301948208,
+    "diesel_p50": 26.30143681719682,
+    "diesel_p90": 35.42643694398792,
+    "ratio_p10": 2.4937098929314208,
+    "ratio_p50": 2.9875275443382465,
+    "ratio_p90": 3.4641222760553827,
     "p_solar_beats_diesel": 1.0
    }
   ],
-  "8%_min_ratio": 1.8708618110239381,
+  "8%_min_ratio": 1.833385451371175,
   "n_draws": 5000,
   "rule_of_three_pct": 0.06
  },
@@ -4166,94 +4966,94 @@
   {
    "site": "Southampton",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 13.93497095492934,
-   "breakeven_batt_gbp_per_kwh": 9754.479668450538
+   "breakeven_batt_mult": 14.101032424891482,
+   "breakeven_batt_gbp_per_kwh": 9870.722697424037
   },
   {
    "site": "Southampton",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 12.013363955057839,
-   "breakeven_batt_gbp_per_kwh": 8409.354768540486
+   "breakeven_batt_mult": 12.185138232575614,
+   "breakeven_batt_gbp_per_kwh": 8529.59676280293
   },
   {
    "site": "Southampton",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 10.969918794197417,
-   "breakeven_batt_gbp_per_kwh": 7678.943155938192
+   "breakeven_batt_mult": 11.145336394574077,
+   "breakeven_batt_gbp_per_kwh": 7801.735476201854
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 17.77448243103434,
-   "breakeven_batt_gbp_per_kwh": 12442.137701724037
+   "breakeven_batt_mult": 17.995897724317196,
+   "breakeven_batt_gbp_per_kwh": 12597.128407022037
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 15.112999854091399,
-   "breakeven_batt_gbp_per_kwh": 10579.09989786398
+   "breakeven_batt_mult": 15.342032224115101,
+   "breakeven_batt_gbp_per_kwh": 10739.42255688057
   },
   {
    "site": "Birmingham",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 13.663874404142748,
-   "breakeven_batt_gbp_per_kwh": 9564.712082899923
+   "breakeven_batt_mult": 13.897764537978293,
+   "breakeven_batt_gbp_per_kwh": 9728.435176584806
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 13.834286099653738,
-   "breakeven_batt_gbp_per_kwh": 9684.000269757616
+   "breakeven_batt_mult": 14.00034756961588,
+   "breakeven_batt_gbp_per_kwh": 9800.243298731115
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 11.900261610976285,
-   "breakeven_batt_gbp_per_kwh": 8330.1831276834
+   "breakeven_batt_mult": 12.072035888494062,
+   "breakeven_batt_gbp_per_kwh": 8450.425121945844
   },
   {
    "site": "Liverpool",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 10.849583295682352,
-   "breakeven_batt_gbp_per_kwh": 7594.708306977646
+   "breakeven_batt_mult": 11.025000896059012,
+   "breakeven_batt_gbp_per_kwh": 7717.500627241308
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.05,
-   "breakeven_batt_mult": 15.12020224914304,
-   "breakeven_batt_gbp_per_kwh": 10584.141574400128
+   "breakeven_batt_mult": 15.309986786242629,
+   "breakeven_batt_gbp_per_kwh": 10716.99075036984
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.08,
-   "breakeven_batt_mult": 12.824740053127995,
-   "breakeven_batt_gbp_per_kwh": 8977.318037189596
+   "breakeven_batt_mult": 13.021053513148312,
+   "breakeven_batt_gbp_per_kwh": 9114.737459203818
   },
   {
    "site": "Edinburgh",
    "discount_rate": 0.1,
-   "breakeven_batt_mult": 11.57436606239086,
-   "breakeven_batt_gbp_per_kwh": 8102.056243673602
+   "breakeven_batt_mult": 11.774843319964186,
+   "breakeven_batt_gbp_per_kwh": 8242.39032397493
   }
  ],
  "grid_min": {
   "Southampton": {
-   "ratio": 2.532183642164741,
+   "ratio": 2.562147344625322,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Birmingham": {
-   "ratio": 2.439664662676356,
+   "ratio": 2.4685335744088146,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Liverpool": {
-   "ratio": 2.4811830892936952,
+   "ratio": 2.5105432946910673,
    "rate": 0.1,
    "batt_mult": 2.0
   },
   "Edinburgh": {
-   "ratio": 2.299515979333085,
+   "ratio": 2.3267264910277206,
    "rate": 0.1,
    "batt_mult": 2.0
   }
@@ -4286,8 +5086,8 @@
    2.0
   ],
   "1.2": [
-   600.0,
-   2.5
+   650.0,
+   2.25
   ]
  },
  "site_design_tmy": {
@@ -4296,12 +5096,12 @@
    1.0
   ],
   "Birmingham": [
-   550.0,
-   1.25
+   500.0,
+   1.5
   ],
   "Liverpool": [
-   650.0,
-   1.25
+   600.0,
+   1.5
   ],
   "Edinburgh": [
    550.0,
@@ -4332,8 +5132,8 @@
    2.0
   ],
   "Birmingham": [
-   850.0,
-   1.5
+   650.0,
+   2.25
   ],
   "Liverpool": [
    600.0,

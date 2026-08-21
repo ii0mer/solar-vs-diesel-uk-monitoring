@@ -14,31 +14,31 @@ Southampton: TMY design 500 Wp / 1.0 kWh — sixteen-year LOLP (governing-year c
     all /study : 600 Wp / 1.25 kWh (dPV +100 Wp, dBatt +0.25 kWh, LCOE +6.8%) years ok study/pvgis 16/10
     all /robust: 650 Wp / 1.5 kWh (dPV +150 Wp, dBatt +0.50 kWh, LCOE +11.6%) years ok study/pvgis 16/16
     FINAL (p90, both chains): 500 Wp / 2.0 kWh; LCOE £6.52/kWh (+10.5% vs TMY design); study chain mean 0.15% max 0.65% (2005); pvgis chain mean 0.41% max 1.07%
-    0.1% target (same criterion): 550 Wp / 3.0 kWh, LCOE +11.4% vs final
-Birmingham: TMY design 550 Wp / 1.25 kWh — sixteen-year LOLP (governing-year conditions): study chain mean 0.91%, max 2.71% (2006), years <= 1%: 11/16; PVGIS chain mean 1.69%, max 3.85% (2006), years <= 1%: 2/16
-    mean/study : 550 Wp / 1.25 kWh (dPV +0 Wp, dBatt +0.00 kWh, LCOE +0.0%) years ok study/pvgis 11/2
-    mean/robust: 600 Wp / 1.5 kWh (dPV +50 Wp, dBatt +0.25 kWh, LCOE +4.5%) years ok study/pvgis 14/10
-    p90 /study : 700 Wp / 1.25 kWh (dPV +150 Wp, dBatt +0.00 kWh, LCOE +6.0%) years ok study/pvgis 15/11
-    p90 /robust: 800 Wp / 1.5 kWh (dPV +250 Wp, dBatt +0.25 kWh, LCOE +12.6%) years ok study/pvgis 16/15
-    all /study : 650 Wp / 1.75 kWh (dPV +100 Wp, dBatt +0.50 kWh, LCOE +9.0%) years ok study/pvgis 16/13
-    all /robust: 600 Wp / 2.5 kWh (dPV +50 Wp, dBatt +1.25 kWh, LCOE +14.5%) years ok study/pvgis 16/16
-    FINAL (p90, both chains): 800 Wp / 1.5 kWh; LCOE £6.96/kWh (+12.6% vs TMY design); study chain mean 0.11% max 0.82% (2006); pvgis chain mean 0.33% max 1.68%
-    0.1% target (same criterion): 800 Wp / 2.5 kWh, LCOE +8.9% vs final
-Liverpool: TMY design 650 Wp / 1.25 kWh — sixteen-year LOLP (governing-year conditions): study chain mean 0.61%, max 2.88% (2006), years <= 1%: 12/16; PVGIS chain mean 1.23%, max 4.09% (2006), years <= 1%: 8/16
-    mean/study : 600 Wp / 1.25 kWh (dPV -50 Wp, dBatt +0.00 kWh, LCOE -1.9%) years ok study/pvgis 12/3
-    mean/robust: 600 Wp / 1.5 kWh (dPV -50 Wp, dBatt +0.25 kWh, LCOE +0.5%) years ok study/pvgis 14/12
-    p90 /study : 550 Wp / 1.75 kWh (dPV -100 Wp, dBatt +0.50 kWh, LCOE +0.9%) years ok study/pvgis 15/12
-    p90 /robust: 550 Wp / 2.0 kWh (dPV -100 Wp, dBatt +0.75 kWh, LCOE +3.3%) years ok study/pvgis 15/15
-    all /study : 800 Wp / 1.75 kWh (dPV +150 Wp, dBatt +0.50 kWh, LCOE +10.6%) years ok study/pvgis 16/15
-    all /robust: 700 Wp / 3.0 kWh (dPV +50 Wp, dBatt +1.75 kWh, LCOE +18.8%) years ok study/pvgis 16/16
-    FINAL (p90, both chains): 550 Wp / 2.0 kWh; LCOE £6.64/kWh (+3.3% vs TMY design); study chain mean 0.31% max 2.63% (2006); pvgis chain mean 0.65% max 3.61%
-    0.1% target (same criterion): 850 Wp / 3.0 kWh, LCOE +20.6% vs final
+    0.1% target (same criterion): 550 Wp / 2.75 kWh, LCOE +9.0% vs final
+Birmingham: TMY design 500 Wp / 1.5 kWh — sixteen-year LOLP (governing-year conditions): study chain mean 0.84%, max 2.55% (2006), years <= 1%: 11/16; PVGIS chain mean 1.52%, max 3.63% (2006), years <= 1%: 5/16
+    mean/study : 550 Wp / 1.25 kWh (dPV +50 Wp, dBatt -0.25 kWh, LCOE -0.5%) years ok study/pvgis 11/2
+    mean/robust: 600 Wp / 1.5 kWh (dPV +100 Wp, dBatt +0.00 kWh, LCOE +4.0%) years ok study/pvgis 14/10
+    p90 /study : 700 Wp / 1.25 kWh (dPV +200 Wp, dBatt -0.25 kWh, LCOE +5.5%) years ok study/pvgis 15/11
+    p90 /robust: 800 Wp / 1.5 kWh (dPV +300 Wp, dBatt +0.00 kWh, LCOE +12.0%) years ok study/pvgis 16/15
+    all /study : 650 Wp / 1.75 kWh (dPV +150 Wp, dBatt +0.25 kWh, LCOE +8.5%) years ok study/pvgis 16/13
+    all /robust: 600 Wp / 2.5 kWh (dPV +100 Wp, dBatt +1.00 kWh, LCOE +14.0%) years ok study/pvgis 16/16
+    FINAL (p90, both chains): 800 Wp / 1.5 kWh; LCOE £6.96/kWh (+12.0% vs TMY design); study chain mean 0.11% max 0.82% (2006); pvgis chain mean 0.33% max 1.68%
+    0.1% target (same criterion): 850 Wp / 2.25 kWh, LCOE +8.5% vs final
+Liverpool: TMY design 600 Wp / 1.5 kWh — sixteen-year LOLP (governing-year conditions): study chain mean 0.50%, max 2.96% (2006), years <= 1%: 14/16; PVGIS chain mean 1.00%, max 4.00% (2006), years <= 1%: 12/16
+    mean/study : 600 Wp / 1.25 kWh (dPV +0 Wp, dBatt -0.25 kWh, LCOE -2.4%) years ok study/pvgis 12/3
+    mean/robust: 600 Wp / 1.5 kWh (dPV +0 Wp, dBatt +0.00 kWh, LCOE +0.0%) years ok study/pvgis 14/12
+    p90 /study : 550 Wp / 1.75 kWh (dPV -50 Wp, dBatt +0.25 kWh, LCOE +0.5%) years ok study/pvgis 15/12
+    p90 /robust: 550 Wp / 2.0 kWh (dPV -50 Wp, dBatt +0.50 kWh, LCOE +2.9%) years ok study/pvgis 15/15
+    all /study : 800 Wp / 1.75 kWh (dPV +200 Wp, dBatt +0.25 kWh, LCOE +10.1%) years ok study/pvgis 16/15
+    all /robust: 750 Wp / 2.75 kWh (dPV +150 Wp, dBatt +1.25 kWh, LCOE +17.8%) years ok study/pvgis 16/16
+    FINAL (p90, both chains): 550 Wp / 2.0 kWh; LCOE £6.64/kWh (+2.9% vs TMY design); study chain mean 0.31% max 2.63% (2006); pvgis chain mean 0.65% max 3.61%
+    0.1% target (same criterion): 850 Wp / 2.75 kWh, LCOE +18.2% vs final
 Edinburgh: TMY design 550 Wp / 1.75 kWh — sixteen-year LOLP (governing-year conditions): study chain mean 1.21%, max 5.81% (2010), years <= 1%: 9/16; PVGIS chain mean 1.80%, max 7.07% (2010), years <= 1%: 4/16
     mean/study : 600 Wp / 1.75 kWh (dPV +50 Wp, dBatt +0.00 kWh, LCOE +1.9%) years ok study/pvgis 12/8
     mean/robust: 650 Wp / 2.0 kWh (dPV +100 Wp, dBatt +0.25 kWh, LCOE +6.2%) years ok study/pvgis 14/11
     p90 /study : 800 Wp / 1.5 kWh (dPV +250 Wp, dBatt -0.25 kWh, LCOE +7.2%) years ok study/pvgis 15/9
     p90 /robust: 850 Wp / 1.75 kWh (dPV +300 Wp, dBatt +0.00 kWh, LCOE +11.5%) years ok study/pvgis 15/15
     all /study : 1050 Wp / 1.75 kWh (dPV +500 Wp, dBatt +0.00 kWh, LCOE +19.2%) years ok study/pvgis 16/15
-    all /robust: 1000 Wp / 3.0 kWh (dPV +450 Wp, dBatt +1.25 kWh, LCOE +29.2%) years ok study/pvgis 16/16
+    all /robust: 1050 Wp / 2.75 kWh (dPV +500 Wp, dBatt +1.00 kWh, LCOE +28.7%) years ok study/pvgis 16/16
     FINAL (p90, both chains): 850 Wp / 1.75 kWh; LCOE £7.23/kWh (+11.5% vs TMY design); study chain mean 0.31% max 1.82% (2010); pvgis chain mean 0.64% max 3.79%
-    0.1% target (same criterion): 750 Wp / 4.0 kWh, LCOE +15.8% vs final
+    0.1% target (same criterion): 850 Wp / 3.5 kWh, LCOE +15.0% vs final

@@ -57,7 +57,7 @@ mpl.rcParams.update({
     'xtick.major.size': 2.5, 'ytick.major.size': 2.5,
     'axes.grid': False, 'grid.color': '#dee2e6', 'grid.linewidth': 0.5,
     'legend.frameon': False, 'figure.dpi': 120, 'savefig.dpi': 600,
-    'savefig.bbox': None, 'savefig.pad_inches': 0.02,
+    'savefig.bbox': None, 'savefig.pad_inches': 0.05,
     'figure.constrained_layout.use': True,
     'axes.unicode_minus': False,
 })
@@ -85,7 +85,7 @@ def _panel_label(ax, s, x=-0.18, y=1.02):
 
 # ================================================================ Fig 1
 def fig_ghi():
-    fig, ax = plt.subplots(figsize=(COL_W, 2.75))
+    fig, ax = plt.subplots(figsize=(COL_W, 2.2))
     months = np.arange(1, 13)
     for key, site in SITES.items():
         df = get_or_create_tmy(site, prefer='real')
@@ -98,13 +98,13 @@ def fig_ghi():
     ax.set_xticklabels(list('JFMAMJJASOND'))
     ax.set_xlabel('Month')
     ax.set_ylabel('Global horizontal irradiation (kWh/m²)')
-    ax.set_ylim(0, 200)
+    ax.set_ylim(0, 230)
     ax.yaxis.grid(True)
     ax.set_axisbelow(True)
-    ax.legend(title='Site (annual GHI, kWh/m²)', loc='upper center',
-              bbox_to_anchor=(0.5, -0.22), ncol=2, handlelength=1.8,
-              title_fontsize=7, columnspacing=1.2)
-    return _save(fig, 'fig01_monthly_ghi.png')
+    ax.legend(title='Site (annual GHI, kWh/m²)', loc='upper left', ncol=1,
+              handlelength=1.8, title_fontsize=6.5, fontsize=6.5,
+              borderaxespad=0.3, labelspacing=0.3)
+    return _save(fig, 'fig01_monthly_ghi.png', tight=True)
 
 
 # ================================================================ Fig 2
@@ -139,7 +139,7 @@ def fig_architecture():
     box(ax, 3.7, 0.5, 2.4, 1.3, 'LFP battery\n1.5–2.0 kWh\n80% DoD',
         fc='#e6f4ee', ec=SOLAR)
     arrow(ax, 2.7, 3.25, 3.7, 3.25, 'DC')
-    arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC bus')
+    arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC')
     arrow(ax, 4.9, 2.6, 4.9, 1.8)
     arrow(ax, 5.3, 1.8, 5.3, 2.6)
     ax.text(0.3, 0.55, '2 site visits/yr\nno fuel, no oil', fontsize=7,
@@ -148,16 +148,16 @@ def fig_architecture():
 
     # (b) Diesel A2
     ax = axs[1]
-    box(ax, 0.3, 2.6, 2.4, 1.3, '2 kVA-class diesel\ngenset (1.6 kW)\n≈0.9 h/day at 30% load',
+    box(ax, 0.3, 2.6, 2.4, 1.3, '2 kVA-class diesel\nset (1.6 kW)\n0.9 h/day, 30% load',
         fc='#fdecec', ec=DIESEL_A2, bold=True)
-    box(ax, 3.7, 2.6, 2.4, 1.3, 'Rectifier +\ncharge controller')
+    box(ax, 3.7, 2.6, 2.4, 1.3, 'Rectifier, charge\nand auto-start\ncontrollers')
     box(ax, 7.1, 2.6, 2.6, 1.3, 'DC load 14.64 W\nlogger · sensors ·\ncellular modem',
         fc='#f1f3f5')
     box(ax, 3.7, 0.5, 2.4, 1.3, 'Lead-acid buffer\n≈2.4 kWh, 4-yr life',
         fc='#fdecec', ec=DIESEL_A2)
     box(ax, 0.3, 0.5, 2.4, 1.3, 'Fuel tank 200 L\n≈84 L/yr used')
     arrow(ax, 2.7, 3.25, 3.7, 3.25, 'AC')
-    arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC bus')
+    arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC')
     arrow(ax, 4.9, 2.6, 4.9, 1.8)
     arrow(ax, 5.3, 1.8, 5.3, 2.6)
     arrow(ax, 1.5, 1.8, 1.5, 2.6)
@@ -185,42 +185,45 @@ def fig_validation():
         hi = [pr['monthly_max_kwh_per_kwp'][str(m)] for m in months]
         study = [pr['study_on_pvgis_poa_monthly_mean_kwh_per_kwp'][str(m)] for m in months]
         tmy = [l2['tmy_monthly_kwh_per_kwp'][str(m)] for m in months]
-        ax.fill_between(months, lo, hi, color=GREY, alpha=0.18, lw=0,
-                        label='PVGIS 2005–2020 range')
-        ax.plot(months, mean, color=INK, lw=1.2, label='PVGIS sixteen-year mean')
-        ax.plot(months, study, color=SITE_C[site.name], lw=1.1, ls='--',
-                label='This chain, PVGIS inputs')
+        ax.fill_between(months, lo, hi, color=GREY, alpha=0.18, lw=0)
+        ax.plot(months, mean, color=INK, lw=1.2)
+        ax.plot(months, study, color=SITE_C[site.name], lw=1.1, ls='--')
         ax.plot(months, tmy, color=SITE_C[site.name], lw=0, marker='o', ms=3.2,
-                mec='white', mew=0.4, label='This chain, TMY')
+                mec='white', mew=0.4)
         ax.set_title(site.name, fontsize=8, pad=3)
         ax.set_xticks(months); ax.set_xticklabels(list('JFMAMJJASOND'))
         ax.set_ylim(0, 190)
         ax.yaxis.grid(True); ax.set_axisbelow(True)
         ax.text(0.03, 0.97,
                 f"same-input bias {l1['annual_nmbe_pct']:+.1f}%\nTMY bias {l2['annual_bias_vs_pvgis_mean_pct']:+.1f}%",
-                transform=ax.transAxes, va='top', ha='left', fontsize=6.5)
-        _panel_below(ax, f'({chr(97 + i)})', y=-0.30)
+                transform=ax.transAxes, va='top', ha='left', fontsize=7)
+        _panel_below(ax, f'({chr(97 + i)})', y=-0.24)
     axs[0].set_ylabel('Monthly yield (kWh/kWp)')
-    h, l = axs[0].get_legend_handles_labels()
-    fig.legend(h, l, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.12),
+    handles = [mpl.patches.Patch(color=GREY, alpha=0.18, label='PVGIS 2005–2020 range'),
+               Line2D([], [], color=INK, lw=1.2, label='PVGIS sixteen-year mean'),
+               Line2D([], [], color=GREY, lw=1.1, ls='--', label='This chain, PVGIS inputs (site colour)'),
+               Line2D([], [], color=GREY, lw=0, marker='o', ms=3.2, label='This chain, TMY (site colour)')]
+    fig.legend(handles=handles, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.06),
                handlelength=1.6, columnspacing=1.4)
     return _save(fig, 'fig03_validation.png', tight=True)
 
 
 # ================================================================ Fig 5
 def fig_multiyear():
-    """4 x 16 annual LOLP matrices (governing-year conditions, this study's
-    chain on PVGIS plane-of-array inputs): (a) TMY-sized designs, (b)
-    final designs."""
+    """4 x 16 annual LOLP matrices (governing-year conditions): rows (a,b)
+    step-1 designs, (c,d) final designs; columns: this study's chain on
+    PVGIS inputs (left) and PVGIS's own chain (right)."""
     M = json.loads((RES / 'multiyear.json').read_text())
     years = M['years']
     sites = list(SITES.values())[::-1]          # Southampton drawn at the top
-    fig, axs = plt.subplots(1, 2, figsize=(PAGE_W, 2.05),
-                            gridspec_kw={'width_ratios': [1.0, 0.86]})
+    fig, axs = plt.subplots(2, 2, figsize=(PAGE_W, 3.9),
+                            gridspec_kw={'width_ratios': [1.0, 1.0]})
     cmap = mpl.colormaps['YlOrRd']
     vmax = 3.0
-    for k, (ax, dsg, lab) in enumerate(zip(axs, ('tmy_design', 'final_design'), ('a', 'b'))):
-        Z = np.array([[M['sites'][st.name][dsg]['by_model']['study']['lolp_pct_by_year'][str(y)]
+    panels = [('tmy_design', 'study', 'a'), ('tmy_design', 'pvgis', 'b'),
+              ('final_design', 'study', 'c'), ('final_design', 'pvgis', 'd')]
+    for ax, (dsg, model, lab) in zip(axs.ravel(), panels):
+        Z = np.array([[M['sites'][st.name][dsg]['by_model'][model]['lolp_pct_by_year'][str(y)]
                        for y in years] for st in sites])
         mesh = ax.pcolormesh(np.arange(len(years) + 1), np.arange(len(sites) + 1),
                              np.clip(Z, 0, vmax), cmap=cmap, vmin=0, vmax=vmax,
@@ -230,29 +233,28 @@ def fig_multiyear():
                 v = Z[i, j]
                 bold = v > 1.0
                 ax.text(j + 0.5, i + 0.5, f'{v:.1f}' if v >= 0.05 else '0',
-                        ha='center', va='center', fontsize=5.6,
+                        ha='center', va='center', fontsize=6.3,
                         fontweight='bold' if bold else 'normal',
                         color='white' if v > 2.0 else INK)
                 if bold:
                     ax.add_patch(mpl.patches.Rectangle((j, i), 1, 1, fill=False,
                                                        ec=INK, lw=0.7))
         ax.set_xticks(np.arange(len(years)) + 0.5)
-        ax.set_xticklabels([str(y)[2:] for y in years], fontsize=6)
+        ax.set_xticklabels([str(y)[2:] for y in years], fontsize=6.5)
         ax.set_yticks(np.arange(len(sites)) + 0.5)
-        if k == 0:
-            ax.set_yticklabels([f"{st.name}\n{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
-                                f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
-                                for st in sites], fontsize=6.5)
-        else:
-            ax.set_yticklabels([f"{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
-                                f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
-                                for st in sites], fontsize=6.5)
-        ax.set_xlabel('Year (2005–2020)')
+        ax.set_yticklabels([f"{st.name}\n{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
+                            f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
+                            for st in sites], fontsize=6.3)
         ax.tick_params(length=0)
         for sp in ax.spines.values():
             sp.set_visible(False)
-        _panel_below(ax, f'({lab})', y=-0.30)
-    cb = fig.colorbar(mesh, ax=axs, pad=0.012, fraction=0.03)
+        ax.set_title({'study': "This study's chain", 'pvgis': "PVGIS chain"}[model]
+                     + {'tmy_design': ', step-1 designs', 'final_design': ', final designs'}[dsg],
+                     fontsize=7.5, pad=2)
+        _panel_below(ax, f'({lab})', y=-0.20 if dsg == 'tmy_design' else -0.42)
+    for ax in axs[1]:
+        ax.set_xlabel('Year (2005–2020)')
+    cb = fig.colorbar(mesh, ax=axs, pad=0.012, fraction=0.025)
     cb.set_label('Annual LOLP (%)', fontsize=7)
     cb.set_ticks([0, 1, 2, 3]); cb.set_ticklabels(['0', '1', '2', '≥3'])
     cb.ax.tick_params(labelsize=7)
@@ -289,17 +291,24 @@ def fig_worst_event(site_key='edinburgh', days=12):
                         alpha=0.35, lw=0, label='PV output')
     axs[0].plot(w.index, w['load_wh'], color=INK, lw=0.9, label='Load')
     axs[0].set_ylabel('Power (W)')
-    axs[0].legend(loc='upper right', ncol=2)
+    ymax = min(160.0, float(w['pv_wh'].max()) * 1.05)
+    axs[0].set_ylim(0, ymax)
+    if w['pv_wh'].max() > ymax:
+        pk = w['pv_wh'].idxmax()
+        axs[0].annotate(f'peak {w["pv_wh"].max():.0f} W', xy=(pk, ymax * 0.98),
+                        xytext=(-6, -2), textcoords='offset points', ha='right',
+                        va='top', fontsize=6.5, color=GREY)
+    axs[0].legend(loc='upper left', ncol=2)
     axs[0].text(0.01, 0.97, '(a)', transform=axs[0].transAxes, va='top', fontsize=8, family=SERIF)
     axs[1].text(0.01, 0.97, '(b)', transform=axs[1].transAxes, va='top', fontsize=8, family=SERIF)
     axs[2].text(0.01, 0.95, '(c)', transform=axs[2].transAxes, va='top', fontsize=8, family=SERIF)
     axs[1].fill_between(w.index, 0, w['soc_frac'] * 100, color=SOLAR, alpha=0.5, lw=0)
     axs[1].axhline(20, color=DIESEL_A2, ls='--', lw=0.8)
-    axs[1].text(w.index[30], 24, 'DoD floor (20%)', fontsize=7, color=DIESEL_A2)
+    axs[1].text(w.index[-40], 24, 'DoD floor (20%)', fontsize=7, color=DIESEL_A2, ha='right')
     axs[1].set_ylabel('State of charge (%)'); axs[1].set_ylim(0, 105)
     axs[2].bar(w.index, w['unmet_wh'], width=1 / 24, color=DIESEL_A2, lw=0)
     axs[2].set_ylabel('Unmet load\n(Wh)')
-    axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%-d %b'))
     axs[2].xaxis.set_major_locator(mdates.DayLocator(interval=2))
     for ax in axs:
         ax.yaxis.grid(True); ax.set_axisbelow(True)
@@ -316,25 +325,26 @@ def fig_sizing_landscape():
         piv = sw.pivot(index='battery_kwh', columns='pv_w', values='lolp')
         X, Y = np.meshgrid(piv.columns.values, piv.index.values)
         Z = np.log10(np.clip(piv.values, 1e-4, 1))
-        mesh = ax.pcolormesh(X, Y, Z, cmap='viridis_r', vmin=-4, vmax=0,
+        Zm = np.ma.masked_where(piv.values < 1e-4, Z)
+        cmap = mpl.colormaps['magma_r'].copy(); cmap.set_bad('#e9ecef')
+        mesh = ax.pcolormesh(X, Y, Zm, cmap=cmap, vmin=-4, vmax=0,
                              shading='nearest')
         cs = ax.contour(X, Y, piv.values, levels=[0.01], colors='white',
                         linewidths=1.0)
-        ax.clabel(cs, fmt={0.01: 'LOLP 1%'}, fontsize=7, inline=True)
         wpt, kwht = SITE_DESIGN_TMY[site.name]
         ax.plot(wpt, kwht, marker='o', ms=6, mfc='none', mec='white', mew=1.1)
         wp, kwh = SITE_DESIGN[site.name]
         ax.plot(wp, kwh, marker='*', ms=9, color='white', mec=INK, mew=0.6)
         ax.set_title(site.name, fontsize=8, pad=3)
         ax.set_xlabel('PV array rating (Wp)')
-        _panel_below(ax, f'({chr(97 + i)})', y=-0.42)
+        _panel_below(ax, f'({chr(97 + i)})', y=-0.30)
         ax.set_xticks([200, 600, 1000])
         ax.set_yscale('log'); ax.set_yticks([1, 2, 5, 10])
         ax.set_yticklabels(['1', '2', '5', '10'])
-        ax.set_ylim(0.9, 11)
+        ax.set_ylim(0.7, 11)
     axs[0].set_ylabel('Battery capacity (kWh)')
     cb = fig.colorbar(mesh, ax=axs, pad=0.015, fraction=0.03)
-    cb.set_label('LOLP in governing year', fontsize=7)
+    cb.set_label('LOLP in governing year (grey: below 0.01%)', fontsize=7)
     cb.set_ticks([-4, -3, -2, -1, 0])
     cb.set_ticklabels(['0.01%', '0.1%', '1%', '10%', '100%'])
     cb.ax.tick_params(labelsize=7)
@@ -354,37 +364,31 @@ def fig_lcoe_and_breakdown():
             pv_capex_gbp_per_wp=4.5, pv_size_wp=wp,
             battery_capex_gbp_per_kwh=700, battery_kwh=kwh,
             annual_energy_delivered_kwh=128.2)
-    x = np.arange(len(sites)); w = 0.2
+    x = np.arange(len(sites)); w = 0.32
     v5 = [solar[s].lcoe_gbp_per_kwh(0.05) for s in sites]
     v8 = [solar[s].lcoe_gbp_per_kwh(0.08) for s in sites]
-    d2 = a2.lcoe_gbp_per_kwh(0.05); d1 = a1.lcoe_gbp_per_kwh(0.05)
-    ax.bar(x - 1.5 * w, v5, w * 0.92, color=SOLAR)
-    ax.bar(x - 0.5 * w, v8, w * 0.92, color=SOLAR, alpha=0.5)
-    ax.bar(x + 0.5 * w, [d2] * 4, w * 0.92, color=DIESEL_A2)
-    ax.bar(x + 1.5 * w, [d1] * 4, w * 0.92, color=DIESEL_A1)
+    d2 = a2.lcoe_gbp_per_kwh(0.05); d2_8 = a2.lcoe_gbp_per_kwh(0.08)
+    d1 = a1.lcoe_gbp_per_kwh(0.05)
+    ax.bar(x - 0.5 * w, v5, w * 0.92, color=SOLAR, label='Solar–battery, 5%')
+    ax.bar(x + 0.5 * w, v8, w * 0.92, color=SOLAR, alpha=0.5, label='Solar–battery, 8%')
     for xi, a, b in zip(x, v5, v8):
-        ax.text(xi - w, max(a, b) + 0.6, f'{a:.2f} | {b:.2f}', ha='center',
-                fontsize=6.5)
-        ax.text(xi + 0.5 * w, d2 + 0.6, f'{d2:.1f}', ha='center', fontsize=6.5)
-        ax.text(xi + 1.5 * w, 27.4, f'{d1:.1f}', ha='center', fontsize=6.5,
-                color='white', rotation=90, va='top')
-        # break marks on the clipped A1 bar
-        ax.plot([xi + 1.5 * w - 0.1, xi + 1.5 * w + 0.1], [29.0, 30.0],
-                color='white', lw=1.4)
-        ax.plot([xi + 1.5 * w - 0.1, xi + 1.5 * w + 0.1], [28.3, 29.3],
-                color='white', lw=1.4)
-    ax.set_ylim(0, 31)
+        ax.text(xi - 0.5 * w, a + 0.4, f'{a:.2f}', ha='center', fontsize=7)
+        ax.text(xi + 0.5 * w, b + 0.4, f'{b:.2f}', ha='center', fontsize=7)
+    # diesel comparators as reference lines (site-independent)
+    ax.axhline(d2, color=DIESEL_A2, lw=1.2, ls='-')
+    ax.axhline(d2_8, color=DIESEL_A2, lw=1.0, ls='--')
+    ax.text(-0.45, d2 - 0.6, f'Diesel A2, 5%: £{d2:.2f}/kWh', ha='left', va='top',
+            fontsize=7, color=DIESEL_A2)
+    ax.text(len(sites) - 0.55, d2_8 + 0.5, f'Diesel A2, 8%: £{d2_8:.2f}/kWh', ha='right',
+            va='bottom', fontsize=7, color=DIESEL_A2)
+    ax.text(len(sites) - 0.55, 26.6, f'Diesel A1, 5%: £{d1:.1f}/kWh (off scale)',
+            ha='right', va='top', fontsize=7, color=DIESEL_A1)
+    ax.set_ylim(0, 27.5)
     ax.set_xticks(x); ax.set_xticklabels(sites)
-    ax.set_ylabel('LCOE (£/kWh)')
     ax.yaxis.grid(True); ax.set_axisbelow(True)
-    handles = [mpl.patches.Patch(color=SOLAR, label='Solar–battery, 5%'),
-               mpl.patches.Patch(color=SOLAR, alpha=0.5, label='Solar–battery, 8%'),
-               mpl.patches.Patch(color=DIESEL_A2, label='Diesel A2, 5%'),
-               mpl.patches.Patch(color=DIESEL_A1, label='Diesel A1, 5% (bar clipped)')]
-    ax.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.5, -0.16),
-              ncol=2, columnspacing=1.0, handlelength=1.2)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.14), ncol=2,
+              columnspacing=1.0, handlelength=1.2)
     ax.set_ylabel('Levelised cost of electricity (£/kWh)')
-    _panel_below(ax, '(a)', y=-0.46)
 
     # (b) discounted 25-yr cost breakdown, Southampton solar vs A2, 5%
     cats = ['Capital', 'Replacements', 'O&M / oil', 'Fuel', 'Site visits']
@@ -397,12 +401,12 @@ def fig_lcoe_and_breakdown():
         vis = d.get('Site visits', 0.0)
         return [cap, rep, om, fuel, vis]
     ps = parts(solar['Southampton']); pd2 = parts(a2)
-    colours = ['#495057', '#adb5bd', '#ced4da', '#E69F00', '#D55E00']
+    colours = ['#495057', '#adb5bd', '#ced4da', '#E69F00', '#5b7fa6']
     for j, (label, vals) in enumerate([('Solar–battery\n(Southampton)', ps),
                                        ('Diesel A2', pd2)]):
         bottom = 0
         for c, v, name in zip(colours, vals, cats):
-            ax2.barh(j, v / 1000, left=bottom / 1000, color=c, height=0.55,
+            ax2.barh(j, v / 1000, left=bottom / 1000, color=c, height=0.7,
                      label=name if j == 0 else None)
             bottom += v
         ax2.text(bottom / 1000 + 0.6, j, f'£{bottom/1000:.1f}k', va='center',
@@ -410,19 +414,21 @@ def fig_lcoe_and_breakdown():
     ax2.set_yticks([0, 1]); ax2.set_yticklabels(['Solar–battery\n(Southampton)', 'Diesel A2'])
     ax2.set_xlabel('Discounted 25-year cost at 5% (£ thousand)')
     ax2.set_xlim(0, 47)
-    ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.30), ncol=3,
-               handlelength=1.0, columnspacing=0.8)
+    ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.20), ncol=5,
+               handlelength=1.0, columnspacing=0.8, fontsize=6.5)
     ax2.xaxis.grid(True); ax2.set_axisbelow(True)
     ax2.invert_yaxis()
-    _panel_below(ax2, '(b)', y=-0.62)
     fig.subplots_adjust(wspace=0.55, bottom=0.34, left=0.08, right=0.99, top=0.97)
+    fig.text(0.28, -0.05, '(a)', ha='center', va='top', fontsize=8, family=SERIF)
+    fig.text(0.78, -0.05, '(b)', ha='center', va='top', fontsize=8, family=SERIF)
     return _save(fig, 'fig07_lcoe_breakdown.png', tight=True)
 
 
 # ================================================================ Fig 8
 def fig_tornado():
     td = tornado_data(architecture=2)
-    order = {'Diesel visit cadence': 'Diesel visits (12→2/yr)',
+    order = {'Solar visit count': 'Solar visits (1–6/yr)',
+             'Diesel visit cadence': 'Diesel visits (12→2/yr)',
              'Site visit cost': 'Visit cost (×0.5–×2)',
              'Discount rate': 'Discount rate (3–10%)',
              'PV cost': 'PV capital (±30%)',
@@ -432,14 +438,18 @@ def fig_tornado():
              'PV degradation': 'Degradation (0.3–1.0%/yr)',
              'Fuel price': 'Diesel price (45–118 p/L)'}
     td = td.set_index('parameter').loc[list(order)].reset_index()
-    fig, ax = plt.subplots(figsize=(COL_W, 2.7))
+    fig, ax = plt.subplots(figsize=(COL_W, 2.9))
     y = np.arange(len(td))[::-1]
     c = td['central_ratio'].iloc[0]
     for yi, (_, r) in zip(y, td.iterrows()):
         ax.barh(yi, r['low_ratio'] - c, left=c, height=0.62, color=DIESEL_A2)
         ax.barh(yi, r['high_ratio'] - c, left=c, height=0.62, color=SOLAR)
-        ax.text(r['low_ratio'] - 0.05, yi, f"{r['low_ratio']:.2f}", va='center',
-                ha='right', fontsize=7)
+        if r['low_ratio'] < 1.4:
+            ax.text(r['low_ratio'] + 0.05, yi, f"{r['low_ratio']:.2f}", va='center',
+                    ha='left', fontsize=7, color='white')
+        else:
+            ax.text(r['low_ratio'] - 0.05, yi, f"{r['low_ratio']:.2f}", va='center',
+                    ha='right', fontsize=7)
         if r['high_ratio'] - c > 0.02:
             ax.text(r['high_ratio'] + 0.05, yi, f"{r['high_ratio']:.2f}",
                     va='center', ha='left', fontsize=7)
@@ -492,9 +502,9 @@ def fig_monte_carlo(n=5000):
     ax.set_xlim(0.5, 5.0)
     ax.set_xlabel('Diesel-to-solar LCOE ratio (P10, P50, P90)')
     ax.legend(handles=[Line2D([], [], marker='o', ls='', color='#adb5bd',
-                              mec=INK, label='5 %'),
+                              mec=INK, label='5%'),
                        Line2D([], [], marker='s', ls='', color='#adb5bd',
-                              mec=INK, label='8 %')],
+                              mec=INK, label='8%')],
               loc='lower left')
     ax.xaxis.grid(True); ax.set_axisbelow(True)
     _panel_below(ax, '(b)', y=-0.30)
@@ -519,7 +529,7 @@ def fig_sweep2d():
         ax.set_title(f'{site}', fontsize=8, pad=3)
         ax.set_xlabel('Battery capital cost (£/kWh)')
         ax.set_xticks([400, 800, 1200])
-        _panel_below(ax, f'({chr(97 + i)})', y=-0.42)
+        _panel_below(ax, f'({chr(97 + i)})', y=-0.30)
     axs[0].set_ylabel('Discount rate (%)')
     cb = fig.colorbar(mesh, ax=axs, pad=0.015, fraction=0.03)
     cb.set_label('Diesel-to-solar LCOE ratio', fontsize=7)

@@ -5,9 +5,9 @@ typical meteorological year; explicit loss chain (total 12.7% incl. MPPT control
 src/monte_carlo.py. The FINAL designs (SITE_DESIGN) come from the
 sixteen-year check in src/multiyear.py (results/multiyear_summary.txt).
 
-Southampton  500 Wp + 1.00 kWh  governing-year LOLP=0.753%  year-1 LOLP=0.148%  curtailed 347 kWh/yr
-Birmingham   550 Wp + 1.25 kWh  governing-year LOLP=0.993%  year-1 LOLP=0.571%  curtailed 346 kWh/yr
-Liverpool    650 Wp + 1.25 kWh  governing-year LOLP=0.982%  year-1 LOLP=0.354%  curtailed 432 kWh/yr
-Edinburgh    550 Wp + 1.75 kWh  governing-year LOLP=0.936%  year-1 LOLP=0.263%  curtailed 321 kWh/yr
+Southampton  500 Wp + 1.00 kWh  governing-year LOLP=0.765%  year-1 LOLP=0.160%  curtailed 344 kWh/yr
+Birmingham   500 Wp + 1.50 kWh  governing-year LOLP=0.970%  year-1 LOLP=0.605%  curtailed 299 kWh/yr
+Liverpool    600 Wp + 1.50 kWh  governing-year LOLP=0.890%  year-1 LOLP=0.354%  curtailed 385 kWh/yr
+Edinburgh    550 Wp + 1.75 kWh  governing-year LOLP=0.970%  year-1 LOLP=0.263%  curtailed 318 kWh/yr
 
 Governing-year PV factor (1-0.005)^23 = 0.8911; battery SoH 0.80.

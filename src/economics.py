@@ -211,7 +211,7 @@ def build_diesel_cashflows(
 
     Replacements use the SAME convention as the solar system (see
     lumpy_replacement_flows): lumpy years + end-of-project salvage for
-    lives >= 2 years (A2 genset ~24 yr at 333 h/yr at derived runtime, A2 lead-acid
+    lives >= 2 years (A2 genset ~24 yr at 334 h/yr at derived runtime, A2 lead-acid
     4 yr), annualised only where life is sub-2-years (A1 genset, whose
     5,000 h life at 8,760 h/yr means replacement every ~7 months).
     """
@@ -233,6 +233,9 @@ def build_diesel_cashflows(
 
     genset_life_years = (diesel_arch.genset_lifetime_hours
                          / max(diesel_arch.annual_runtime_hours, 1))
+    cal = getattr(diesel_arch, 'genset_calendar_life_years', None)
+    if cal is not None:
+        genset_life_years = min(genset_life_years, float(cal))
     genset_repl_flow = lumpy_replacement_flows(
         diesel_arch.capex_genset_gbp, genset_life_years, project_years)
 

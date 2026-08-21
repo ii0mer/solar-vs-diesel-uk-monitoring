@@ -41,6 +41,7 @@ def test_degenerate_draws_reproduce_deterministic_exactly():
         load_mult=one.copy(),
         visit_cost_mult=one.copy(),
         battery_life_years=np.array([12]),
+        diesel_capex_mult=one.copy(),
         discount_rate=np.array([0.05]),
     )
     assert _solar_lcoe_one((500.0, 2.0), d, 0) == pytest.approx(

@@ -93,7 +93,8 @@ def size_system(weather: pd.DataFrame,
                 pv_grid: Optional[np.ndarray] = None,
                 battery_grid: Optional[np.ndarray] = None,
                 degradation_pct_yr: float = DEFAULT_DEGRADATION_PCT_YR,
-                verbose: bool = False) -> Optional[SizingResult]:
+                verbose: bool = False,
+                tilt_deg: Optional[float] = None) -> Optional[SizingResult]:
     """Grid-search PV × battery space for the cheapest config whose LOLP
     in the DESIGN-GOVERNING YEAR meets the target.
 
@@ -105,13 +106,14 @@ def size_system(weather: pd.DataFrame,
     if pv_grid is None:
         pv_grid = np.arange(100, 1300, 50)
     if battery_grid is None:
-        battery_grid = np.array([0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 7, 10])
+        battery_grid = np.array([0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 5, 7, 10])
     eol, soh, _ = worst_life_state(degradation_pct_yr)
 
     # PVWatts DC is linear in nameplate: compute the chain once per site
     # at 1 kWp and scale, instead of re-running pvlib per grid cell.
     from .pv_model import simulate_pv_dc
-    ref = simulate_pv_dc(weather, site, PVDesign(nameplate_w=1000.0))
+    ref = simulate_pv_dc(weather, site, PVDesign(nameplate_w=1000.0,
+                                                 tilt_deg=tilt_deg))
 
     best: Optional[SizingResult] = None
     rows = []

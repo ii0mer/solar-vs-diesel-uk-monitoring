@@ -13,7 +13,7 @@ Can a solar PV–battery system replace a diesel generator for a UK remote monit
 
 ## The answer
 
-Yes, provided the diesel comparator is attended monthly. With the final designs (below), the battery-buffered diesel LCOE (architecture A2) is 3.11 to 3.45 times the solar LCOE at a 5% real discount rate and 2.83 to 3.20 times at 8%. The advantage comes from the site-visit differential: site visits are 83.1% of the discounted 25-year cost of the diesel A2 system, fuel 2.2%. Parity is reached at 1.75 (Southampton) to 2.20 (Edinburgh) diesel visits per year at 5%. Under a combined worst case with monthly attendance the ratio falls to 1.48 to 1.75; combining the worst case with 6 diesel visits per year gives 0.99 to 1.18, and with 4 or 2 visits per year the ratio is below 1 at every site (0.83 to 0.99 and 0.67 to 0.79). All values are in `results/numbers.json`.
+Yes, provided the diesel comparator is attended monthly. With the final designs (below), the battery-buffered diesel LCOE (architecture A2) is 3.14 to 3.49 times the solar LCOE at a 5% real discount rate and 2.86 to 3.24 times at 8%. The advantage comes from the site-visit differential: site visits are 82.4% of the discounted 25-year cost of the diesel A2 system, fuel 2.2%. Parity is reached at 1.61 (Southampton) to 2.07 (Edinburgh) diesel visits per year at 5%. Under a combined worst case with monthly attendance the ratio falls to 1.36 to 1.62; combining the worst case with 6 diesel visits per year gives 0.88 to 1.04, and with 4 or 2 visits per year the ratio is below 1 at every site (0.72 to 0.85 and 0.56 to 0.66). All values are in `results/numbers.json`.
 
 ## Headline results
 
@@ -21,42 +21,44 @@ Final designs, central assumptions (PV £4.50/Wp, LFP £700/kWh, red diesel 76.0
 
 | Site | Final design | Solar LCOE 5% (£/kWh) | Solar LCOE 8% (£/kWh) | Diesel A2 / solar, 5% | Diesel A2 / solar, 8% |
 |---|---|---|---|---|---|
-| Southampton | 500 Wp + 2.0 kWh | 6.52 | 7.26 | 3.45 | 3.20 |
-| Birmingham | 800 Wp + 1.5 kWh | 6.96 | 7.89 | 3.24 | 2.95 |
-| Liverpool | 550 Wp + 2.0 kWh | 6.64 | 7.43 | 3.39 | 3.13 |
-| Edinburgh | 850 Wp + 1.75 kWh | 7.23 | 8.23 | 3.11 | 2.83 |
+| Southampton | 500 Wp + 2.0 kWh | 6.52 | 7.26 | 3.49 | 3.24 |
+| Birmingham | 800 Wp + 1.5 kWh | 6.96 | 7.89 | 3.27 | 2.98 |
+| Liverpool | 550 Wp + 2.0 kWh | 6.64 | 7.43 | 3.42 | 3.17 |
+| Edinburgh | 850 Wp + 1.75 kWh | 7.23 | 8.23 | 3.14 | 2.86 |
 
-- Diesel A2 (2 kVA-class set, battery-buffered, 0.91 h/day, 12 visits/yr): £22.51/kWh at 5%, £23.27/kWh at 8%. Diesel A1 (same set running continuously): £75.11/kWh at 5%, £75.80/kWh at 8%; A1 is 10.38 to 11.52 times the solar LCOE at 5%.
-- Discounted 25-year cost at 5%: solar £11,775 (Southampton) to £13,071 (Edinburgh); diesel A2 £40,681; diesel A1 £135,708.
-- Diesel visit cadence (5%, Southampton): 12/6/4/2 visits per year give ratios of 3.45/2.02/1.54/1.06. Break-even cadence 1.75 (Southampton), 1.83 (Liverpool), 2.03 (Birmingham), 2.20 (Edinburgh) visits/yr at 5%; 1.74 to 2.36 at 8%.
-- One-at-a-time tornado (Southampton, 5%): the ratio ranges from 1.06 to 3.45 over the visit-cadence rows, 2.65 to 4.28 over visit cost, 3.05 to 3.64 over the discount rate, 3.42 to 3.50 over the fuel-price rows (44.96 to 117.56 p/L).
-- Monte Carlo (5,000 joint draws, seed 42): median ratio 3.24 (Edinburgh) to 3.57 (Southampton) at 5%, 2.95 to 3.32 at 8%; P10 2.73 to 3.05 at 5%; solar is cheaper in every draw (smallest ratio 2.09 at 5%, 1.87 at 8%; rule-of-three bound on the parity probability 0.06%).
-- Combined worst case (10% rate, PV and battery capex +30%, degradation 0.8%/yr with re-sized designs, fuel 44.96 p/L, visit costs halved for both systems, solar battery life 8 yr, monthly diesel attendance): 1.75 (Southampton), 1.70 (Liverpool), 1.59 (Birmingham), 1.48 (Edinburgh).
-- Battery break-even capex (solar LCOE = diesel A2 LCOE): £9,754/kWh (Southampton) to £12,442/kWh (Birmingham) at 5%; £8,330 to £10,579 at 8%; £7,595 to £9,565 at 10%. Over the 3 to 10% x 0.5 to 2.0 x battery-cost grid the smallest ratio is 2.30 (Edinburgh, 10%, twice the central battery cost).
-- Validation of the PV chain against PVGIS on identical inputs (2005-2020, hourly): normalised mean bias +2.2% (Southampton) to +2.9% (Birmingham, Edinburgh), hourly NRMSE 3.9 to 4.7%. The TMY chain sits +1.3% to +3.2% above the sixteen-year PVGIS mean and inside the sixteen-year annual band at every site. Terrain horizon at Edinburgh costs 0.24% of annual yield and 1.5% of December yield.
-- Emissions: diesel A2 232 kg CO2e/yr (5.8 t over 25 years); A1 3,340 kg CO2e/yr (83.5 t).
+- Diesel A2 (2 kVA-class set, battery-buffered, 0.915 h/day, 12 visits/yr): £22.72/kWh at 5%, £23.52/kWh at 8%. Diesel A1 (same set running continuously): £75.22/kWh at 5%, £75.92/kWh at 8%; A1 is 10.40 to 11.54 times the solar LCOE at 5%.
+- Discounted 25-year cost at 5%: solar £11,775 (Southampton) to £13,071 (Edinburgh); diesel A2 £41,052; diesel A1 £135,920. Avoided cost against A2: £27,981 to £29,277 per station over 25 years.
+- Diesel visit cadence (5%, Southampton): 12/6/4/2 visits per year give ratios of 3.49/2.05/1.57/1.09. Break-even cadence 1.61 (Southampton), 1.69 (Liverpool), 1.89 (Birmingham), 2.07 (Edinburgh) visits/yr at 5%; 1.58 to 2.20 at 8%.
+- One-at-a-time tornado (ten parameters, Southampton, 5%): the ratio ranges from 1.78 to 4.58 over the solar visit count (1 to 6/yr), 1.09 to 3.49 over the diesel visit-cadence rows, 2.70 to 4.30 over visit cost, 3.09 to 3.67 over the discount rate, and 3.45 to 3.53 over the fuel-price rows (44.96 to 117.56 p/L).
+- Monte Carlo (5,000 joint draws over seven sampled inputs including diesel capital x 0.7 to 1.3, seed 42): median ratio 3.27 (Edinburgh) to 3.59 (Southampton) at 5%, 2.99 to 3.35 at 8%; P10 2.75 to 3.07 at 5% and 2.49 to 2.85 at 8%; solar is cheaper in every draw (smallest ratio 2.05 at 5%, 1.83 at 8%).
+- Combined worst case (10% rate, PV and battery capex +30%, diesel capex -30%, degradation 0.8%/yr with re-sized designs, fuel 44.96 p/L, visit costs halved for both systems, solar battery life 8 yr, monthly diesel attendance): 1.62 (Southampton), 1.57 (Liverpool), 1.47 (Birmingham), 1.36 (Edinburgh).
+- Battery break-even capex (solar LCOE = diesel A2 LCOE): £9,800/kWh (Liverpool) to £12,597/kWh (Birmingham) at 5%; £8,450 to £10,739 at 8%; £7,718 to £9,728 at 10%. Over the 3 to 10% x 0.5 to 2.0 x battery-cost grid the smallest ratio is 2.33 (Edinburgh, 10%, twice the central battery cost).
+- Validation of the PV chain against PVGIS on identical inputs (2005-2020, hourly): normalised mean bias +2.2% (Southampton) to +2.9% (Birmingham), hourly NRMSE 3.9 to 4.7%. The TMY chain sits +0.6% (Southampton), +2.1% (Birmingham, Liverpool) and +2.4% (Edinburgh) above the sixteen-year PVGIS mean and inside the sixteen-year annual band at every site. Terrain horizon at Edinburgh costs 0.24% of annual yield and 1.5% of December yield.
+- The design condition at every site is the darkest multi-day winter sequence in the record: the worst sixteen-year events for the final designs are 28 Jan to 7 Feb 2005 at Southampton (57 unmet hours, study chain), 1 to 11 Jan 2006 at Birmingham (41 h), 22 to 31 Dec 2006 at Liverpool (147 h) and 1 to 11 Dec 2010 at Edinburgh (120 h).
+- Cold-weather bounds (not part of the criterion): blocking battery charging in every hour at or below 0 degrees C raises the sixteen-year mean LOLP of the final designs to 0.29 to 0.84% (compliant years fall to 13 to 15 of 16); a 15% winter capacity derate gives 0.20 to 0.50% (15 to 16 years).
+- Emissions: diesel A2 233 kg CO2e/yr (5.8 t over 25 years); A1 3,340 kg CO2e/yr (83.5 t).
 
 ## Two-step sizing
 
-Step 1 (`src/sizing.py`): grid search (PV 100 to 1,250 Wp in 50 Wp steps; battery 0.75 to 10 kWh, twelve values) on the PVGIS-SARAH2 typical meteorological year for the cheapest design (25-year NPV at 5%) that holds LOLP <= 1% in the design-governing year. The governing year is year 24 of 25: modules at (1 - 0.005)^23 = 0.891 of year-1 output and the battery at 80% state of health, the last year of the second battery's life. These designs are `SITE_DESIGN_TMY` in `src/monte_carlo.py`; provenance `results/sizing_summary.txt`.
+Step 1 (`src/sizing.py`): grid search (PV 100 to 1,250 Wp in 50 Wp steps; battery 0.75 to 10 kWh, seventeen values) on the PVGIS-SARAH2 typical meteorological year for the cheapest design (25-year NPV at 5%) that holds LOLP <= 1% in the design-governing year. The governing year is year 24 of 25: modules at (1 - 0.005)^23 = 0.891 of year-1 output and the battery at 80% state of health, the last year of the second battery's life. These designs are `SITE_DESIGN_TMY` in `src/monte_carlo.py`; provenance `results/sizing_summary.txt`.
 
 Step 2 (`src/multiyear.py`): every grid design is run continuously through the sixteen real years 2005-2020 (PVGIS hourly series in `data/pvgis_series/`) under the same governing-year conditions, with two PV conversion models: `study` (this study's pvlib chain fed with the PVGIS plane-of-array components) and `pvgis` (PVGIS's own hourly output scaled to nameplate). The final design is the cheapest design with annual LOLP <= 1% in at least 15 of the 16 years under both models (`SITE_DESIGN`; provenance `results/multiyear_summary.txt`). All economics, sensitivity, Monte Carlo, sweeps and worst-case results use the final designs.
 
 | Site | Step-1 TMY design | Years <= 1% (study / pvgis) | Final design | Years <= 1% (study / pvgis) | Mean annual LOLP, study (%) | LCOE change vs step 1 |
 |---|---|---|---|---|---|---|
 | Southampton | 500 Wp + 1.0 kWh | 6 / 2 | 500 Wp + 2.0 kWh | 16 / 15 | 0.15 | +10.5% |
-| Birmingham | 550 Wp + 1.25 kWh | 11 / 2 | 800 Wp + 1.5 kWh | 16 / 15 | 0.11 | +12.6% |
-| Liverpool | 650 Wp + 1.25 kWh | 12 / 8 | 550 Wp + 2.0 kWh | 15 / 15 | 0.31 | +3.3% |
+| Birmingham | 500 Wp + 1.5 kWh | 11 / 5 | 800 Wp + 1.5 kWh | 16 / 15 | 0.11 | +12.0% |
+| Liverpool | 600 Wp + 1.5 kWh | 14 / 12 | 550 Wp + 2.0 kWh | 15 / 15 | 0.31 | +2.9% |
 | Edinburgh | 550 Wp + 1.75 kWh | 9 / 4 | 850 Wp + 1.75 kWh | 15 / 15 | 0.31 | +11.5% |
 
-Sizing on year-1 conditions alone would give smaller designs (for example 450 Wp + 0.75 kWh at Southampton) whose governing-year LOLP on the TMY is 1.69 to 2.40%. Tightening the target to 0.1% under the final criterion raises the LCOE by a further 8.9% (Birmingham) to 20.6% (Liverpool).
+Sizing on year-1 conditions alone would give smaller designs (for example 450 Wp + 0.75 kWh at Southampton) whose governing-year LOLP on the TMY is 1.76 to 2.45%. Tightening the target to 0.1% under the final criterion raises the LCOE by a further 8.5% (Birmingham) to 18.2% (Liverpool).
 
 ## Model summary
 
 - Load: 12.2 W of component draws (datalogger, four sensors, cellular modem, ancillaries) plus a 20% margin = 14.64 W continuous, 351.4 Wh/day, 128.2 kWh/yr (`src/load_profile.py`).
 - PV chain (`src/pv_model.py`): latitude tilt, south-facing, Hay-Davies transposition, physical incidence-angle modifier on the beam component and Marion diffuse IAM, SAPM open-rack cell temperature, PVWatts DC (gamma -0.35%/K), then an explicit PVWatts-v5 loss chain with a 97% MPPT controller efficiency (12.7% total).
 - Battery (`src/battery.py`, `src/simulation.py`): LFP energy-bucket model, 92% round-trip efficiency, 80% depth of discharge, 2%/month self-discharge, hourly two-pass simulation (the second pass starts from the first pass's final state of charge). LOLP = unmet hours / hours in the year.
-- Diesel (`src/diesel.py`): 2 kVA-class (1.6 kW) air-cooled set. A1 runs 24 h/day at 0.9% load (1,211 L/yr, genset life 0.57 yr at a 5,000 h derated life). A2 recharges a lead-acid buffer at 30% load (480 W) for a runtime derived from the daily energy balance (351.36 Wh / 0.80 / 480 W = 0.915 h/day, 84 L/yr). Skarstein-Uhlen fuel curve; both attended monthly (£200 per visit).
+- Diesel (`src/diesel.py`): 2 kVA-class (1.6 kW) air-cooled set. A1 runs 24 h/day at 0.9% load (1,211 L/yr, genset life 0.57 yr at a 5,000 h derated life). A2 recharges a lead-acid buffer at 30% load (480 W) for a runtime derived from the daily energy balance (351.36 Wh / 0.80 / 480 W = 0.915 h/day, 334 h/yr, 84.4 L/yr); its genset (8,000 h life) is replaced once, in year 24. Skarstein-Uhlen fuel curve; both attended monthly (£200 per visit).
 - Economics (`src/economics.py`): IEA/NEA discounted-cash-flow LCOE at 5% (Green Book plus technology premium) and 8% (commercial WACC), 25 years, lumpy replacements with straight-line salvage credit, flat served-energy denominator for both systems.
 - Uncertainty (`src/sensitivity.py`, `src/monte_carlo.py`, `src/sweeps_2d.py`): one-at-a-time tornado with exact multi-year re-sizing for the load and degradation rows, combined worst case, 5,000-draw Monte Carlo, discount-rate x battery-cost sweeps.
 - Validation (`src/validation.py`): same-input hourly comparison with PVGIS 2005-2020 and TMY-chain comparison with the sixteen-year climatology.
@@ -69,7 +71,7 @@ LCOE by site and system, and the discounted 25-year cost breakdown (Southampton 
 
 ![LCOE and cost breakdown](figures/paper/fig07_lcoe_breakdown.png)
 
-Annual LOLP over 2005-2020 under governing-year conditions: (a) step-1 TMY designs, (b) final designs:
+Annual LOLP over 2005-2020 under governing-year conditions: step-1 TMY designs under (a) the study chain and (b) the PVGIS chain; final designs under (c) the study chain and (d) the PVGIS chain:
 
 ![Sixteen-year LOLP](figures/paper/fig05_multiyear.png)
 
@@ -93,7 +95,7 @@ python -m src.make_all
 python -m pytest tests -q
 ```
 
-`src.make_all` runs, in order: `src.sizing` (step 1), `src.validation`, `src.multiyear` (step 2 and final designs), `src.make_results` (tables), `src.monte_carlo`, `src.sweeps_2d`, `src.dump_numbers` (`results/numbers.json`), `src.figures_paper` (`figures/paper/fig01` to `fig10`), then the tests. Each step can also be run on its own with `python -m src.<module>`. The weather inputs are committed, so no network access is needed; `python -m src.fetch_pvgis` and `python -m src.fetch_pvgis_series` re-download them.
+`src.make_all` runs, in order: `src.sizing` (step 1), `src.validation`, `src.multiyear` (step 2 and final designs), `src.make_results` (tables), `src.monte_carlo`, `src.sweeps_2d`, `src.dump_numbers` (`results/numbers.json`), `src.figures_paper` (`figures/paper/fig01` to `fig10`), then the tests (38). Each step can also be run on its own with `python -m src.<module>`; `python -m src.sensitivity` prints the one-at-a-time and tornado tables (its functions are called by `src.dump_numbers`, so it is not a separate `make_all` step). The weather inputs are committed, so no network access is needed; `python -m src.fetch_pvgis` and `python -m src.fetch_pvgis_series` re-download them.
 
 ## Repository structure
 
@@ -160,13 +162,14 @@ python -m pytest tests -q
 
 ```bibtex
 @mastersthesis{alobaidi2026,
-  author  = {Al Obaidi, Omar Farooq Mahmood},
+  author  = {Al Obaidi, O. F. M.},
   title   = {Techno-Economic Feasibility of Off-Grid Solar Photovoltaic--Battery
              Systems for Remote Environmental Monitoring in the UK:
-             A Comparative Study Across Four Climatic Regimes},
+             A Comparative Study Across the Solar-Resource Gradient},
   school  = {Liverpool John Moores University},
   year    = {2026},
-  note    = {MSc Renewable Energy, Module 7400MENR}
+  note    = {MSc Renewable Energy, Module 7400MENR. Code version v1.3.0},
+  url     = {https://github.com/ii0mer/solar-vs-diesel-uk-monitoring}
 }
 ```
 

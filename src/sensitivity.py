@@ -38,7 +38,7 @@ from .diesel import DieselArchitecture1, DieselArchitecture2
 # conversion models (src/multiyear.py): 500 Wp + 2.0 kWh.
 # Exact re-optimised Southampton designs (final multi-year criterion) used
 # by the sizing-coupled OAT rows. Provenance: results/resize_checks.txt
-LOAD_DESIGNS = {0.8: (500.0, 1.25), 1.0: (500.0, 2.0), 1.2: (600.0, 2.5)}
+LOAD_DESIGNS = {0.8: (500.0, 1.25), 1.0: (500.0, 2.0), 1.2: (650.0, 2.25)}
 DEGRADATION_DESIGNS = {0.3: (600.0, 1.5), 0.5: (500.0, 2.0),
                        0.8: (550.0, 2.0), 1.0: (550.0, 2.0)}
 
@@ -135,7 +135,7 @@ def one_at_a_time_sensitivity(
     # load changes the optimal solar design AND the A2 genset runtime
     # (energy balance). Designs are exact re-optimisations at Southampton
     # under the FINAL multi-year criterion (src.multiyear.robust_design):
-    # ×0.8 → 500 Wp + 1.25 kWh; ×1.2 → 600 Wp + 2.5 kWh.
+    # ×0.8 → 500 Wp + 1.25 kWh; ×1.2 → 650 Wp + 2.25 kWh.
     # Provenance: results/resize_checks.txt.
     for label, mult in [('Load: -20%', 0.8), ('Load: +20%', 1.2)]:
         wp, kwh = LOAD_DESIGNS[mult]
@@ -203,6 +203,16 @@ def one_at_a_time_sensitivity(
         rows.append(('Solar battery life', label, f'{yrs} yr',
                      pv, base_di, base_di / pv))
 
+    # Solar-side visit count — the mirror of the diesel-cadence assumption:
+    # the diesel set is charged with 12 visits, the solar system with 2.
+    for label, visits in [('Solar visits: 1/yr', 1), ('Solar visits: 2/yr (central)', 2),
+                          ('Solar visits: 3/yr', 3), ('Solar visits: 4/yr', 4),
+                          ('Solar visits: 6/yr', 6)]:
+        p = dict(CENTRAL); p['site_visits_per_year_pv'] = visits
+        pv = central_pv_lcoe(p)
+        rows.append(('Solar visit count', label, f'{visits}/yr', pv, base_di,
+                     base_di / pv))
+
     # Site visit cost
     for label, mult in [('Visits: -50%', 0.5), ('Visits: +100%', 2.0)]:
         p = dict(CENTRAL)
@@ -233,19 +243,23 @@ def one_at_a_time_sensitivity(
 
 def combined_worst_case(designs: dict, architecture: int = 2,
                         diesel_visits: int | None = None) -> pd.DataFrame:
-    """Stack every parameter at its diesel-favourable extreme simultaneously.
+    """Stack every economic parameter at its diesel-favourable extreme.
 
-    PV capex +30%, battery capex +30%, degradation 0.8%/yr (pass the
-    exactly RE-SIZED 0.8 %/yr designs via `designs`), cheapest 14-yr fuel
-    (44.96 ppl), visit costs halved for BOTH systems, 10% discount rate,
-    solar battery life 8 yr. `diesel_visits` optionally stacks a reduced
-    diesel cadence too. Returns per-site LCOEs and ratio: the FLOOR of the
-    solar advantage under joint pessimism.
+    PV capex +30%, battery capex +30%, diesel capex -30%, degradation
+    0.8%/yr (pass the exactly RE-SIZED 0.8 %/yr designs via `designs`),
+    cheapest 2012-2026 fuel (44.96 ppl), visit costs halved for BOTH
+    systems, 10% discount rate, solar battery life 8 yr. `diesel_visits`
+    optionally stacks a reduced diesel cadence too. Returns per-site LCOEs
+    and ratio: the FLOOR of the solar advantage under joint economic
+    pessimism (design-side pessimism is handled by the sixteen-year test).
     """
     rows = []
     arch = DieselArchitecture2() if architecture == 2 else DieselArchitecture1()
     arch.fuel_delivery_cost_per_visit_gbp *= 0.5
     arch.inspection_cost_per_visit_gbp *= 0.5
+    # diesel capital at -30%, the mirror of the +30% on solar capital
+    from .monte_carlo import scale_diesel_capex
+    scale_diesel_capex(arch, 0.7)
     if diesel_visits is not None:
         arch.annual_site_visits = diesel_visits
     di = build_diesel_cashflows(

@@ -40,6 +40,10 @@ Distributions (triangular unless stated; min, mode, max)
                            (Upgrade 4B) stationary LFP calendar-life range
                            at low C-rate; replacement year re-enters the
                            cash flow as year-(L, 2L, ...) spikes.
+  7. Diesel capital        tri(0.70, 1.00, 1.30) x A2 capital items
+                           (genset, tank, enclosure, install, buffer battery,
+                           controllers): same +/-30% dispersion as the solar
+                           capital, so both capital stacks are sampled.
 
 Discount rate is a DECISION variable, not a stochastic one: the full MC is
 run at fixed 5% (Green Book + technology premium) and fixed 8% (commercial
@@ -78,8 +82,8 @@ N_DRAWS_DEFAULT = 5000
 # results/sizing_summary.txt
 SITE_DESIGN_TMY = {
     'Southampton': (500.0, 1.0),
-    'Birmingham': (550.0, 1.25),
-    'Liverpool': (650.0, 1.25),
+    'Birmingham': (500.0, 1.5),
+    'Liverpool': (600.0, 1.5),
     'Edinburgh': (550.0, 1.75),
 }
 # FINAL designs used for all economics: cheapest design with annual
@@ -96,7 +100,7 @@ SITE_DESIGN = {
 # (used by the combined worst case). Provenance: results/resize_checks.txt
 SITE_DESIGN_DEG08 = {
     'Southampton': (550.0, 2.0),
-    'Birmingham': (850.0, 1.5),
+    'Birmingham': (650.0, 2.25),
     'Liverpool': (600.0, 2.0),
     'Edinburgh': (850.0, 2.0),
 }
@@ -115,6 +119,7 @@ class McDraws:
     load_mult: np.ndarray
     visit_cost_mult: np.ndarray
     battery_life_years: np.ndarray
+    diesel_capex_mult: np.ndarray
     discount_rate: np.ndarray      # constant array for fixed-rate runs
 
     @property
@@ -138,6 +143,7 @@ def sample_draws(n: int = N_DRAWS_DEFAULT,
         load_mult=rng.triangular(0.80, 1.00, 1.20, n),
         visit_cost_mult=rng.triangular(0.5, 1.0, 2.0, n),
         battery_life_years=rng.choice(BATTERY_LIFETIME_CHOICES, n),
+        diesel_capex_mult=rng.triangular(0.70, 1.00, 1.30, n),
         discount_rate=r,
     )
 
@@ -160,11 +166,26 @@ def _solar_lcoe_one(design: tuple, d: McDraws, i: int) -> float:
     return cf.lcoe_gbp_per_kwh(d.discount_rate[i])
 
 
+DIESEL_CAPEX_FIELDS = ('capex_genset_gbp', 'capex_fuel_tank_gbp',
+                       'capex_enclosure_gbp', 'capex_install_gbp',
+                       'capex_battery_gbp', 'capex_charge_controller_gbp',
+                       'capex_autostart_gbp')
+
+
+def scale_diesel_capex(arch, mult: float):
+    """Multiply every capital item of a diesel architecture (in place)."""
+    for f in DIESEL_CAPEX_FIELDS:
+        if hasattr(arch, f):
+            setattr(arch, f, getattr(arch, f) * mult)
+    return arch
+
+
 def _diesel_lcoe_one(d: McDraws, i: int) -> float:
     arch = DieselArchitecture2()
     arch.fuel_delivery_cost_per_visit_gbp *= d.visit_cost_mult[i]
     arch.inspection_cost_per_visit_gbp *= d.visit_cost_mult[i]
     arch.daily_load_wh *= d.load_mult[i]      # runtime/fuel follow the load
+    scale_diesel_capex(arch, d.diesel_capex_mult[i])
     cf = build_diesel_cashflows(
         arch,
         fuel_price_ppl=d.fuel_price_ppl[i],

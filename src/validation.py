@@ -35,7 +35,7 @@ import pvlib
 
 from .sites import SITES, Site
 from .weather import get_or_create_tmy
-from .pv_model import PVDesign, LossChain, simulate_pv_dc
+from .pv_model import PVDesign, LossChain, simulate_pv_dc, ALBEDO
 from .pvgis_series import (load_all, load_edinburgh_horizon, PvgisSeries,
                            REQUESTED_KWP)
 
@@ -179,7 +179,7 @@ def validate_site(key: str, series: PvgisSeries, site: Site) -> dict:
         solar_zenith=sp['apparent_zenith'], solar_azimuth=sp['azimuth'],
         dni=tmy['dni'], ghi=tmy['ghi'], dhi=tmy['dhi'],
         dni_extra=pvlib.irradiance.get_extra_radiation(tmy.index),
-        model='haydavies')['poa_global'].fillna(0.0)
+        albedo=ALBEDO, model='haydavies')['poa_global'].fillna(0.0)
     poa_tmy_month = poa.groupby(poa.index.month).sum() / 1000.0
     poa_clim = _monthly_climatology(d['poa_global'])
     poa_nmbe, poa_nrmse = nmbe_nrmse(poa_tmy_month.values,
