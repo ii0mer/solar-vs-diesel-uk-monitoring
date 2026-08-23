@@ -1,6 +1,6 @@
 # data/pvgis/
 
-Real PVGIS-SARAH2 Typical Meteorological Year (TMY) data for the four study sites. These files drive the step-1 sizing (`src/sizing.py`), the TMY reliability metrics and validation layer 2. The sixteen-year hourly series used for the multi-year check live in `data/pvgis_series/` (see its README).
+PVGIS Typical Meteorological Year (TMY) data for the four study sites. These files drive the step-1 sizing (`src/sizing.py`), the TMY reliability metrics and validation layer 2. The sixteen-year hourly series used for the multi-year check live in `data/pvgis_series/` (see its README).
 
 ## Files
 
@@ -13,7 +13,20 @@ Real PVGIS-SARAH2 Typical Meteorological Year (TMY) data for the four study site
 
 ## Data source
 
-**PVGIS-SARAH2**: Photovoltaic Geographical Information System, European Commission Joint Research Centre.  
+**PVGIS**: Photovoltaic Geographical Information System, European Commission Joint Research Centre.
+
+## Provenance of the TMY months
+
+The files were retrieved in August 2026 with `pvlib.iotools.get_pvgis_tmy`. Matching each
+TMY month against the 2005-2020 hourly series in `data/pvgis_series/` by ambient
+temperature and wind speed identifies a unique source year for 43 of the 48 site-months
+(RMSE below 0.4 degC against the matched year, above 3 degC against every other year);
+the remaining five months (Southampton Nov, Birmingham Aug, Liverpool Jul and Oct,
+Edinburgh Jul) match no year of 2005-2020 and therefore come from 2021-2023. The TMY as
+served thus draws its month selection from the 2005-2023 satellite period (SARAH-3
+era of the PVGIS service). The dissertation states this explicitly (Section III-A);
+the final designs are selected on the 2005-2020 record itself, so no design rests on
+the TMY alone.  
 Satellite-derived irradiance record: **2005–2020**.  
 Retrieved May 2026 via `pvlib.iotools.get_pvgis_tmy()`.
 

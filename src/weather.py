@@ -1,7 +1,9 @@
 """Weather data acquisition.
 
 Two modes:
-1. ``fetch_pvgis_tmy(site)`` — pulls real SARAH2 TMY data from the JRC API.
+1. ``fetch_pvgis_tmy(site)`` — pulls the PVGIS TMY from the JRC API (month
+   selection drawn from the 2005–2023 satellite period as served in 2026;
+   provenance analysis in data/pvgis/README.md).
    Use this on your local machine. Requires internet access to
    re.jrc.ec.europa.eu (free, no API key).
 2. ``synthesise_tmy(site)`` — generates a physically realistic TMY-like
@@ -32,7 +34,7 @@ DATA_DIR = Path(__file__).resolve().parents[1] / 'data' / 'pvgis'
 # ---------------------------------------------------------------------------
 
 def fetch_pvgis_tmy(site: Site) -> pd.DataFrame:
-    """Pull TMY hourly data from PVGIS-SARAH2.
+    """Pull TMY hourly data from PVGIS.
 
     Uses pvlib.iotools.get_pvgis_tmy. Returns a DataFrame with the standard
     pvlib variable names (ghi, dni, dhi, temp_air, wind_speed) indexed by
@@ -40,7 +42,7 @@ def fetch_pvgis_tmy(site: Site) -> pd.DataFrame:
 
     Notes
     -----
-    PVGIS-SARAH2 covers Europe and Africa. For UK sites this is the
+    The PVGIS satellite products cover Europe and Africa. For UK sites this is the
     appropriate database (vs. ERA5, which is also available but coarser).
     """
     # Handle pvlib API changes across versions:

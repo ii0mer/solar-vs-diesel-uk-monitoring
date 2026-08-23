@@ -19,7 +19,7 @@ The south-to-north GHI gradient is 19.9%. Site altitudes are the values in `site
 
 | Input | Description | Files |
 |---|---|---|
-| Typical meteorological year | PVGIS-SARAH2 TMY, hourly `ghi, dni, dhi, temp_air, wind_speed`, timestamps in the nominal year 1990 (UTC), retrieved with `pvlib.iotools.get_pvgis_tmy` (`src/weather.py`, `src/fetch_pvgis.py`). Used for step-1 sizing, the TMY reliability metrics and validation layer 2. | `data/pvgis/<site>_tmy.csv` |
+| Typical meteorological year | PVGIS TMY (month selection drawn from the 2005-2023 satellite period, SARAH-3; provenance in data/pvgis/README.md), hourly `ghi, dni, dhi, temp_air, wind_speed`, timestamps in the nominal year 1990 (UTC), retrieved with `pvlib.iotools.get_pvgis_tmy` (`src/weather.py`, `src/fetch_pvgis.py`). Used for step-1 sizing, the TMY reliability metrics and validation layer 2. | `data/pvgis/<site>_tmy.csv` |
 | Sixteen-year hourly series | PVGIS 5.2 `seriescalc`, PVGIS-SARAH2, 2005-2020, plane-of-array components, PVGIS PV power at zero system loss, T2m, WS10m; 140,256 hours per file, no reconstructed values (`src/pvgis_series.py`, `src/fetch_pvgis_series.py`). Used for validation layer 1, the sixteen-year check and the final designs. | `data/pvgis_series/*.csv` |
 | Synthetic fallback | Clear-sky-plus-cloud-factor generator in `src/weather.py`, only used when a real TMY file is missing; not used for any reported result and not committed. | `data/pvgis/*_tmy_synthetic.csv` |
 
@@ -90,7 +90,7 @@ Step 1 (`src/sizing.py`, `results/sizing_summary.txt`):
 | Item | Value |
 |---|---|
 | Search grid | PV 100 to 1,250 Wp in 50 Wp steps (24 values) x battery 0.75 to 4.0 kWh in 0.25 kWh steps plus 5, 7 and 10 kWh (17 values) |
-| Weather | PVGIS-SARAH2 TMY |
+| Weather | PVGIS TMY (2005-2023 selection period) |
 | Criterion | LOLP <= 1% in the design-governing year |
 | Governing year | year 24 of a 25-year project with a 12-year battery: PV at (1 - 0.005)^23 = 0.8911 of year-1 output, battery at 80% SoH |
 | Ranking | 25-year lifetime NPV at 5% of the design (same cash-flow builder as the economics: capex, lumpy replacements with salvage, O&M, visits) |
@@ -148,7 +148,7 @@ A2 is the central comparator; A1 is the upper bound.
 | Replacement convention | components with life >= 2 years are replaced in their actual years with a straight-line salvage credit at year 25 for remaining life; components with life < 2 years (A1 genset) are annualised | `lumpy_replacement_flows` |
 | Diesel costs | capex, fuel, oil, visits, genset and buffer-battery replacements as in Section 8, all flat in real terms | `build_diesel_cashflows` |
 
-Central results at 5%: solar LCOE £6.52, £6.96, £6.64, £7.23/kWh (Southampton, Birmingham, Liverpool, Edinburgh); diesel A2 £22.72/kWh, A1 £75.22/kWh. At 8%: £7.26, £7.89, £7.43, £8.23; A2 £23.52; A1 £75.92. Discounted 25-year cost at 5%: solar £11,775 to £13,071; A2 £41,052 (site visits 82.4%, capex 11.2%, buffer-battery replacement 2.9%, fuel 2.2%, oil and maintenance 1.1%, genset replacement 0.1%); A1 £135,920.
+Central results at 5%: solar LCOE £6.52, £6.96, £6.64, £7.23/kWh (Southampton, Birmingham, Liverpool, Edinburgh); diesel A2 £22.72/kWh, A1 £74.07/kWh. At 8%: £7.26, £7.89, £7.43, £8.23; A2 £23.52; A1 £74.43. Discounted 25-year cost at 5%: solar £11,775 to £13,071; A2 £41,052 (site visits 82.4%, capex 11.2%, buffer-battery replacement 2.9%, fuel 2.2%, oil and maintenance 1.1%, genset replacement 0.1%); A1 £133,825.
 
 ## 10. Uncertainty analysis
 

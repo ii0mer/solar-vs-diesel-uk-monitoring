@@ -144,9 +144,14 @@ def test_lumpy_replacements_life_exceeds_project():
 
 
 def test_sub_two_year_life_is_annualised():
-    f = lumpy_replacement_flows(1200.0, 5000 / 8760, 25)
-    assert f[1] == pytest.approx(1200.0 / (5000 / 8760))
-    assert f[1] == pytest.approx(f[25])
+    """Continuous-renewal stream, with the year-0 unit credited in year 1
+    so the initial purchase is not paid for twice: total replacement spend
+    over N years equals (N/life - 1) units."""
+    life = 5000 / 8760
+    f = lumpy_replacement_flows(1200.0, life, 25)
+    assert f[25] == pytest.approx(1200.0 / life)
+    assert f[1] == pytest.approx(1200.0 / life - 1200.0)
+    assert f[1:].sum() == pytest.approx(1200.0 * (25 / life - 1))
 
 
 # =========================================================================
@@ -177,7 +182,7 @@ def test_edinburgh_solar_lcoe_at_5pct():
 def test_diesel_a1_lcoe_at_5pct():
     lcoe = build_diesel_cashflows(
         DieselArchitecture1(), fuel_price_ppl=76.02).lcoe_gbp_per_kwh(0.05)
-    assert 74.0 < lcoe < 76.5, f"expected ~£75.1, got £{lcoe:.3f}"
+    assert 73.5 < lcoe < 74.6, f"expected ~£74.1, got £{lcoe:.3f}"
 
 
 def test_diesel_a2_lcoe_at_5pct():

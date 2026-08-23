@@ -90,7 +90,11 @@ def lumpy_replacement_flows(capex_gbp: float, lifetime_years: float,
     n = project_years + 1
     flow = np.zeros(n)
     if lifetime_years < 2.0:
-        flow[1:] = capex_gbp / lifetime_years   # annualised (documented)
+        # Annualised continuous-renewal stream. The year-0 purchase already
+        # covers the first unit's life, so one unit is credited in year 1;
+        # otherwise the initial unit would be paid for twice.
+        flow[1:] = capex_gbp / lifetime_years
+        flow[1] -= capex_gbp
         return flow
     year = int(round(lifetime_years))
     last_install = 0

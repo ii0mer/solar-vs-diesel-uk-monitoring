@@ -5,7 +5,7 @@ Hourly techno-economic model comparing an off-grid solar PV–lithium iron phosp
 [![Tests](https://img.shields.io/badge/tests-38%20passing-brightgreen)](tests/)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-blue)](https://www.python.org/)
-[![Data](https://img.shields.io/badge/data-PVGIS--SARAH2-orange)](data/pvgis_series/)
+[![Data](https://img.shields.io/badge/data-PVGIS-orange)](data/pvgis_series/)
 
 ## The question
 
@@ -26,8 +26,8 @@ Final designs, central assumptions (PV £4.50/Wp, LFP £700/kWh, red diesel 76.0
 | Liverpool | 550 Wp + 2.0 kWh | 6.64 | 7.43 | 3.42 | 3.17 |
 | Edinburgh | 850 Wp + 1.75 kWh | 7.23 | 8.23 | 3.14 | 2.86 |
 
-- Diesel A2 (2 kVA-class set, battery-buffered, 0.915 h/day, 12 visits/yr): £22.72/kWh at 5%, £23.52/kWh at 8%. Diesel A1 (same set running continuously): £75.22/kWh at 5%, £75.92/kWh at 8%; A1 is 10.40 to 11.54 times the solar LCOE at 5%.
-- Discounted 25-year cost at 5%: solar £11,775 (Southampton) to £13,071 (Edinburgh); diesel A2 £41,052; diesel A1 £135,920. Avoided cost against A2: £27,981 to £29,277 per station over 25 years.
+- Diesel A2 (2 kVA-class set, battery-buffered, 0.915 h/day, 12 visits/yr): £22.72/kWh at 5%, £23.52/kWh at 8%. Diesel A1 (same set running continuously): £74.07/kWh at 5%, £74.43/kWh at 8%; A1 is 10.24 to 11.36 times the solar LCOE at 5%.
+- Discounted 25-year cost at 5%: solar £11,775 (Southampton) to £13,071 (Edinburgh); diesel A2 £41,052; diesel A1 £133,825. Avoided cost against A2: £27,981 to £29,277 per station over 25 years.
 - Diesel visit cadence (5%, Southampton): 12/6/4/2 visits per year give ratios of 3.49/2.05/1.57/1.09. Break-even cadence 1.61 (Southampton), 1.69 (Liverpool), 1.89 (Birmingham), 2.07 (Edinburgh) visits/yr at 5%; 1.58 to 2.20 at 8%.
 - One-at-a-time tornado (ten parameters, Southampton, 5%): the ratio ranges from 1.78 to 4.58 over the solar visit count (1 to 6/yr), 1.09 to 3.49 over the diesel visit-cadence rows, 2.70 to 4.30 over visit cost, 3.09 to 3.67 over the discount rate, and 3.45 to 3.53 over the fuel-price rows (44.96 to 117.56 p/L).
 - Monte Carlo (5,000 joint draws over seven sampled inputs including diesel capital x 0.7 to 1.3, seed 42): median ratio 3.27 (Edinburgh) to 3.59 (Southampton) at 5%, 2.99 to 3.35 at 8%; P10 2.75 to 3.07 at 5% and 2.49 to 2.85 at 8%; solar is cheaper in every draw (smallest ratio 2.05 at 5%, 1.83 at 8%).
@@ -40,7 +40,7 @@ Final designs, central assumptions (PV £4.50/Wp, LFP £700/kWh, red diesel 76.0
 
 ## Two-step sizing
 
-Step 1 (`src/sizing.py`): grid search (PV 100 to 1,250 Wp in 50 Wp steps; battery 0.75 to 10 kWh, seventeen values) on the PVGIS-SARAH2 typical meteorological year for the cheapest design (25-year NPV at 5%) that holds LOLP <= 1% in the design-governing year. The governing year is year 24 of 25: modules at (1 - 0.005)^23 = 0.891 of year-1 output and the battery at 80% state of health, the last year of the second battery's life. These designs are `SITE_DESIGN_TMY` in `src/monte_carlo.py`; provenance `results/sizing_summary.txt`.
+Step 1 (`src/sizing.py`): grid search (PV 100 to 1,250 Wp in 50 Wp steps; battery 0.75 to 10 kWh, seventeen values) on the PVGIS typical meteorological year (month selection drawn from the 2005-2023 satellite period; see data/pvgis/README.md) for the cheapest design (25-year NPV at 5%) that holds LOLP <= 1% in the design-governing year. The governing year is year 24 of 25: modules at (1 - 0.005)^23 = 0.891 of year-1 output and the battery at 80% state of health, the last year of the second battery's life. These designs are `SITE_DESIGN_TMY` in `src/monte_carlo.py`; provenance `results/sizing_summary.txt`.
 
 Step 2 (`src/multiyear.py`): every grid design is run continuously through the sixteen real years 2005-2020 (PVGIS hourly series in `data/pvgis_series/`) under the same governing-year conditions, with two PV conversion models: `study` (this study's pvlib chain fed with the PVGIS plane-of-array components) and `pvgis` (PVGIS's own hourly output scaled to nameplate). The final design is the cheapest design with annual LOLP <= 1% in at least 15 of the 16 years under both models (`SITE_DESIGN`; provenance `results/multiyear_summary.txt`). All economics, sensitivity, Monte Carlo, sweeps and worst-case results use the final designs.
 
@@ -104,7 +104,7 @@ src/
   sites.py                Four study sites (coordinates, altitude)
   load_profile.py         14.64 W constant monitoring load
   weather.py              PVGIS TMY loader (cache in data/pvgis), synthetic fallback
-  fetch_pvgis.py          Fetch the PVGIS-SARAH2 TMY files (pvlib.iotools.get_pvgis_tmy)
+  fetch_pvgis.py          Fetch the PVGIS TMY files (pvlib.iotools.get_pvgis_tmy)
   convert_manual_pvgis.py Convert TMY CSVs downloaded from the PVGIS web tool
   fetch_pvgis_series.py   Fetch the PVGIS 5.2 hourly series 2005-2020 (data/pvgis_series)
   pvgis_series.py         Loader for the hourly series; PVGIS Huld/Faiman power model
@@ -128,7 +128,7 @@ tests/
   test_monte_carlo.py              7 tests: draws, plumbing, distribution bands
   test_validation_multiyear.py     9 tests: PVGIS series, validation, multi-year loop, final designs
 data/
-  pvgis/                  PVGIS-SARAH2 TMY hourly files, one per site (README inside)
+  pvgis/                  PVGIS TMY hourly files, one per site (README inside)
   pvgis_series/           PVGIS 5.2 hourly series 2005-2020, five files (README inside)
   load/                   Load component notes (README)
   costs/                  Cost assumption sources (README)
@@ -144,7 +144,7 @@ pyproject.toml            Package metadata and dependencies
 
 ## Data provenance and reuse terms
 
-- Weather: PVGIS-SARAH2 typical meteorological year per site (`data/pvgis/`, retrieved with `pvlib.iotools.get_pvgis_tmy`) and PVGIS 5.2 `seriescalc` hourly series 2005-2020 (`data/pvgis_series/`, request parameters in `src/fetch_pvgis_series.py`). PVGIS © European Union, 2001-2026; the data are free to reuse with attribution to PVGIS (European Commission Joint Research Centre). Both data folders carry a README with the request parameters and column definitions.
+- Weather: PVGIS typical meteorological year per site (month selection drawn from the 2005-2023 satellite period, SARAH-3; see data/pvgis/README.md) (`data/pvgis/`, retrieved with `pvlib.iotools.get_pvgis_tmy`) and PVGIS 5.2 `seriescalc` hourly series 2005-2020 (`data/pvgis_series/`, request parameters in `src/fetch_pvgis_series.py`). PVGIS © European Union, 2001-2026; the data are free to reuse with attribution to PVGIS (European Commission Joint Research Centre). Both data folders carry a README with the request parameters and column definitions.
 - Costs and prices (see `data/costs/README.md` and `docs/assumptions.md`): PV £4.50/Wp (DESNZ Solar PV Cost Data 2025), LFP battery £700/kWh (BloombergNEF 2025 pack survey plus European premium), UK red diesel 76.02 p/L excluding VAT (AHDB fuel prices, 2025 mean; 44.96 to 117.56 p/L range), emission factor 2.75766 kg CO2e/L (DESNZ GHG conversion factors 2025), carbon values £264/t (2026) and £280/t (2030) in 2020 prices (DESNZ central values).
 - Methods: IEA/NEA (2020) LCOE method; HM Treasury Green Book (2022) for the 5% public-sector rate; PVWatts v5 (Dobos, NREL/TP-6A20-62641) for the loss framework; Skarstein and Uhlen (1989) fuel curve.
 
