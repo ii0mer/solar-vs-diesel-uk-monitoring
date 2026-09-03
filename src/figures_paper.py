@@ -455,7 +455,7 @@ def fig_tornado():
                     va='center', ha='left', fontsize=7)
     ax.axvline(c, color=INK, lw=0.7, ls='--')
     ax.axvline(1.0, color=GREY, lw=0.7, ls=':')
-    ax.text(1.0, len(td) - 0.3, 'parity', fontsize=7, color=GREY, ha='center')
+    ax.text(1.0, len(td) - 0.3, 'parity (ratio = 1)', fontsize=7, color=GREY, ha='center')
     ax.text(c, len(td) - 0.3, f'central {c:.2f}', fontsize=7, ha='center')
     ax.set_yticks(y); ax.set_yticklabels([order[p] for p in td['parameter']],
                                          fontsize=7)
