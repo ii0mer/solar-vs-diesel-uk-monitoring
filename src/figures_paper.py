@@ -93,7 +93,7 @@ def fig_ghi():
         ax.plot(months, m, ls=['-', '--', '-.', ':'][list(SITES).index(key)],
                 marker=['o', 's', '^', 'D'][list(SITES).index(key)],
                 color=SITE_C[site.name], lw=1.3, ms=3, mec='white', mew=0.4,
-                label=f'{site.name} ({annual_ghi_kwh_per_m2(df):.0f})')
+                label=f'{site.name} ({annual_ghi_kwh_per_m2(df):,.0f})')
     ax.set_xticks(months)
     ax.set_xticklabels(list('JFMAMJJASOND'))
     ax.set_xlabel('Month')
@@ -109,9 +109,9 @@ def fig_ghi():
 
 # ================================================================ Fig 2
 def fig_architecture():
-    fig, axs = plt.subplots(1, 2, figsize=(PAGE_W, 2.45), layout=None)
+    fig, axs = plt.subplots(1, 2, figsize=(PAGE_W, 2.15), layout=None)
     for ax in axs:
-        ax.set_xlim(0, 10); ax.set_ylim(-0.4, 4.6); ax.axis('off')
+        ax.set_xlim(0, 10); ax.set_ylim(-0.62, 4.05); ax.axis('off')
 
     def box(ax, x, y, w, h, text, fc='#f8f9fa', ec=INK, fs=7, bold=False):
         ax.add_patch(FancyBboxPatch((x, y), w, h,
@@ -131,39 +131,39 @@ def fig_architecture():
 
     # (a) Solar PV–battery
     ax = axs[0]
-    box(ax, 0.3, 2.6, 2.4, 1.3, 'PV array\n500–850 Wp\nlatitude tilt, south',
+    box(ax, 0.15, 2.6, 2.75, 1.3, 'PV array\n500–850 Wp\nlatitude tilt, south',
         fc='#e6f4ee', ec=SOLAR, bold=True)
     box(ax, 3.7, 2.6, 2.4, 1.3, 'MPPT charge\ncontroller\n(η ≈ 97%)')
     box(ax, 7.1, 2.6, 2.6, 1.3, 'DC load 14.64 W\nlogger · sensors ·\ncellular modem',
         fc='#f1f3f5')
     box(ax, 3.7, 0.5, 2.4, 1.3, 'LFP battery\n1.5–2.0 kWh\n80% DoD',
         fc='#e6f4ee', ec=SOLAR)
-    arrow(ax, 2.7, 3.25, 3.7, 3.25, 'DC')
+    arrow(ax, 2.9, 3.25, 3.7, 3.25, 'DC')
     arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC')
     arrow(ax, 4.9, 2.6, 4.9, 1.8)
     arrow(ax, 5.3, 1.8, 5.3, 2.6)
-    ax.text(0.3, 0.55, '2 site visits/yr\nno fuel, no oil', fontsize=7,
+    ax.text(0.15, 0.55, '2 site visits/yr\nno fuel, no oil', fontsize=7,
             color=SOLAR, va='bottom')
-    ax.text(5, -0.35, '(a)', fontsize=8, family=SERIF, ha='center', va='center')
+    ax.text(5, -0.45, '(a)', fontsize=8, family=SERIF, ha='center', va='center')
 
     # (b) Diesel A2
     ax = axs[1]
-    box(ax, 0.3, 2.6, 2.4, 1.3, '2 kVA-class diesel\nset (1.6 kW)\n0.9 h/day, 30% load',
+    box(ax, 0.15, 2.6, 2.75, 1.3, 'Diesel set\n2 kVA class, 1.6 kW\n0.9 h/day, 30% load',
         fc='#fdecec', ec=DIESEL_A2, bold=True)
     box(ax, 3.7, 2.6, 2.4, 1.3, 'Rectifier, charge\nand auto-start\ncontrollers')
     box(ax, 7.1, 2.6, 2.6, 1.3, 'DC load 14.64 W\nlogger · sensors ·\ncellular modem',
         fc='#f1f3f5')
     box(ax, 3.7, 0.5, 2.4, 1.3, 'Lead-acid buffer\n≈2.4 kWh, 4-yr life',
         fc='#fdecec', ec=DIESEL_A2)
-    box(ax, 0.3, 0.5, 2.4, 1.3, 'Fuel tank 200 L\n≈84 L/yr used')
-    arrow(ax, 2.7, 3.25, 3.7, 3.25, 'AC')
+    box(ax, 0.15, 0.5, 2.75, 1.3, 'Fuel tank 200 L\n≈84 L/yr used')
+    arrow(ax, 2.9, 3.25, 3.7, 3.25, 'AC')
     arrow(ax, 6.1, 3.25, 7.1, 3.25, 'DC')
     arrow(ax, 4.9, 2.6, 4.9, 1.8)
     arrow(ax, 5.3, 1.8, 5.3, 2.6)
-    arrow(ax, 1.5, 1.8, 1.5, 2.6)
+    arrow(ax, 1.525, 1.8, 1.525, 2.6)
     ax.text(7.1, 0.55, '12 site visits/yr\ninspection, oil, fuel',
             fontsize=7, color=DIESEL_A2, va='bottom')
-    ax.text(5, -0.35, '(b)', fontsize=8, family=SERIF, ha='center', va='center')
+    ax.text(5, -0.45, '(b)', fontsize=8, family=SERIF, ha='center', va='center')
     fig.subplots_adjust(wspace=0.08, left=0.01, right=0.99, top=0.99,
                         bottom=0.01)
     return _save(fig, 'fig02_architecture.png', tight=True)
@@ -197,13 +197,13 @@ def fig_validation():
         ax.text(0.03, 0.97,
                 f"same-input bias {l1['annual_nmbe_pct']:+.1f}%\nTMY bias {l2['annual_bias_vs_pvgis_mean_pct']:+.1f}%",
                 transform=ax.transAxes, va='top', ha='left', fontsize=7)
-        _panel_below(ax, f'({chr(97 + i)})', y=-0.24)
+        _panel_below(ax, f'({chr(97 + i)})', y=-0.17)
     axs[0].set_ylabel('Monthly yield (kWh/kWp)')
     handles = [mpl.patches.Patch(color=GREY, alpha=0.18, label='PVGIS 2005–2020 range'),
                Line2D([], [], color=INK, lw=1.2, label='PVGIS sixteen-year mean'),
                Line2D([], [], color=GREY, lw=1.1, ls='--', label='This chain, PVGIS inputs (site colour)'),
                Line2D([], [], color=GREY, lw=0, marker='o', ms=3.2, label='This chain, TMY (site colour)')]
-    fig.legend(handles=handles, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.06),
+    fig.legend(handles=handles, loc='outside lower center', ncol=4,
                handlelength=1.6, columnspacing=1.4)
     return _save(fig, 'fig03_validation.png', tight=True)
 
@@ -232,8 +232,10 @@ def fig_multiyear():
             for j in range(len(years)):
                 v = Z[i, j]
                 bold = v > 1.0
-                ax.text(j + 0.5, i + 0.5, f'{v:.1f}' if v >= 0.05 else '0',
-                        ha='center', va='center', fontsize=6.3,
+                near = 0.95 <= v < 1.05          # knife-edge cells: show 2 dp
+                txt = f'{v:.2f}' if near else (f'{v:.1f}' if v >= 0.05 else '0')
+                ax.text(j + 0.5, i + 0.5, txt,
+                        ha='center', va='center', fontsize=5.6 if near else 6.3,
                         fontweight='bold' if bold else 'normal',
                         color='white' if v > 2.0 else INK)
                 if bold:
@@ -243,7 +245,7 @@ def fig_multiyear():
         ax.set_xticklabels([str(y)[2:] for y in years], fontsize=6.5)
         ax.set_yticks(np.arange(len(sites)) + 0.5)
         ax.set_yticklabels([f"{st.name}\n{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
-                            f"{M['sites'][st.name][dsg]['battery_kwh']:g} kWh"
+                            f"{M['sites'][st.name][dsg]['battery_kwh']:.2f} kWh"
                             for st in sites], fontsize=6.3)
         ax.tick_params(length=0)
         for sp in ax.spines.values():
@@ -251,7 +253,7 @@ def fig_multiyear():
         ax.set_title({'study': "This study's chain", 'pvgis': "PVGIS chain"}[model]
                      + {'tmy_design': ', step-1 designs', 'final_design': ', final designs'}[dsg],
                      fontsize=7.5, pad=2)
-        _panel_below(ax, f'({lab})', y=-0.20 if dsg == 'tmy_design' else -0.42)
+        _panel_below(ax, f'({lab})', y=-0.20 if dsg == 'tmy_design' else -0.36)
     for ax in axs[1]:
         ax.set_xlabel('Year (2005–2020)')
     cb = fig.colorbar(mesh, ax=axs, pad=0.012, fraction=0.025)
@@ -283,12 +285,12 @@ def fig_worst_event(site_key='edinburgh', days=12):
                       'soc_frac': soc, 'unmet_wh': unmet}, index=idx)
     ww = fin['by_model']['study']['worst_window']
     end = pd.Timestamp(ww['end']) + pd.Timedelta(hours=23)
-    start = end - pd.Timedelta(days=days)
+    start = pd.Timestamp(ww['start']) - pd.Timedelta(days=days - 11)   # one-day lead-in
     w = h.loc[start:end]
     fig, axs = plt.subplots(3, 1, figsize=(COL_W, 3.5), sharex=True,
                             gridspec_kw={'height_ratios': [1.3, 1.1, 0.6]})
     axs[0].fill_between(w.index, 0, w['pv_wh'], color=SITE_C[site.name],
-                        alpha=0.35, lw=0, label='PV output')
+                        alpha=0.6, lw=0, label='PV output')
     axs[0].plot(w.index, w['load_wh'], color=INK, lw=0.9, label='Load')
     axs[0].set_ylabel('Power (W)')
     ymax = min(160.0, float(w['pv_wh'].max()) * 1.05)
@@ -302,18 +304,20 @@ def fig_worst_event(site_key='edinburgh', days=12):
     axs[0].text(0.01, 0.97, '(a)', transform=axs[0].transAxes, va='top', fontsize=8, family=SERIF)
     axs[1].text(0.01, 0.97, '(b)', transform=axs[1].transAxes, va='top', fontsize=8, family=SERIF)
     axs[2].text(0.01, 0.95, '(c)', transform=axs[2].transAxes, va='top', fontsize=8, family=SERIF)
-    axs[1].fill_between(w.index, 0, w['soc_frac'] * 100, color=SOLAR, alpha=0.5, lw=0)
+    axs[1].fill_between(w.index, 0, w['soc_frac'] * 100, color=SITE_C[site.name],
+                        alpha=0.3, lw=0)
     axs[1].axhline(20, color=DIESEL_A2, ls='--', lw=0.8)
-    axs[1].text(w.index[-40], 24, 'DoD floor (20%)', fontsize=7, color=DIESEL_A2, ha='right')
+    axs[1].text(w.index[len(w) * 3 // 4], 8, 'SoC floor (20%)', fontsize=7,
+                color=DIESEL_A2, ha='center', va='center')
     axs[1].set_ylabel('State of charge (%)'); axs[1].set_ylim(0, 105)
     axs[2].bar(w.index, w['unmet_wh'], width=1 / 24, color=DIESEL_A2, lw=0)
-    axs[2].set_ylabel('Unmet load\n(Wh)')
+    axs[2].set_ylabel('Unmet load\n(Wh/h)')
     axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%-d %b'))
     axs[2].xaxis.set_major_locator(mdates.DayLocator(interval=2))
     for ax in axs:
         ax.yaxis.grid(True); ax.set_axisbelow(True)
     axs[2].set_xlabel(f'Date ({start.year})')
-    return _save(fig, 'fig06_worst_event.png'), (start, end, wp, kwh)
+    return _save(fig, 'fig06_worst_event.png'), (start, end, wp, kwh, ww)
 
 
 # ================================================================ Fig 4
@@ -343,8 +347,8 @@ def fig_sizing_landscape():
         ax.set_yticklabels(['1', '2', '5', '10'])
         ax.set_ylim(0.7, 11)
     axs[0].set_ylabel('Battery capacity (kWh)')
-    cb = fig.colorbar(mesh, ax=axs, pad=0.015, fraction=0.03)
-    cb.set_label('LOLP in governing year (grey: below 0.01%)', fontsize=7)
+    cb = fig.colorbar(mesh, ax=axs, pad=0.02, fraction=0.035)
+    cb.set_label('Year-24 LOLP', fontsize=7)
     cb.set_ticks([-4, -3, -2, -1, 0])
     cb.set_ticklabels(['0.01%', '0.1%', '1%', '10%', '100%'])
     cb.ax.tick_params(labelsize=7)
@@ -381,7 +385,7 @@ def fig_lcoe_and_breakdown():
             fontsize=7, color=DIESEL_A2)
     ax.text(len(sites) - 0.55, d2_8 + 0.5, f'Diesel A2, 8%: £{d2_8:.2f}/kWh', ha='right',
             va='bottom', fontsize=7, color=DIESEL_A2)
-    ax.text(len(sites) - 0.55, 26.6, f'Diesel A1, 5%: £{d1:.1f}/kWh (off scale)',
+    ax.text(len(sites) - 0.55, 26.6, f'Diesel A1, 5%: £{d1:.2f}/kWh (off scale)',
             ha='right', va='top', fontsize=7, color=DIESEL_A1)
     ax.set_ylim(0, 27.5)
     ax.set_xticks(x); ax.set_xticklabels(sites)
@@ -401,13 +405,22 @@ def fig_lcoe_and_breakdown():
         vis = d.get('Site visits', 0.0)
         return [cap, rep, om, fuel, vis]
     ps = parts(solar['Southampton']); pd2 = parts(a2)
-    colours = ['#495057', '#adb5bd', '#ced4da', '#E69F00', '#5b7fa6']
+    colours = ['#495057', '#868e96', '#dee2e6', '#E69F00', '#5b7fa6']
     for j, (label, vals) in enumerate([('Solar–battery\n(Southampton)', ps),
                                        ('Diesel A2', pd2)]):
-        bottom = 0
+        bottom = 0; total = sum(vals)
         for c, v, name in zip(colours, vals, cats):
             ax2.barh(j, v / 1000, left=bottom / 1000, color=c, height=0.7,
                      label=name if j == 0 else None)
+            if name == 'Site visits':          # the share the comparison rests on
+                share = f'{v / total * 100:.0f}%'
+                ax2.text((bottom + v / 2) / 1000, j, share if j == 0 else f'visits {share}',
+                         ha='center', va='center', fontsize=7, color='white')
+            if name == 'Fuel' and j == 1:
+                ax2.annotate(f'fuel {v / total * 100:.1f}%', xy=((bottom + v / 2) / 1000, j - 0.36),
+                             xytext=((bottom + v / 2) / 1000 + 3.5, j - 0.62),
+                             fontsize=6.5, ha='left', va='center', color=INK,
+                             arrowprops=dict(arrowstyle='-', lw=0.5, color=INK))
             bottom += v
         ax2.text(bottom / 1000 + 0.6, j, f'£{bottom/1000:.1f}k', va='center',
                  fontsize=7)
@@ -455,7 +468,7 @@ def fig_tornado():
                     va='center', ha='left', fontsize=7)
     ax.axvline(c, color=INK, lw=0.7, ls='--')
     ax.axvline(1.0, color=GREY, lw=0.7, ls=':')
-    ax.text(1.0, len(td) - 0.3, 'parity (ratio = 1)', fontsize=7, color=GREY, ha='center')
+    ax.text(1.06, len(td) - 0.3, 'parity (ratio = 1)', fontsize=7, color=GREY, ha='left')
     ax.text(c, len(td) - 0.3, f'central {c:.2f}', fontsize=7, ha='center')
     ax.set_yticks(y); ax.set_yticklabels([order[p] for p in td['parameter']],
                                          fontsize=7)
@@ -489,23 +502,31 @@ def fig_monte_carlo(n=5000):
 
     ax = axs[1]
     sites = list(SITE_DESIGN); yb = np.arange(len(sites))
-    for k, (mc, mk) in enumerate([(mc5, 'o'), (mc8, 's')]):
+    a2 = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=76.02)
+    for k, (mc, mk, rate) in enumerate([(mc5, 'o', 0.05), (mc8, 's', 0.08)]):
         off = -0.17 + 0.34 * k
         for i, s in enumerate(sites):
             r = mc['diesel_lcoe'] / mc[f'solar_lcoe_{s}']
             p10, p50, p90 = np.percentile(r, [10, 50, 90])
             ax.plot([p10, p90], [i + off] * 2, color=INK, lw=1.0)
+            wp, kwh = SITE_DESIGN[s]
+            det = a2.lcoe_gbp_per_kwh(rate) / build_pv_battery_cashflows(
+                pv_capex_gbp_per_wp=4.5, pv_size_wp=wp, battery_capex_gbp_per_kwh=700,
+                battery_kwh=kwh, annual_energy_delivered_kwh=128.2).lcoe_gbp_per_kwh(rate)
+            ax.plot(det, i + off, '|', color=INK, ms=7, mew=1.0)      # deterministic ratio
             ax.plot(p50, i + off, mk, color=SITE_C[s], ms=5.5, mec=INK, mew=0.5)
     ax.axvline(1, color=GREY, lw=0.7, ls=':')
     ax.text(1.08, -0.45, 'parity', fontsize=7, color=GREY, ha='left')
     ax.set_yticks(yb); ax.set_yticklabels(sites); ax.invert_yaxis()
-    ax.set_xlim(0.5, 5.0)
+    ax.set_xlim(0.5, 4.6); ax.set_xticks([1, 2, 3, 4])
     ax.set_xlabel('Diesel-to-solar LCOE ratio (P10, P50, P90)')
     ax.legend(handles=[Line2D([], [], marker='o', ls='', color='#adb5bd',
                               mec=INK, label='5%'),
                        Line2D([], [], marker='s', ls='', color='#adb5bd',
-                              mec=INK, label='8%')],
-              loc='lower left')
+                              mec=INK, label='8%'),
+                       Line2D([], [], marker='|', ls='', color=INK, mew=1.0,
+                              label='deterministic')],
+              loc='lower left', handletextpad=0.5)
     ax.xaxis.grid(True); ax.set_axisbelow(True)
     _panel_below(ax, '(b)', y=-0.30)
     fig.subplots_adjust(wspace=0.45, bottom=0.30, left=0.08, right=0.99, top=0.97)
@@ -524,11 +545,18 @@ def fig_sweep2d():
         cs = ax.contour(batt, RATES * 100, m,
                         levels=[2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0],
                         colors='white', linewidths=0.6)
-        ax.clabel(cs, fontsize=7, fmt='%.2f')
+        import matplotlib.patheffects as pe
+        labels = ax.clabel(cs, fontsize=7, fmt='%.2f')
+        for lab in labels:
+            lab.set_path_effects([pe.withStroke(linewidth=1.6, foreground=INK)])
+            lx, ly = lab.get_position()
+            if abs(lx - 700) < 130 and abs(ly - 5) < 1.1:     # would sit under the star
+                lab.set_visible(False)
         ax.plot(700, 5, marker='*', ms=9, color='white', mec=INK, mew=0.6)
         ax.set_title(f'{site}', fontsize=8, pad=3)
         ax.set_xlabel('Battery capital cost (£/kWh)')
         ax.set_xticks([400, 800, 1200])
+        ax.set_xlim(batt.min(), batt.max())
         _panel_below(ax, f'({chr(97 + i)})', y=-0.30)
     axs[0].set_ylabel('Discount rate (%)')
     cb = fig.colorbar(mesh, ax=axs, pad=0.015, fraction=0.03)
