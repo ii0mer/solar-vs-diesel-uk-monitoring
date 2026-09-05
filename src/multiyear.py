@@ -108,11 +108,14 @@ def simulate_multiyear(pv_w: np.ndarray, load_w: float, battery_kwh: float,
                        battery_soh: float = 1.0,
                        battery: BatteryDesign | None = None,
                        charge_blocked: np.ndarray | None = None,
-                       return_soc: bool = False):
-    """Two-pass continuous simulation over the whole series (the second
-    pass starts from the first pass's final SoC, as in the TMY runs).
-    Returns (unmet_wh, curtail_wh) hourly arrays, plus the SoC fraction
-    of the SoH-reduced capacity when ``return_soc`` is True."""
+                       return_soc: bool = False,
+                       start: str = 'two_pass'):
+    """Continuous simulation over the whole series. ``start`` sets the
+    1 January 2005 state of charge: 'two_pass' (default) starts the scored
+    pass from the final SoC of a first pass, i.e. the weather-settled state;
+    'full', 'half' and 'floor' start from 100%, 50% and the 20% floor of the
+    SoH-reduced capacity. Returns (unmet_wh, curtail_wh) hourly arrays, plus
+    the SoC fraction of the SoH-reduced capacity when ``return_soc`` is True."""
     bat = battery or BatteryDesign(capacity_kwh=battery_kwh)
     cap = battery_kwh * 1000.0 * battery_soh
     soc_min = cap * (1.0 - bat.max_dod)
@@ -122,9 +125,18 @@ def simulate_multiyear(pv_w: np.ndarray, load_w: float, battery_kwh: float,
     pv = np.ascontiguousarray(pv_w, dtype=float)
     blk = (np.zeros(pv.shape[0], dtype=np.uint8) if charge_blocked is None
            else np.ascontiguousarray(charge_blocked, dtype=np.uint8))
-    _, _, _, soc_end = _bucket_loop(pv, load, cap, soc_min, eta, sd, cap * 0.5, blk)
+    if start == 'two_pass':
+        _, _, _, soc0 = _bucket_loop(pv, load, cap, soc_min, eta, sd, cap * 0.5, blk)
+    elif start == 'full':
+        soc0 = cap
+    elif start == 'half':
+        soc0 = cap * 0.5
+    elif start == 'floor':
+        soc0 = soc_min
+    else:
+        raise ValueError(start)
     unmet, curtail, soc_series, _ = _bucket_loop(pv, load, cap, soc_min, eta, sd,
-                                                 soc_end, blk)
+                                                 soc0, blk)
     if return_soc:
         return unmet, curtail, soc_series / cap
     return unmet, curtail
@@ -144,14 +156,80 @@ def annual_table(unmet_wh, curtail_wh, index: pd.DatetimeIndex) -> pd.DataFrame:
 
 
 def worst_window(unmet_wh, index: pd.DatetimeIndex, year: int, days: int = 10):
+    """Worst ``days``-day window of unmet hours among the windows that overlap
+    calendar ``year``. Windows may straddle 31 December, so a New-Year event
+    is found whole rather than truncated at the year boundary."""
     s = pd.Series(unmet_wh, index=index)
-    s = s[s.index.year == year]
+    y0 = pd.Timestamp(f'{year}-01-01', tz=index.tz)
+    y1 = pd.Timestamp(f'{year + 1}-01-01', tz=index.tz)
+    pad = pd.Timedelta(days=days)
+    s = s[(s.index >= y0 - pad) & (s.index < y1 + pad)]
     u = (s > 0).astype(int)
     roll = u.rolling(days * 24).sum()
-    if roll.max() > 0:
+    starts = roll.index - pd.Timedelta(hours=days * 24 - 1)
+    overlap = (roll.index >= y0) & (starts < y1)
+    roll = roll[overlap]
+    if len(roll) and roll.max() > 0:
         end = roll.idxmax(); start = end - pd.Timedelta(hours=days * 24 - 1)
         return str(start.date()), str(end.date()), int(roll.max())
     return None, None, 0
+
+
+def season_table(unmet_wh, index: pd.DatetimeIndex) -> pd.DataFrame:
+    """LOLP per July-June season (winter kept whole). Only the fifteen
+    complete seasons 2005/06 ... 2019/20 are returned."""
+    s = pd.Series(unmet_wh, index=index)
+    season = np.where(s.index.month >= 7, s.index.year, s.index.year - 1)
+    g = s.groupby(season)
+    hours = g.size(); unmet_h = g.apply(lambda x: int((x > 0).sum()))
+    df = pd.DataFrame({'lolp_pct': unmet_h / hours * 100.0,
+                       'unmet_hours': unmet_h.astype(int), 'hours': hours})
+    return df[(df['hours'] >= 8700) & (df.index >= YEARS[0]) & (df.index < YEARS[-1])]
+
+
+COMPLIANT_MAX_H = 87   # 87 h = 0.99% of 8,760 h; 88 h exceeds 1% in any year
+
+
+def compliance_margin(unmet_wh, index) -> dict:
+    """Unmet hours in the closest compliant year and in the worst year, the
+    number of years within the last 5 h of the 87 h limit, and the seasonal
+    (July-June) compliance count."""
+    yr = annual_table(unmet_wh, np.zeros_like(unmet_wh), index)
+    ok = yr[yr['lolp_pct'] <= 1.0]['unmet_hours']
+    sea = season_table(unmet_wh, index)
+    return {'max_unmet_h_in_compliant_years': int(ok.max()) if len(ok) else 0,
+            'years_within_5h_of_limit': int((ok >= COMPLIANT_MAX_H - 5).sum()),
+            'seasons_within_1pct': int((sea['lolp_pct'] <= 1.0).sum()),
+            'seasons_total': int(len(sea)),
+            'season_max_lolp_pct': float(sea['lolp_pct'].max()),
+            'seasons_over_1pct': [f'{int(y)}/{str(int(y) + 1)[-2:]}' for y in sea[sea['lolp_pct'] > 1.0].index]}
+
+
+def pv_perturbation(pv_kwp: np.ndarray, index, wp, kwh, load_w, eol, soh,
+                    factors=(0.95, 0.98, 1.02)) -> dict:
+    """Compliance of a design when the whole PV series is scaled by a factor
+    (a proxy for a shared irradiance error in the satellite record)."""
+    out = {}
+    for f in factors:
+        u, _ = simulate_multiyear(pv_kwp * wp / 1000.0 * eol * f, load_w, kwh, battery_soh=soh)
+        t = annual_table(u, np.zeros_like(u), index)
+        out[f'{f:.2f}'] = {'years_within_1pct': int((t['lolp_pct'] <= 1.0).sum()),
+                           'mean_lolp_pct': float(t['lolp_pct'].mean()),
+                           'max_lolp_pct': float(t['lolp_pct'].max())}
+    return out
+
+
+def start_state_sensitivity(pv_kwp: np.ndarray, index, wp, kwh, load_w, eol, soh) -> dict:
+    """Compliance of a design for each 1 January 2005 start convention."""
+    out = {}
+    for st in ('two_pass', 'full', 'half', 'floor'):
+        u, _ = simulate_multiyear(pv_kwp * wp / 1000.0 * eol, load_w, kwh,
+                                  battery_soh=soh, start=st)
+        t = annual_table(u, np.zeros_like(u), index)
+        out[st] = {'years_within_1pct': int((t['lolp_pct'] <= 1.0).sum()),
+                   'unmet_h_2005': int(t['unmet_hours'].iloc[0]),
+                   'max_lolp_pct': float(t['lolp_pct'].max())}
+    return out
 
 
 def pv_per_kwp(series: PvgisSeries, site: Site, model: str,
@@ -462,6 +540,16 @@ def main(verbose: bool = True) -> dict:
             'capacity_derate_15pct': _yr(u_cap),
             'charge_blocked_with_extra_array_wp': incr,
             'subzero_hours_per_year_mean': float(subzero.sum() / 16.0)}
+        # margin to the 87 h limit, July-June seasons, PV perturbation and
+        # start-state conventions, for both chains
+        for m in ('study', 'pvgis'):
+            u_m, _ = simulate_multiyear(pvk[m] * fin['pv_wp'] / 1000.0 * eol, load_w,
+                                        fin['battery_kwh'], battery_soh=soh)
+            rec['final_design']['by_model'][m]['margin'] = compliance_margin(u_m, idx)
+            rec['final_design']['by_model'][m]['pv_perturbation'] = pv_perturbation(
+                pvk[m], idx, fin['pv_wp'], fin['battery_kwh'], load_w, eol, soh)
+            rec['final_design']['by_model'][m]['start_state'] = start_state_sensitivity(
+                pvk[m], idx, fin['pv_wp'], fin['battery_kwh'], load_w, eol, soh)
         # life-average LOLP along the ageing trajectory (both chains)
         rec['final_design']['life_average'] = {
             m: life_average_lolp(pvk[m], idx, fin['pv_wp'], fin['battery_kwh'], load_w)

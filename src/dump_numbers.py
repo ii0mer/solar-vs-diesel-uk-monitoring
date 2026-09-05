@@ -358,6 +358,40 @@ def main():
     N['carbon'] = {'central_2026_gbp_per_t': 264, 'central_2030_gbp_per_t': 280,
                    'price_base': '2020 prices'}
 
+    # ---- costing-horizon sensitivity (station refresh cycles are shorter
+    # than 25 years): diesel A2 to solar LCOE ratio at 10, 15 and 25 years ---
+    horizon = {}
+    for years in (10, 15, 25):
+        a2h = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=76.02,
+                                     project_years=years)
+        horizon[str(years)] = {}
+        for rate in (0.05, 0.08):
+            row = {'diesel_a2_lcoe': a2h.lcoe_gbp_per_kwh(rate), 'sites': {}}
+            for site, (wp, kwh) in SITE_DESIGN.items():
+                cf = build_pv_battery_cashflows(
+                    pv_capex_gbp_per_wp=4.50, pv_size_wp=wp,
+                    battery_capex_gbp_per_kwh=700.0, battery_kwh=kwh,
+                    annual_energy_delivered_kwh=128.2, project_years=years)
+                sl = cf.lcoe_gbp_per_kwh(rate)
+                row['sites'][site] = {'solar_lcoe': sl, 'ratio_a2': row['diesel_a2_lcoe'] / sl}
+            horizon[str(years)][f'{rate:.2f}'] = row
+    N['horizon'] = horizon
+
+    # ---- fuel price doubled (white diesel, 2 x 76.02 p/L) at monthly
+    # attendance: effect on the A2 LCOE and on the Southampton ratio -------
+    a2_base = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=76.02)
+    a2_dbl = build_diesel_cashflows(DieselArchitecture2(), fuel_price_ppl=2 * 76.02)
+    so = SITE_DESIGN['Southampton']
+    cf_so = build_pv_battery_cashflows(pv_capex_gbp_per_wp=4.50, pv_size_wp=so[0],
+                                       battery_capex_gbp_per_kwh=700.0, battery_kwh=so[1],
+                                       annual_energy_delivered_kwh=128.2)
+    N['fuel_doubled'] = {
+        'fuel_price_ppl': 2 * 76.02,
+        'a2_lcoe_5pct': a2_dbl.lcoe_gbp_per_kwh(0.05),
+        'a2_lcoe_delta_pct': (a2_dbl.lcoe_gbp_per_kwh(0.05) / a2_base.lcoe_gbp_per_kwh(0.05) - 1) * 100,
+        'southampton_ratio_5pct': a2_dbl.lcoe_gbp_per_kwh(0.05) / cf_so.lcoe_gbp_per_kwh(0.05),
+        'southampton_ratio_delta': (a2_dbl.lcoe_gbp_per_kwh(0.05) - a2_base.lcoe_gbp_per_kwh(0.05)) / cf_so.lcoe_gbp_per_kwh(0.05)}
+
     out = RESULTS / 'numbers.json'
     out.write_text(json.dumps(N, indent=1, default=float))
     print(f'wrote {out}')

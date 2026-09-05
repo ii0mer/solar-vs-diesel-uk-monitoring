@@ -233,8 +233,12 @@ def get_or_create_tmy(site: Site, prefer: str = 'real') -> pd.DataFrame:
     Parameters
     ----------
     prefer : 'real' or 'synthetic'
-        'real' → try PVGIS fetch first, fall back to synthetic if it fails.
-        'synthetic' → always use synthetic (for offline reproducibility).
+        'real' → use the committed PVGIS file, else fetch it from PVGIS. If
+        the fetch fails a RuntimeError is raised; the synthetic generator is
+        used only when ALLOW_SYNTHETIC_WEATHER=1 is set explicitly, and its
+        output is cached under a separate ``_tmy_synthetic`` name so that it
+        can never be mistaken for the PVGIS record.
+        'synthetic' → always use synthetic (offline development only).
     """
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     suffix = 'tmy' if prefer == 'real' else 'tmy_synthetic'
@@ -253,8 +257,14 @@ def get_or_create_tmy(site: Site, prefer: str = 'real') -> pd.DataFrame:
             df.to_csv(cache)
             return df
         except Exception as e:
+            if os.environ.get('ALLOW_SYNTHETIC_WEATHER') != '1':
+                raise RuntimeError(
+                    f"PVGIS TMY for {site.name} is not cached at {cache} and the "
+                    f"fetch failed ({e}). The published results require the "
+                    f"committed PVGIS files; set ALLOW_SYNTHETIC_WEATHER=1 only "
+                    f"for offline development, never for reported numbers.") from e
             print(f"[warn] PVGIS fetch failed for {site.name}: {e}")
-            print(f"[warn] falling back to synthetic data — replace on local machine")
+            print(f"[warn] ALLOW_SYNTHETIC_WEATHER=1: using synthetic data — not for reported results")
 
     df = synthesise_tmy(site)
     cache_syn = DATA_DIR / f'{site.name.lower()}_tmy_synthetic.csv'

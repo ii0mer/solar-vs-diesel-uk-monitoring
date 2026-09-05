@@ -494,6 +494,53 @@
       "mean_eens_kwh": 0.17559324321905415,
       "max_eens_kwh": 0.7550237224483648,
       "mean_curtailed_kwh": 350.8405416022986,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 57,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 15,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 0.410958904109589,
+       "seasons_over_1pct": []
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.21249719290366045,
+        "max_lolp_pct": 0.730593607305936
+       },
+       "0.98": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.1739931881128827,
+        "max_lolp_pct": 0.6735159817351598
+       },
+       "1.02": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.1326450489058562,
+        "max_lolp_pct": 0.6164383561643836
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 57,
+        "max_lolp_pct": 0.6506849315068494
+       },
+       "full": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 57,
+        "max_lolp_pct": 0.6506849315068494
+       },
+       "half": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 57,
+        "max_lolp_pct": 0.6506849315068494
+       },
+       "floor": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 79,
+        "max_lolp_pct": 0.9018264840182649
+       }
+      },
       "llp_energy_pct_mean": 0.13682493714775898,
       "llp_energy_pct_max": 0.5883260168512822
      },
@@ -587,6 +634,53 @@
       "mean_eens_kwh": 0.4675542136170856,
       "max_eens_kwh": 1.198378303382554,
       "mean_curtailed_kwh": 340.3526550148845,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 81,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 15,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 0.821917808219178,
+       "seasons_over_1pct": []
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 13,
+        "mean_lolp_pct": 0.4942029561843451,
+        "max_lolp_pct": 1.141552511415525
+       },
+       "0.98": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.4392852352970532,
+        "max_lolp_pct": 1.095890410958904
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.3786694987149737,
+        "max_lolp_pct": 1.0502283105022832
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 94,
+        "max_lolp_pct": 1.0730593607305936
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 94,
+        "max_lolp_pct": 1.0730593607305936
+       },
+       "half": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 94,
+        "max_lolp_pct": 1.0730593607305936
+       },
+       "floor": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 118,
+        "max_lolp_pct": 1.3470319634703196
+       }
+      },
       "llp_energy_pct_mean": 0.3643253847274785,
       "llp_energy_pct_max": 0.9337946781642639
      }
@@ -1193,6 +1287,53 @@
       "mean_eens_kwh": 0.1260671874621932,
       "max_eens_kwh": 0.9459203980194567,
       "mean_curtailed_kwh": 563.2999333590416,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 72,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 15,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 0.593607305936073,
+       "seasons_over_1pct": []
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.14333540746562867,
+        "max_lolp_pct": 0.9018264840182649
+       },
+       "0.98": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.12122367567432693,
+        "max_lolp_pct": 0.8675799086757991
+       },
+       "1.02": {
+        "years_within_1pct": 16,
+        "mean_lolp_pct": 0.0976869526162138,
+        "max_lolp_pct": 0.7876712328767124
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 11,
+        "max_lolp_pct": 0.821917808219178
+       },
+       "full": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 11,
+        "max_lolp_pct": 0.821917808219178
+       },
+       "half": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 11,
+        "max_lolp_pct": 0.821917808219178
+       },
+       "floor": {
+        "years_within_1pct": 16,
+        "unmet_h_2005": 31,
+        "max_lolp_pct": 0.821917808219178
+       }
+      },
       "llp_energy_pct_mean": 0.0982334780353187,
       "llp_energy_pct_max": 0.7370756222341417
      },
@@ -1286,6 +1427,55 @@
       "mean_eens_kwh": 0.38857416320564636,
       "max_eens_kwh": 1.963485601662692,
       "mean_curtailed_kwh": 543.6749732176718,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 78,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 14,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 1.4840182648401825,
+       "seasons_over_1pct": [
+        "2005/06"
+       ]
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 14,
+        "mean_lolp_pct": 0.39510075916361004,
+        "max_lolp_pct": 1.872146118721461
+       },
+       "0.98": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.35658310876562616,
+        "max_lolp_pct": 1.7694063926940637
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.3087942429573072,
+        "max_lolp_pct": 1.5867579908675797
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 71,
+        "max_lolp_pct": 1.678082191780822
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 71,
+        "max_lolp_pct": 1.678082191780822
+       },
+       "half": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 71,
+        "max_lolp_pct": 1.678082191780822
+       },
+       "floor": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 94,
+        "max_lolp_pct": 1.678082191780822
+       }
+      },
       "llp_energy_pct_mean": 0.3027829230964756,
       "llp_energy_pct_max": 1.5299779713213653
      }
@@ -1564,8 +1754,8 @@
       "worst_year": 2006,
       "worst_window": {
        "start": "2006-12-22",
-       "end": "2006-12-31",
-       "unmet_h": 134
+       "end": "2007-01-01",
+       "unmet_h": 144
       },
       "years_within_1pct": 14,
       "years_over_1pct": 2,
@@ -1655,8 +1845,8 @@
       "worst_year": 2006,
       "worst_window": {
        "start": "2006-12-22",
-       "end": "2006-12-31",
-       "unmet_h": 155
+       "end": "2007-01-01",
+       "unmet_h": 165
       },
       "years_within_1pct": 12,
       "years_over_1pct": 4,
@@ -1882,8 +2072,8 @@
       "worst_year": 2006,
       "worst_window": {
        "start": "2006-12-22",
-       "end": "2006-12-31",
-       "unmet_h": 147
+       "end": "2007-01-01",
+       "unmet_h": 157
       },
       "years_within_1pct": 15,
       "years_over_1pct": 1,
@@ -1892,6 +2082,55 @@
       "mean_eens_kwh": 0.3531057998793913,
       "max_eens_kwh": 2.9084311387570265,
       "mean_curtailed_kwh": 343.62199598767813,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 55,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 14,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 2.237442922374429,
+       "seasons_over_1pct": [
+        "2006/07"
+       ]
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.40652213239513935,
+        "max_lolp_pct": 2.853881278538813
+       },
+       "0.98": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.3416314220126257,
+        "max_lolp_pct": 2.7283105022831053
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.28242703109015144,
+        "max_lolp_pct": 2.5114155251141552
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 22,
+        "max_lolp_pct": 2.6255707762557075
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 21,
+        "max_lolp_pct": 2.6255707762557075
+       },
+       "half": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 61,
+        "max_lolp_pct": 2.6255707762557075
+       },
+       "floor": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 94,
+        "max_lolp_pct": 2.6255707762557075
+       }
+      },
       "llp_energy_pct_mean": 0.27514543264478075,
       "llp_energy_pct_max": 2.2662939670325137
      },
@@ -1975,8 +2214,8 @@
       "worst_year": 2006,
       "worst_window": {
        "start": "2006-12-22",
-       "end": "2006-12-31",
-       "unmet_h": 167
+       "end": "2007-01-01",
+       "unmet_h": 177
       },
       "years_within_1pct": 15,
       "years_over_1pct": 1,
@@ -1985,6 +2224,56 @@
       "mean_eens_kwh": 0.7651565518665983,
       "max_eens_kwh": 4.1777168594892,
       "mean_curtailed_kwh": 331.14740318584745,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 84,
+       "years_within_5h_of_limit": 1,
+       "seasons_within_1pct": 13,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 3.0136986301369864,
+       "seasons_over_1pct": [
+        "2005/06",
+        "2006/07"
+       ]
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 11,
+        "mean_lolp_pct": 0.8186097231579209,
+        "max_lolp_pct": 3.8698630136986303
+       },
+       "0.98": {
+        "years_within_1pct": 13,
+        "mean_lolp_pct": 0.7152345017092098,
+        "max_lolp_pct": 3.732876712328767
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.589034078149562,
+        "max_lolp_pct": 3.5045662100456623
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 80,
+        "max_lolp_pct": 3.6073059360730597
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 65,
+        "max_lolp_pct": 3.6073059360730597
+       },
+       "half": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 113,
+        "max_lolp_pct": 3.6073059360730597
+       },
+       "floor": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 144,
+        "max_lolp_pct": 3.6073059360730597
+       }
+      },
       "llp_energy_pct_mean": 0.5962216723039762,
       "llp_energy_pct_max": 3.255340787843681
      }
@@ -2592,6 +2881,55 @@
       "mean_eens_kwh": 0.3580432878352189,
       "max_eens_kwh": 2.0928204339184533,
       "mean_curtailed_kwh": 566.2156350095137,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 55,
+       "years_within_5h_of_limit": 0,
+       "seasons_within_1pct": 14,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 1.5867579908675797,
+       "seasons_over_1pct": [
+        "2010/11"
+       ]
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.3828041176984305,
+        "max_lolp_pct": 2.374429223744292
+       },
+       "0.98": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.33930387129775186,
+        "max_lolp_pct": 2.0205479452054793
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.2815400666217531,
+        "max_lolp_pct": 1.5981735159817352
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 42,
+        "max_lolp_pct": 1.8150684931506849
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 26,
+        "max_lolp_pct": 1.8150684931506849
+       },
+       "half": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 63,
+        "max_lolp_pct": 1.8150684931506849
+       },
+       "floor": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 93,
+        "max_lolp_pct": 1.8150684931506849
+       }
+      },
       "llp_energy_pct_mean": 0.2789927986757228,
       "llp_energy_pct_max": 1.6307576480902162
      },
@@ -2685,6 +3023,56 @@
       "mean_eens_kwh": 0.7575566902473891,
       "max_eens_kwh": 4.481389750225678,
       "mean_curtailed_kwh": 546.9580598560586,
+      "margin": {
+       "max_unmet_h_in_compliant_years": 86,
+       "years_within_5h_of_limit": 2,
+       "seasons_within_1pct": 13,
+       "seasons_total": 15,
+       "season_max_lolp_pct": 2.5114155251141552,
+       "seasons_over_1pct": [
+        "2009/10",
+        "2010/11"
+       ]
+      },
+      "pv_perturbation": {
+       "0.95": {
+        "years_within_1pct": 12,
+        "mean_lolp_pct": 0.7300594792524391,
+        "max_lolp_pct": 4.32648401826484
+       },
+       "0.98": {
+        "years_within_1pct": 13,
+        "mean_lolp_pct": 0.6737265139606258,
+        "max_lolp_pct": 3.961187214611872
+       },
+       "1.02": {
+        "years_within_1pct": 15,
+        "mean_lolp_pct": 0.6081125863961874,
+        "max_lolp_pct": 3.573059360730593
+       }
+      },
+      "start_state": {
+       "two_pass": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 86,
+        "max_lolp_pct": 3.7899543378995433
+       },
+       "full": {
+        "years_within_1pct": 15,
+        "unmet_h_2005": 59,
+        "max_lolp_pct": 3.7899543378995433
+       },
+       "half": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 103,
+        "max_lolp_pct": 3.7899543378995433
+       },
+       "floor": {
+        "years_within_1pct": 14,
+        "unmet_h_2005": 131,
+        "max_lolp_pct": 3.7899543378995433
+       }
+      },
       "llp_energy_pct_mean": 0.5902997440491246,
       "llp_energy_pct_max": 3.4919673426403417
      }
