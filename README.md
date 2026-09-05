@@ -168,7 +168,7 @@ python -m pytest tests -q
              A Comparative Study Across the Solar-Resource Gradient},
   school  = {Liverpool John Moores University},
   year    = {2026},
-  note    = {MSc Renewable Energy, Module 7400MENR. Code version v1.3.0},
+  note    = {MSc Renewable Energy, Module 7400MENR. Code version v1.4.0},
   url     = {https://github.com/ii0mer/solar-vs-diesel-uk-monitoring}
 }
 ```

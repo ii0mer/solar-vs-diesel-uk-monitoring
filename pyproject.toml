@@ -1,6 +1,6 @@
 [project]
 name = "solar-vs-diesel-uk-monitoring"
-version = "1.3.0"
+version = "1.4.0"
 description = "Techno-economic feasibility of off-grid solar PV–battery systems for remote environmental monitoring in the UK: a comparative study across the solar-resource gradient"
 readme = "README.md"
 license = { file = "LICENSE" }
