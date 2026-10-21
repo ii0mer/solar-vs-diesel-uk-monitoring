@@ -163,13 +163,13 @@ python -m pytest tests -q
 
 ```bibtex
 @mastersthesis{alobaidi2026,
-  author  = {Al Obaidi, O. F. M.},
+  author  = {Al Obaidi, Omar Farooq Mahmood},
   title   = {Techno-Economic Feasibility of Off-Grid Solar Photovoltaic--Battery
              Systems for Remote Environmental Monitoring in the UK:
              A Comparative Study Across the Solar-Resource Gradient},
   school  = {Liverpool John Moores University},
   year    = {2026},
-  note    = {MSc Renewable Energy, Module 7400MENR. Code version v1.4.0},
+  note    = {MSc Renewable Energy, Module 7400MENR. Code version v1.4.1},
   url     = {https://github.com/ii0mer/solar-vs-diesel-uk-monitoring}
 }
 ```

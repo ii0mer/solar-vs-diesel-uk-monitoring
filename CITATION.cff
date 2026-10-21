@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "solar-vs-diesel-uk-monitoring: Techno-economic model of off-grid PV–battery versus diesel for UK remote monitoring"
+authors:
+  - given-names: Omar Farooq Mahmood
+    family-names: Al Obaidi
+    affiliation: Liverpool John Moores University
+    orcid: "https://orcid.org/0009-0001-9641-7155"
+version: 1.4.1
+date-released: "2026-10-21"
+repository-code: "https://github.com/ii0mer/solar-vs-diesel-uk-monitoring"
+license: MIT
+abstract: "Techno-economic feasibility of off-grid solar PV–battery systems for remote environmental monitoring in the UK: a comparative study across the solar-resource gradient."
+keywords:
+  - solar photovoltaic
+  - battery storage
+  - diesel generator
+  - levelised cost of energy
+  - remote monitoring
+  - off-grid
