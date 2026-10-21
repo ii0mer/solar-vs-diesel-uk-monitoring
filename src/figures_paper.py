@@ -60,6 +60,7 @@ mpl.rcParams.update({
     'savefig.bbox': None, 'savefig.pad_inches': 0.05,
     'figure.constrained_layout.use': True,
     'axes.unicode_minus': False,
+    'pdf.fonttype': 42, 'ps.fonttype': 42,
 })
 SERIF = 'Liberation Serif'
 
@@ -70,9 +71,14 @@ def _panel_below(ax, s, y=-0.30):
             fontsize=8, family=SERIF)
 
 
+VECTOR = False      # set True (or run with --vector) to write a PDF beside each PNG
+
+
 def _save(fig, name, tight=False):
     out = FIG / name
     fig.savefig(out, bbox_inches='tight' if tight else None)
+    if VECTOR:
+        fig.savefig(out.with_suffix('.pdf'), bbox_inches='tight' if tight else None)
     plt.close(fig)
     print('  wrote', out.name)
     return out
@@ -263,6 +269,62 @@ def fig_multiyear():
     return _save(fig, 'fig05_multiyear.png', tight=True)
 
 
+def fig_multiyear_by_chain():
+    """The same sixteen-year LOLP matrices as fig_multiyear, arranged as two
+    panels (one per PV chain) with the step-1 and final design of each site on
+    adjacent rows, for journals that limit a figure to two sub-figures."""
+    M = json.loads((RES / 'multiyear.json').read_text())
+    years = M['years']
+    sites = list(SITES.values())                # Southampton first
+    rows = [(st, dsg) for st in sites for dsg in ('tmy_design', 'final_design')]
+    rows = rows[::-1]                           # first row drawn at the top
+    fig, axs = plt.subplots(2, 1, figsize=(PAGE_W, 5.3))
+    cmap = mpl.colormaps['YlOrRd']
+    vmax = 3.0
+    for ax, (model, lab) in zip(axs, [('study', 'a'), ('pvgis', 'b')]):
+        Z = np.array([[M['sites'][st.name][dsg]['by_model'][model]['lolp_pct_by_year'][str(y)]
+                       for y in years] for st, dsg in rows])
+        mesh = ax.pcolormesh(np.arange(len(years) + 1), np.arange(len(rows) + 1),
+                             np.clip(Z, 0, vmax), cmap=cmap, vmin=0, vmax=vmax,
+                             edgecolors='white', linewidth=0.4)
+        for i in range(len(rows)):
+            for j in range(len(years)):
+                v = Z[i, j]
+                bold = v > 1.0
+                near = 0.95 <= v < 1.05          # knife-edge cells: show 2 dp
+                txt = f'{v:.2f}' if near else (f'{v:.1f}' if v >= 0.05 else '0')
+                ax.text(j + 0.5, i + 0.5, txt, ha='center', va='center',
+                        fontsize=6.5 if near else 7,
+                        fontweight='bold' if bold else 'normal',
+                        color='white' if v > 2.0 else INK)
+                if bold:
+                    ax.add_patch(mpl.patches.Rectangle((j, i), 1, 1, fill=False,
+                                                       ec=INK, lw=0.7))
+        for k in range(2, len(rows), 2):         # separate the sites
+            ax.axhline(k, color='white', lw=2.2)
+        ax.set_xticks(np.arange(len(years)) + 0.5)
+        ax.set_xticklabels([str(y)[2:] for y in years], fontsize=7)
+        ax.set_yticks(np.arange(len(rows)) + 0.5)
+        ax.set_yticklabels(
+            [f"{st.name + ', ' if dsg == 'tmy_design' else ''}"
+             f"{'step 1' if dsg == 'tmy_design' else 'final'}: "
+             f"{M['sites'][st.name][dsg]['pv_wp']:.0f} Wp, "
+             f"{M['sites'][st.name][dsg]['battery_kwh']:.2f} kWh"
+             for st, dsg in rows], fontsize=7)
+        ax.tick_params(length=0)
+        for sp in ax.spines.values():
+            sp.set_visible(False)
+        ax.set_title({'study': "This study's PV chain", 'pvgis': 'PVGIS chain'}[model],
+                     fontsize=8, pad=3)
+        ax.set_xlabel('Year (2005–2020)')
+        _panel_below(ax, f'({lab})', y=-0.20)
+    cb = fig.colorbar(mesh, ax=axs, pad=0.012, fraction=0.025)
+    cb.set_label('Annual LOLP (%)', fontsize=7)
+    cb.set_ticks([0, 1, 2, 3]); cb.set_ticklabels(['0', '1', '2', '≥3'])
+    cb.ax.tick_params(labelsize=7)
+    return _save(fig, 'fig05_multiyear_by_chain.png', tight=True)
+
+
 # ================================================================ Fig 6
 def fig_worst_event(site_key='edinburgh', days=12):
     """The worst sixteen-year event for the final design at one site,
@@ -300,7 +362,8 @@ def fig_worst_event(site_key='edinburgh', days=12):
         axs[0].annotate(f'peak {w["pv_wh"].max():.0f} W', xy=(pk, ymax * 0.98),
                         xytext=(-6, -2), textcoords='offset points', ha='right',
                         va='top', fontsize=6.5, color=GREY)
-    axs[0].legend(loc='upper left', ncol=2)
+    axs[0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.07, 1.0),
+                  borderaxespad=0.2)
     axs[0].text(0.01, 0.97, '(a)', transform=axs[0].transAxes, va='top', fontsize=8, family=SERIF)
     axs[1].text(0.01, 0.97, '(b)', transform=axs[1].transAxes, va='top', fontsize=8, family=SERIF)
     axs[2].text(0.01, 0.95, '(c)', transform=axs[2].transAxes, va='top', fontsize=8, family=SERIF)
@@ -385,9 +448,9 @@ def fig_lcoe_and_breakdown():
             fontsize=7, color=DIESEL_A2)
     ax.text(len(sites) - 0.55, d2_8 + 0.5, f'Diesel A2, 8%: £{d2_8:.2f}/kWh', ha='right',
             va='bottom', fontsize=7, color=DIESEL_A2)
-    ax.text(len(sites) - 0.55, 26.6, f'Diesel A1, 5%: £{d1:.2f}/kWh (off scale)',
+    ax.text(len(sites) - 0.55, 28.6, f'Diesel A1, 5%: £{d1:.2f}/kWh (off scale)',
             ha='right', va='top', fontsize=7, color=DIESEL_A1)
-    ax.set_ylim(0, 27.5)
+    ax.set_ylim(0, 29)
     ax.set_xticks(x); ax.set_xticklabels(sites)
     ax.yaxis.grid(True); ax.set_axisbelow(True)
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.14), ncol=2,
@@ -450,7 +513,10 @@ def fig_tornado():
              'Solar battery life': 'LFP life (8–15 yr)',
              'PV degradation': 'Degradation (0.3–1.0%/yr)',
              'Fuel price': 'Diesel price (45–118 p/L)'}
-    td = td.set_index('parameter').loc[list(order)].reset_index()
+    assert set(td['parameter']) == set(order)
+    # rank by the full swing of the ratio, largest first (a tornado chart)
+    td = td.assign(_swing=td['high_ratio'] - td['low_ratio']).sort_values(
+        '_swing', ascending=False, kind='stable').reset_index(drop=True)
     fig, ax = plt.subplots(figsize=(COL_W, 2.9))
     y = np.arange(len(td))[::-1]
     c = td['central_ratio'].iloc[0]
@@ -469,7 +535,8 @@ def fig_tornado():
     ax.axvline(c, color=INK, lw=0.7, ls='--')
     ax.axvline(1.0, color=GREY, lw=0.7, ls=':')
     ax.text(1.06, len(td) - 0.3, 'parity (ratio = 1)', fontsize=7, color=GREY, ha='left')
-    ax.text(c, len(td) - 0.3, f'central {c:.2f}', fontsize=7, ha='center')
+    ax.text(c, len(td) - 0.3, f'central {c:.2f}', fontsize=7, ha='center',
+            bbox=dict(facecolor='white', edgecolor='none', pad=1.0))
     ax.set_yticks(y); ax.set_yticklabels([order[p] for p in td['parameter']],
                                          fontsize=7)
     ax.set_xlim(0.6, 5.0)
@@ -485,18 +552,30 @@ def fig_monte_carlo(n=5000):
     fig, axs = plt.subplots(1, 2, figsize=(PAGE_W, 2.55), layout=None,
                             gridspec_kw={'width_ratios': [1.25, 1]})
     ax = axs[0]
+    # Bins span every draw: the earlier 4-11 and 14-45 ranges dropped the tails,
+    # which hid that the marginal distributions touch (the largest solar draw
+    # exceeds the smallest diesel draw). The comparison that holds is paired.
+    sbins, dbins = np.linspace(4, 13, 64), np.linspace(11, 48, 60)
+    smin = min(np.min(mc5[f'solar_lcoe_{s}']) for s in SITE_C)
+    smax = max(np.max(mc5[f'solar_lcoe_{s}']) for s in SITE_C)
+    assert sbins[0] <= smin and smax <= sbins[-1], (smin, smax)
+    assert dbins[0] <= np.min(mc5['diesel_lcoe']) and np.max(mc5['diesel_lcoe']) <= dbins[-1]
+    paired = all(np.all(np.asarray(mc5[f'solar_lcoe_{s}']) < np.asarray(mc5['diesel_lcoe']))
+                 for s in SITE_C)
+    assert paired, 'solar is not cheaper in every paired draw; revise the annotation'
     for j, (site, colour) in enumerate(SITE_C.items()):
-        ax.hist(mc5[f'solar_lcoe_{site}'], bins=np.linspace(4, 11, 50),
+        ax.hist(mc5[f'solar_lcoe_{site}'], bins=sbins,
                 density=True, histtype='step', lw=1.1, color=colour, label=site,
                 ls=['-', '--', '-.', ':'][j])
-    ax.hist(mc5['diesel_lcoe'], bins=np.linspace(14, 45, 50), density=True,
+    ax.hist(mc5['diesel_lcoe'], bins=dbins, density=True,
             histtype='stepfilled', alpha=0.4, color=DIESEL_A2, lw=0,
             label='Diesel A2')
-    ax.set_xlim(4, 45); ax.set_ylim(0, 0.42)
+    ax.set_xlim(4, 48); ax.set_ylim(0, 0.42)
+    ax.set_yticks(np.linspace(0, 0.40, 9))      # fixed, so the PNG and the vector PDF carry the same labels
     ax.set_xlabel('Levelised cost of electricity at 5% (£/kWh)')
     ax.set_ylabel('Probability density (kWh/£)')
     ax.legend(loc='upper right', ncol=1)
-    ax.text(26, 0.16, 'no overlap in\n5,000 joint draws', fontsize=7,
+    ax.text(27, 0.16, f'solar cheaper in all\n{n:,} paired draws', fontsize=7,
             ha='center', style='italic', color=GREY)
     _panel_below(ax, '(a)', y=-0.30)
 
@@ -566,12 +645,15 @@ def fig_sweep2d():
 
 
 if __name__ == '__main__':
+    import sys
+    VECTOR = '--vector' in sys.argv
     print('paper figures →', FIG)
     fig_ghi()
     fig_architecture()
     fig_validation()
     fig_sizing_landscape()
     fig_multiyear()
+    fig_multiyear_by_chain()
     _, ev = fig_worst_event()
     print('  worst event window:', ev[0].date(), '→', ev[1].date(), ev[2:], 'Wp/kWh')
     fig_lcoe_and_breakdown()

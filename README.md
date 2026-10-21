@@ -34,7 +34,7 @@ Final designs, central assumptions (PV £4.50/Wp, LFP £700/kWh, red diesel 76.0
 - Combined worst case (10% rate, PV and battery capex +30%, diesel capex -30%, degradation 0.8%/yr with re-sized designs, fuel 44.96 p/L, visit costs halved for both systems, solar battery life 8 yr, monthly diesel attendance): 1.62 (Southampton), 1.57 (Liverpool), 1.47 (Birmingham), 1.36 (Edinburgh).
 - Battery break-even capex (solar LCOE = diesel A2 LCOE): £9,800/kWh (Liverpool) to £12,597/kWh (Birmingham) at 5%; £8,450 to £10,739 at 8%; £7,718 to £9,728 at 10%. Over the 3 to 10% x 0.5 to 2.0 x battery-cost grid the smallest ratio is 2.33 (Edinburgh, 10%, twice the central battery cost).
 - Validation of the PV chain against PVGIS on identical inputs (2005-2020, hourly): normalised mean bias +2.2% (Southampton) to +2.9% (Birmingham), hourly NRMSE 3.9 to 4.7%. The TMY chain sits +0.6% (Southampton), +2.1% (Birmingham, Liverpool) and +2.4% (Edinburgh) above the sixteen-year PVGIS mean and inside the sixteen-year annual band at every site. Terrain horizon at Edinburgh costs 0.24% of annual yield and 1.5% of December yield.
-- The design condition at every site is the darkest multi-day winter sequence in the record: the worst sixteen-year events for the final designs are 28 Jan to 7 Feb 2005 at Southampton (57 unmet hours, study chain), 1 to 11 Jan 2006 at Birmingham (41 h), 22 to 31 Dec 2006 at Liverpool (147 h) and 1 to 11 Dec 2010 at Edinburgh (120 h).
+- The design condition at every site is the darkest multi-day winter sequence in the record: the worst sixteen-year events for the final designs are 28 Jan to 7 Feb 2005 at Southampton (57 unmet hours, study chain), 1 to 11 Jan 2006 at Birmingham (41 h), 22 Dec 2006 to 1 Jan 2007 at Liverpool (157 h) and 1 to 11 Dec 2010 at Edinburgh (120 h).
 - Cold-weather bounds (not part of the criterion): blocking battery charging in every hour at or below 0 degrees C raises the sixteen-year mean LOLP of the final designs to 0.29 to 0.84% (compliant years fall to 13 to 15 of 16); a 15% winter capacity derate gives 0.20 to 0.50% (15 to 16 years).
 - Emissions: diesel A2 233 kg CO2e/yr (5.8 t over 25 years); A1 3,340 kg CO2e/yr (83.5 t).
 
@@ -127,6 +127,7 @@ tests/
   test_simulation.py              22 tests: load, loss chain, battery, diesel, replacements, LCOE, reliability
   test_monte_carlo.py              7 tests: draws, plumbing, distribution bands
   test_validation_multiyear.py     9 tests: PVGIS series, validation, multi-year loop, final designs
+  test_margin_and_provenance.py    9 tests: reliability-margin diagnostics, weather-data provenance, costing horizons
 data/
   pvgis/                  PVGIS TMY hourly files, one per site (README inside)
   pvgis_series/           PVGIS 5.2 hourly series 2005-2020, five files (README inside)
